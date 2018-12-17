@@ -4,14 +4,14 @@ const { Post, User } = require('../models');
 const path = require('path');
 const router = express.Router();
 
-//로그인 메인페이지
-router.get('/login', isNotLoggedIn,  (req, res) => {
-    res.send(path.join(__dirname, '../dist', 'index.html'));
+
+//프로필 페이지 빼도 됨
+router.get('/', isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
-//회원가입 페이지
-router.get('/join', isNotLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+router.get('/information', (req, res) => {
+    res.send( {user: req.user });
 });
 
 module.exports = router;

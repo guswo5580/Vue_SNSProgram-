@@ -62,31 +62,6 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
   })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙임.
 });
 
-router.post('/relogin', isNotLoggedIn, (req, res, next) => {
-  passport.authenticate('local', (authError, user, info) => {
-                              //localStrategy를 수행하고 
-                              //done에서의 에러, 성공, 실패가 전달
-    if (authError) {
-      //에러가 나면 
-      console.error(authError);
-      return next(authError);
-    }
-    if (!user) {
-      //에러도 아니고, 사용자 정보도 없으면 == 실패 
-      req.flash('loginError', info.message);
-      return res.redirect('/');
-    }
-    return req.login(user, (loginError) => {
-      //성공인 경우 
-      if (loginError) {
-        //혹시나 또다른 에러가 발생한다면 
-        console.error(loginError);
-        return next(loginError);
-      }
-      return res.send(user);
-    });
-  })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙임.
-});
 
 //inLoggedIn  => 로그인 한 사람만 로그아웃을 할 수 있기 때문에 
 router.get('/logout', isLoggedIn, (req, res) => {

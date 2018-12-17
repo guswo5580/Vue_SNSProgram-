@@ -6,13 +6,13 @@ const router = express.Router();
 
 // home/ ~~~
 
-//프로필 페이지 빼도 됨
-router.get('/profile', isLoggedIn, (req, res) => {
-  res.send(path.join(__dirname, '../dist', 'index.html'), { title: '내 정보', user: req.user });
+//메인 페이지 렌더링 
+router.get('/', isLoggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
-//메인 페이지
-router.get('/', (req, res, next) => {
+//메인 페이지 - 요청
+router.get('/dashboard', (req, res, next) => {
   Post.findAll({
     include: [{
       model: User,
