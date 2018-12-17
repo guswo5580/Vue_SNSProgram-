@@ -44,6 +44,7 @@ router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
   console.log(req.file);
   //multer를 통해 저장한 파일은 req.body가 아닌 req.file에 저장됨 
   res.json({ url: `/img/${req.file.filename}` });
+  // res.send( {url : req.url});
 });
 
 // -> 사진을 업로드 하지 않고 게시글만 업로드 하는 경우 upload2 로 하여 none으로 설정 
