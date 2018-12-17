@@ -4,13 +4,10 @@ export default {
         sessionStorage.setItem("id", data.email );
         sessionStorage.setItem("password", data.password );
     },
-    RE_USER(state, data) {
-        if(state.user == [])
-            state.user = data;
-        else 
-            return false
-    },
     DASHBOARD(state, data) {
         state.dashboard = data;
+    },
+    SET_IMAGE(state, data) {
+        state.postimage = data;
     }
 }

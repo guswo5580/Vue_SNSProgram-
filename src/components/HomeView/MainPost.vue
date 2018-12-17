@@ -1,7 +1,7 @@
 <template>
     <div class = "mainform">
         <div class = "form-group">
-            <b-form-textarea id="textarea1" v-model="text" placeholder="게시글을 작성해주세요"
+            <b-form-textarea id="textarea1" v-model="content" placeholder="게시글을 작성해주세요"
                     :rows="3" :max-rows="6">
             </b-form-textarea>
 
@@ -11,53 +11,50 @@
                         <label for="inputFile">
                             <span class = "inputFile-btn">사진 업로드</span>
                         </label>
-                        <input id="inputFile" type="file" @change="previewImage" accept="image/*" style="display : none;">
+                        <input id="inputFile" type="file" @change="onFileSelected" accept="image/*" style="display : none;">
                     </div>
                     <div class = "submit-section">
                         <label for="submitbtn">
-                            <span class = "submitFile-btn">게시하기</span>
+                            <span class = "submitFile-btn" @click="Submit">게시하기</span>
                         </label>
                         <b-button id = "submitbtn" style="display:none;"></b-button>
                     </div>
                 </div>
-                <div class="image-preview" v-if="imageData.length > 0">
-                    <img class="preview" :src="imageData">
+                <div class="image-preview" >
+                    <img class="preview" :src="$store.state.postimage" v-if="$store.state.postimage.length > 0">
                 </div>
             </div>
-        </div>
-        
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
-            text : '',
-            imageData : ''
+            content : '',
+            selectedFile : null
         }
     },
-    created() {
-        // console.log(this.$store.state.user);
-    },
     methods : {
-        previewImage (event) {
-            // Reference to the DOM input element
-            var input = event.target;
-            // Ensure that you have a file before attempting to read it
-            if (input.files && input.files[0]) {
-                // create a new FileReader to read this image and convert to base64 format
-                var reader = new FileReader();
-                // Define a callback function to run, when FileReader finishes its job
-                reader.onload = (e) => {
-                    // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-                    // Read image as base64 and set to imageData
-                    this.imageData = e.target.result;
-                }
-                // Start the reader job - read file as a data url (base64 format)
-                reader.readAsDataURL(input.files[0]);
-            }
-            //image 내용 post 할 것
+        onFileSelected(event) {
+            this.selectedFile = event.target.files[0];
+            const fd = new FormData();
+            fd.append('img', this.selectedFile, this.selectedFile.name);
+            axios.post('/post/img', fd)
+                .then(response => {
+                    if(response.status === 200){
+                        let url = response.data.url;
+                        this.$store.state.postimage = url;
+                    }
+                })
+                .catch()
+        },
+        Submit(){
+            this.$store.dispatch('POST_CONTENT',{
+                content : this.content
+            });
         }
     },
     

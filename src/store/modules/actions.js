@@ -22,22 +22,6 @@ export default {
                 console.error(error);
             })
     },
-    RE_LOGIN( { commit }) {
-        axios.post('auth/login', {
-            email : sessionStorage.getItem(sessionStorage.key(sessionStorage.length-2)),
-            password : sessionStorage.getItem(sessionStorage.key(sessionStorage.length-1))
-        })
-            .then( response => {
-                commit('RE_USER', response.data);
-                if(response.data.id)
-                    router.push( { name : 'home' } );
-                else 
-                    alert('서버에 문제가 생겼습니다 다시 접속해주세요');
-
-                return response;
-            })
-            .catch()
-    },
     POST_LOGOUT(){
         axios.get('/auth/logout')
             .then( response => {
@@ -71,12 +55,31 @@ export default {
             })
     },
     GET_DASHBOARD( { commit }){
-        axios.get('/home')
+        axios.get('/home/dashboard')
             .then( response => {
                 commit('DASHBOARD', response.data.twits);
                 commit('SET_USER', response.data.user);
                 // console.log(response.data.user);
             })
             .catch()
-    }
+    },
+    POST_IMAGE( {commit}, data ) {
+        axios.post('/post/img', {
+            url : data.src
+        })
+            .then( response => {
+                console.log(response.data);
+                commit('SET_IMAGE', response.data);
+            })
+            .catch()
+    },
+    POST_CONTENT( data ) {
+        axios.post('/post', {
+            content : data.content
+        })
+            .then( response => {
+                console.log(response.data)
+            })
+            .catch()
+    }   
 }

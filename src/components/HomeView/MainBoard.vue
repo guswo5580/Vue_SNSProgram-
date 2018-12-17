@@ -38,7 +38,6 @@
 <script>
 export default {
     created() {
-        // this.$store.dispatch('RE_LOGIN');
         this.$store.dispatch('GET_DASHBOARD');
     },
     methods : {
