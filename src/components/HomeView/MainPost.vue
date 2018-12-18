@@ -21,7 +21,8 @@
                     </div>
                 </div>
                 <div class="image-preview" >
-                    <img class="preview" :src="$store.state.postimage" v-if="$store.state.postimage.length > 0">
+                    <img class="preview" :src="$store.state.postimage" v-if="$store.state.postimage != null">
+                    <img class="preview2"  v-else style="display:none">
                 </div>
             </div>
     </div>
@@ -53,7 +54,8 @@ export default {
         },
         Submit(){
             this.$store.dispatch('POST_CONTENT',{
-                content : this.content
+                content : this.content,
+                url : this.$store.state.postimage
             });
         }
     },

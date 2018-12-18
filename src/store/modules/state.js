@@ -1,5 +1,5 @@
 export default {
     user : [],
     dashboard : [],
-    postimage : []
+    postimage : null
 }   

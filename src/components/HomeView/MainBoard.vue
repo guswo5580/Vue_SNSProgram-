@@ -1,6 +1,6 @@
 <template>
     <div class = "board-container">
-        <div class = "board-aligns" v-for="dashboard in $store.state.dashboard" :key="dashboard">
+        <div class = "board-aligns" v-for="dashboard in $store.getters.getDashboard" :key="dashboard">
             <div class = "board-header">
                 <span class = "name">
                     {{dashboard.user.nick}}
@@ -19,8 +19,9 @@
                     </span>
                 </div>
                 <div class = "main-image">
-                    <b-img class = "image" :src="dashboard.img" fluid alt="이미지 로드 오류" v-if="checkImage(dashboard.img)"/>
-                    <b-img class = "image-2"  fluid alt="Responsive image" v-else/>
+                    <b-img class = "image-2"  fluid alt="Responsive image" v-if="dashboard.img === ''"/>
+                    <b-img class = "image" :src="dashboard.img" fluid alt="이미지 로드 오류" v-else/>
+                    
                 </div>
             </div>
             <div class = "board-liker">
@@ -41,12 +42,7 @@ export default {
         this.$store.dispatch('GET_DASHBOARD');
     },
     methods : {
-        checkImage(img){
-            if(img.naturalWidth === 0 )
-                return false
-            else 
-                return true
-        }
+
     },
     filters : {
         removeHashtag(value) {

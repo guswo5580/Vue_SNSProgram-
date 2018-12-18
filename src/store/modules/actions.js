@@ -63,23 +63,18 @@ export default {
             })
             .catch()
     },
-    POST_IMAGE( {commit}, data ) {
-        axios.post('/post/img', {
-            url : data.src
-        })
-            .then( response => {
-                console.log(response.data);
-                commit('SET_IMAGE', response.data);
-            })
-            .catch()
-    },
-    POST_CONTENT( data ) {
+    //인자에 data만 따로 선언해서 이용하면 안된다
+    //commit이나 dispatch 혹은 context를 붙여서 이용해주자
+    POST_CONTENT( {dispatch}, data ) {
         axios.post('/post', {
-            content : data.content
+            content : data.content,
+            url : data.url
         })
             .then( response => {
-                console.log(response.data)
+                return dispatch('GET_DASHBOARD')
             })
-            .catch()
+            .catch( error => {
+                console.error(error);
+            })
     }   
 }
