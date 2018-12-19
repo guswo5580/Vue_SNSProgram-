@@ -57,6 +57,7 @@ export default {
                 content : this.content,
                 url : this.$store.state.postimage
             });
+            this.content = '';
         }
     },
     

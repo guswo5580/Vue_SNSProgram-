@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <vue-progress-bar :loading="loading"></vue-progress-bar>
     <transition name="fade" mode="out-in">
       <router-view></router-view>  
     </transition>  
@@ -7,11 +8,20 @@
 </template>
 
 <script>
+import { bus } from './utils/bus.js';
 
 export default {
   name: 'app',
-  components: {
-    
+  data() {
+    return {
+      loading : false
+    }
+  },
+  created() {
+    bus.$on('on:progress' , () => this.loading = true);
+    bus.$on('off:progress', () => this.loading = false);
+    // bus.$on('on:progress' , () => console.log('start'));
+    // bus.$on('off:progress', () => console.log('end'));
   }
 }
 </script>

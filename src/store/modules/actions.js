@@ -1,38 +1,40 @@
 // import { LocalLogin } from '@/api/index.js';
 import axios from 'axios';
 import { router } from '@/routes/index.js';
+import { bus } from '@/utils/bus.js';
 
 export default {
     POST_LOGIN({commit}, data){
+        bus.$emit('on:progress');
         axios.post('/auth/login', {
             email : data.email,
             password : data.password
         })
             .then(response => {
                 commit('SET_USER', response.data);
-                if(response.data.id)
+                if(response.data.id) {
                     router.push( { name : 'home' });
-                else 
+                    bus.$emit('off:progress');
+                }
+                else {
                     alert('이메일과 비밀번호를 확인해주세요');
-
+                }
                 return response;
                 
             })
-            .catch(error => {
-                console.error(error);
-            })
+            .catch()
     },
     POST_LOGOUT(){
+        bus.$emit('on:progress');
         axios.get('/auth/logout')
-            .then( response => {
-                console.log(response);
+            .then( () => {
                 router.push( { name : 'login'});
+                bus.$emit('off:progress');
             })
-            .catch( errer => {
-                console.error(error)
-            })
+            .catch()
     },
     POST_JOIN({ dispatch }, data) {
+        bus.$emit('on:progress');
         axios.post('/auth/join', {
             email : data.email,
             nick : data.nickname,
@@ -50,38 +52,37 @@ export default {
                 return response;
                 
             })
-            .catch(error => {
-                console.error(error);
-            })
+            .catch()
     },
     GET_DASHBOARD( { commit }){
+        bus.$emit('on:progress');
         axios.get('/home/dashboard')
             .then( response => {
                 commit('DASHBOARD', response.data.twits);
                 commit('SET_USER', response.data.user);
-                // console.log(response.data.user);
+                bus.$emit('off:progress');
             })
             .catch()
     },
     //인자에 data만 따로 선언해서 이용하면 안된다
     //commit이나 dispatch 혹은 context를 붙여서 이용해주자
     POST_CONTENT( {dispatch}, data ) {
+        bus.$emit('on:progress');
         axios.post('/post', {
             content : data.content,
             url : data.url
         })
-            .then( response => {
+            .then( () => {
                 return dispatch('GET_DASHBOARD')
             })
-            .catch( error => {
-                console.error(error);
-            })
+            .catch()
     },
     PROFILE_GET ( { commit } ) {
+        bus.$emit('on:progress');
         axios.get('/profile/information')
             .then( response => {
                 commit('GET_PROFILE', response.data.user);
-                
+                bus.$emit('off:progress');
             })
             .catch()
     } 
