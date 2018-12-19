@@ -2,11 +2,13 @@
     <div class = "header-container">
         <nav>
             <div class = "header">
-                <div class = "logo-container">
-                    <span class = "logo-image"><i class="far fa-paper-plane fa-3x"></i></span>
-                    <div class = "divide"></div>
-                    <span class = "logo-text">peaceocean</span>
-                </div>
+                <router-link :to=" { name : 'home' }" class = "routing"> 
+                    <div class = "logo-container">
+                        <div class = "logo-image"><i class="far fa-paper-plane fa-2x"></i></div>
+                        <div class = "divide">&nbsp;</div>
+                        <div class = "logo-text">peaceocean</div>
+                    </div>
+                </router-link>
                 <div class = "search-container">
                     <div class = "form-group">
                         <b-form-input v-model="search" type="text" placeholder="Search"></b-form-input>
@@ -61,7 +63,11 @@ export default {
         align-items : center;
         width : 27%;
         margin-left : 15px;
-        flex-shrink: 0;
+        flex-shrink: 0; 
+    }
+    .routing {
+        text-decoration: none;  
+        color : #262626;
     }
     .logo-container:hover,
     .logo-container:active{

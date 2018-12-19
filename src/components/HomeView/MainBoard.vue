@@ -1,38 +1,40 @@
 <template>
     <div class = "board-container">
-        <div class = "board-aligns" v-for="dashboard in $store.getters.getDashboard" :key="dashboard">
-            <div class = "board-header">
-                <span class = "name">
-                    {{dashboard.user.nick}}
-                </span>
-                <span class = "sub-name">
-                    님이 글을 게시했습니다.
-                </span>
-            </div>
-            <div class = "board-main">
-                <div class = "main-content">
-                    <span class = "content">
-                        {{dashboard.content | removeHashtag}} <br>
+        <transition name="fade" mode="out-in" v-for="dashboard in $store.getters.getDashboard" :key="dashboard">
+            <div class = "board-aligns" >
+                <div class = "board-header">
+                    <span class = "name">
+                        {{dashboard.user.nick}}
                     </span>
-                    <span class = "hashtag">
-                        {{dashboard.content | removeContent}}
+                    <span class = "sub-name">
+                        님이 글을 게시했습니다.
                     </span>
                 </div>
-                <div class = "main-image">
-                    <b-img class = "image-2"  fluid alt="Responsive image" v-if="dashboard.img === ''"/>
-                    <b-img class = "image" :src="dashboard.img" fluid alt="이미지 로드 오류" v-else/>
-                    
+                <div class = "board-main">
+                    <div class = "main-content">
+                        <span class = "content">
+                            {{dashboard.content | removeHashtag}} <br>
+                        </span>
+                        <span class = "hashtag">
+                            {{dashboard.content | removeContent}}
+                        </span>
+                    </div>
+                    <div class = "main-image">
+                        <b-img class = "image-2"  fluid alt="Responsive image" v-if="dashboard.img === ''"/>
+                        <b-img class = "image" :src="dashboard.img" fluid alt="이미지 로드 오류" v-else/>
+                        
+                    </div>
+                </div>
+                <div class = "board-liker">
+                    <span class = "like-title">
+                        Like >>
+                    </span>
+                    <span class = "like-content" v-for="like in dashboard.Liker" :key="like">
+                        {{like.nick}}
+                    </span>
                 </div>
             </div>
-            <div class = "board-liker">
-                <span class = "like-title">
-                    Like >>
-                </span>
-                <span class = "like-content" v-for="like in dashboard.Liker" :key="like">
-                    {{like.nick}}
-                </span>
-            </div>
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -120,8 +122,7 @@ export default {
         text-align : center;
     }
     .image {
-        max-width : 70%;
-        max-height: 50%;
+        max-height: 60%;
     }
     .image-2 {
         display : none;
@@ -146,5 +147,14 @@ export default {
         .board-aligns {
             width : 90%;
         }
+    }
+
+    /* ////////////////////////////////////// */
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .4s ease;
+    }
+    .fade-enter, .fade-leave-to
+    /* .routing-fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 </style>

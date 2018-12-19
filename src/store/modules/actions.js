@@ -76,5 +76,13 @@ export default {
             .catch( error => {
                 console.error(error);
             })
-    }   
+    },
+    PROFILE_GET ( { commit } ) {
+        axios.get('/profile/information')
+            .then( response => {
+                commit('GET_PROFILE', response.data.user);
+                
+            })
+            .catch()
+    } 
 }

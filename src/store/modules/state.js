@@ -1,5 +1,6 @@
 export default {
     user : [],
     dashboard : [],
-    postimage : null
+    postimage : null,
+    profile : [],
 }   
