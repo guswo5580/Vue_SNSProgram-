@@ -7,8 +7,9 @@
         <div class = "profile-content">
             <div class = "profile-header">
                 <span class = "profile-header-title">
-                    {{$store.state.profile.nick}} &nbsp; 님
+                    {{$store.state.profile.nick}}
                 </span>
+                <span class = "profile-header-title">님</span>
                 <span class = "profile-header-change">
                     <span class="text-center" @click="ChangeInfo">
                         <i class="fas fa-cogs fa-2x" v-b-tooltip.hover title="프로필 편집"></i>
@@ -106,40 +107,38 @@ export default {
 
 <style scoped>
     .profile-container {
-        display : flex;
-        align-items: center;
-        justify-content: center;
+        width : 80%;
+        display : block;
+        margin : 0 auto;
         margin-top : 100px;
     }
     .profile-img {
-        width : 30%;
-        margin-top : 40px;
-        margin-right : 30px;
-    }
-    .profile-header-change {
-        padding : 0 0 10px 0;
+        width : 50%;
+        margin : 0 auto 30px auto;
     }
     .profile-content {
-        width : 35%;
-        padding : 20px;
+        width : 80%;
+        margin : 0 auto;
+        text-align : center;
     }
     .profile-header {
-        text-align: left;
-        margin-bottom : 40px;
+        display : flex;
+        align-items: center;
+        justify-content: center;
     }
     .profile-header-title {
-        font-size : 2rem;
-        margin-right : 20px;
-        margin-left : 20px;
+        font-size : 1.7rem;
+        margin-right : 15px;
     }
     .text-center {
         color : rgba(66, 164, 244, 0.8);
     }
-    /* /////////////////////////////// */
+    /* ////////////////////////// */
     .change-nickname {
         margin-bottom : 20px;
     }
     .change-nickname-title, .change-image-title {
+        font-size : 0.5rem;
         margin-bottom : 15px;
     }
     .change-nickname-main, .change-image-main {
@@ -158,36 +157,50 @@ export default {
     .image-btn:visited {
         background-color: rgb(66, 164, 244);
     }
-    /* //////////////////////////////// */
+    /* /////////////////////////// */
     .profile-main {
+        width : 100%;
         display : flex;
         align-items: center;
         justify-content: center;
-    }
-    .board, .followers, .followings {
-        width : 30%;
-        margin-left : 5%;
-        font-size : 1.3rem;
+        padding : 10px;
     }
     .followers, .followings {
-        display : flex;
-        align-items: center;
+        margin-left : 5%;
+    }
+    .board, .followers, .followings {
+        font-size : 1.3rem;
     }
     .board-num , .followers-num, .followings-num {
+        
         margin-left : 15px;
         color : rgb(66, 164, 244);
     }
-    .followers-name , .followings-name {
-        display : inline-block;
-    }
-    .followings-item , .followers-item {
-        color : rgb(66, 164, 244);
-        font-size : 1rem;
-    }
-    /* ////////////////////// */
-    @media (max-width : 1200px) {
-        .profile-content {
-            width : 50%;
+
+    /* //////////////////////// */
+    @media (max-width : 500px) {
+        .profile-img {
+            width : 80%;
+        } 
+        .profile-main {
+            display : block;
+            width : 100%;
+            margin : 30px auto;    
+            text-align: left;
         }
+        .followers, .followings {
+            margin-left : 0;
+        }
+        .board, .followers {
+            margin-bottom : 5%; 
+        }
+        .board, .followers, .followings {
+            font-size : 1.3rem;
+        }
+        .board-num , .followers-num, .followings-num {
+            
+            margin-left : 15px;
+            color : rgb(66, 164, 244);
+        }  
     }
 </style>
