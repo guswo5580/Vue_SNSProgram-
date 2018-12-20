@@ -51,12 +51,17 @@ router.post('/img', isLoggedIn, upload.single('img'), (req, res) => {
 const upload2 = multer();
 router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
   try {
-    const post = await Post.create({
-      content: req.body.content,
-      img: req.body.url,
-      userId: req.user.id,
-      //누구의 게시글인지 표시하기 위해 관계 설정된 User를 넣어준다 
-    });
+    if(req.body.content === ''){
+      res.send('No Content');
+      res.redirect('/home');
+    }else {
+      const post = await Post.create({
+        content: req.body.content,
+        img: req.body.url,
+        userId: req.user.id,
+        //누구의 게시글인지 표시하기 위해 관계 설정된 User를 넣어준다 
+      });
+    }
     const hashtags = req.body.content.match(/#[^\s]*/g);
                                           //#뒤에 공백을 제거하고 붙여주는 정규표현식 
     if (hashtags) {
@@ -69,7 +74,7 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
       await post.addHashtags(result.map(r => r[0]));
       //게시글에 여러개의 해시태그를 배열로 연결해주는 구문 
     }
-    res.redirect('/');
+    res.redirect('/home');
   } catch (error) {
     console.error(error);
     next(error);
@@ -92,7 +97,7 @@ router.get('/hashtag', async (req, res, next) => {
   const query = req.query.hashtag;
   //사용자가 입력한 내용
   if (!query) {
-    return res.redirect('/');
+    return res.send('Failed');
     //입력하지 않았을 때 
   }
   try {
@@ -105,8 +110,8 @@ router.get('/hashtag', async (req, res, next) => {
       //A.setB - 관계 수정 
       //A.removeB - 관계 제거 
     }
-    return res.sendFile(path.join(__dirname, '../dist', 'index.html'), {
-      // title: `${query} | NodeBird`,
+    return res.send({
+      title: query,
       user: req.user,
       twits: posts,
     });
