@@ -27,5 +27,17 @@ router.post('/nickname' , async (req, res, next) => {
       next(err);
     }
   });
-
+  router.post('/userImg' , async (req, res, next) => {
+    try {
+        await User.update({ userImg : req.body.url}, {
+            where : { id : req.user.id },
+        });
+        res.redirect('/profile');
+        res.send('Completed');
+    }
+    catch (err) {
+        console.log(err);
+        next(err);
+    }
+  });
 module.exports = router;

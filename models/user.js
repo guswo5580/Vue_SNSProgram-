@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => (
         type: DataTypes.STRING(30),
         allowNull: true,
       },
+      userImg: {
+        type: DataTypes.STRING(200),
+        allowNull: true,
+      },
     }, {
       timestamps: true,
       paranoid: true,
