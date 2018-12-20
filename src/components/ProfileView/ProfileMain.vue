@@ -193,6 +193,9 @@ export default {
         color : rgba(66, 164, 244, 0.8);
     }
     /* /////////////////////////////// */
+    .closeModalBtn {
+        color : rgb(66, 164, 244);
+    }
     .change-nickname {
         margin-bottom : 20px;
     }

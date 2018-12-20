@@ -1,15 +1,15 @@
 <template>
     <div class = "profile-container">
         <div class = "profile-img">
-            <b-img class = "profile-img-change" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" v-if="src != ''" />
-            <b-img class = "profile-img-default" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image2.jpg" fluid alt="Responsive image" v-else />
+            <b-img class = "profile-img-default" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" 
+                                v-if="$store.state.profile.userImg === null " />
+            <b-img class = "profile-img-change" rounded="circle" :src="$store.state.profile.userImg" fluid alt="이미지 손상" v-else />
         </div>
         <div class = "profile-content">
             <div class = "profile-header">
                 <span class = "profile-header-title">
-                    {{$store.state.profile.nick}}
+                    {{UserNick}} &nbsp; 님
                 </span>
-                <span class = "profile-header-title">님</span>
                 <span class = "profile-header-change">
                     <span class="text-center" @click="ChangeInfo">
                         <i class="fas fa-cogs fa-2x" v-b-tooltip.hover title="프로필 편집"></i>
@@ -28,17 +28,30 @@
                                 <h5>닉네임 변경하기</h5>
                             </div>
                             <div class = "change-nickname-main">
-                                <b-form-input v-model="nickname" type="text" placeholder="닉네임을 입력해주세요"></b-form-input>
-                                <b-button class = "nickname-btn">변경하기</b-button>
+                                <b-form-input v-model="nickname" type="text" placeholder="닉네임을 입력해주세요"
+                                    @keyup.enter.native="ChangeNick"></b-form-input>
+                                <b-button class = "nickname-btn" @click="ChangeNick">변경하기</b-button>
                             </div>
                         </div>
                         <div class = "change-image">
                             <div class = "change-image-title">
                                 <h5>이미지 변경하기</h5>
                             </div>
-                            <div class = "change-image-main">
-                                <b-form-file v-model="file" plain></b-form-file>
-                                <b-button class = "image-btn">변경하기</b-button>
+                            <div class = "imagefile">
+                                <label for="inputFile">
+                                    <span class = "inputFile-btn">사진 업로드</span>
+                                </label>
+                                <input id="inputFile" type="file" @change="onFileSelected" accept="image/*" style="display : none;">
+                            </div>
+                            <div class = "submit-section">
+                                <label for="submitbtn">
+                                    <span class = "submitFile-btn" @click="ChangeImg">게시하기</span>
+                                </label>
+                                <b-button id = "submitbtn" style="display:none;"></b-button>
+                            </div>
+                            <div class="image-preview" >
+                                <img class="preview" :src="$store.state.profile.userImg" v-if="$store.state.profile.userImg != null">
+                                <img class="preview2"  v-else style="display:none">
                             </div>
                         </div>
                     </div>
@@ -87,6 +100,11 @@ export default {
     created() {
         this.$store.dispatch('PROFILE_GET');
     },
+    computed : {
+        UserNick(){
+            return this.$store.state.profile.nick;
+        }
+    },
     data() {
         return {
             showModal : false,
@@ -95,8 +113,41 @@ export default {
         }
     },
     methods : {
-        ChangeInfo() {
+        OpenModal() {
             this.showModal = true;
+        },
+        ChangeNick() {
+            this.$store.dispatch('CHANGE_NICK',{
+                nick : this.nickname,
+            });
+            this.nickname = '';
+            this.showModal = false;
+            setTimeout( () => {
+                this.$router.go(this.$router.currentRoute);
+            }, 200);
+        },
+        onFileSelected(event) {
+            this.selectedFile = event.target.files[0];
+            const fd = new FormData();
+            fd.append('img', this.selectedFile, this.selectedFile.name);
+            axios.post('/post/img', fd)
+                .then(response => {
+                    if(response.status === 200){
+                        console.log(response.data.url);
+                        let url = response.data.url;
+                        this.$store.state.profile.userImg = url;
+                    }
+                })
+                .catch()
+        },
+        ChangeImg(){
+            this.$store.dispatch('CHANGE_IMG', {
+                url : this.$store.state.profile.userImg
+            })
+            this.showModal = false;
+            setTimeout( () => {
+                this.$router.go(this.$router.currentRoute);
+            }, 200);
         }
     },
     components : {
@@ -121,10 +172,15 @@ export default {
         margin : 0 auto;
         text-align : center;
     }
+    .profile-img-change {
+        max-height: 60%;
+        max-width : 100%;
+    }
     .profile-header {
         display : flex;
         align-items: center;
         justify-content: center;
+        margin-bottom : 20px;
     }
     .profile-header-title {
         font-size : 1.7rem;
@@ -134,6 +190,9 @@ export default {
         color : rgba(66, 164, 244, 0.8);
     }
     /* ////////////////////////// */
+    .closeModalBtn {
+        color : rgb(66, 164, 244);
+    }
     .change-nickname {
         margin-bottom : 20px;
     }
@@ -158,6 +217,50 @@ export default {
         background-color: rgb(66, 164, 244);
     }
     /* /////////////////////////// */
+    /* ////////////////////// */
+    .imagefile {
+        display : inline-block;
+        width : 50%;
+    }
+    .inputFile-btn{
+        background-color: rgba(66, 164, 244, 0.8);
+        color : white;
+        border : 1px solid #ebebeb;
+        padding : 10px;
+        border-radius: 5px;
+    }
+    .inputFile-btn:hover ,
+    .inputFile-btn:active {
+        background-color: rgb(66, 164, 244);
+    }
+    .submit-section {
+        text-align : right;
+        display : inline-block;
+        width : 50%;
+    }
+    .submitFile-btn{
+        background-color: rgba(66, 164, 244, 0.8);
+        color : white;
+        border : 1px solid #ebebeb;
+        padding : 10px;
+        border-radius: 5px;
+    }
+    .submitFile-btn:hover ,
+    .submitFile-btn:active {
+        background-color: rgb(66, 164, 244);
+    }
+    img.preview {
+        border: 1px solid silver;
+        padding: 5px;
+        display : block;
+        margin : 0 auto;
+    }
+    .preview {
+        max-width : 50%;
+        max-height: 25%;
+    }   
+    /* ////////////////////// */
+    /* ////////////////////////////// */
     .profile-main {
         width : 100%;
         display : flex;
