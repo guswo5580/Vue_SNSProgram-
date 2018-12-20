@@ -58,6 +58,7 @@ export default {
                 url : this.$store.state.postimage
             });
             this.content = '';
+            this.$store.state.postimage = '';
         }
     },
     

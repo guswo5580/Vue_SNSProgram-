@@ -4,6 +4,7 @@ import { router } from '@/routes/index.js';
 import { bus } from '@/utils/bus.js';
 
 export default {
+    ///////////////////Login Logout Signup/////////////////////
     POST_LOGIN({commit}, data){
         bus.$emit('on:progress');
         axios.post('/auth/login', {
@@ -54,6 +55,9 @@ export default {
             })
             .catch()
     },
+
+    //////////////////////Home///////////////////////////
+
     GET_DASHBOARD( { commit }){
         bus.$emit('on:progress');
         axios.get('/home/dashboard')
@@ -77,11 +81,14 @@ export default {
             })
             .catch()
     },
+
+    //////////////////Profile//////////////////////
     PROFILE_GET ( { commit } ) {
         bus.$emit('on:progress');
         axios.get('/profile/information')
             .then( response => {
                 commit('GET_PROFILE', response.data.user);
+                // console.log(response.data.user);
                 bus.$emit('off:progress');
             })
             .catch()
@@ -89,6 +96,17 @@ export default {
     CHANGE_NICK( { dispatch }, data ) {
         axios.post('/profile/nickname', {
             nick : data.nick
+        })
+            .then( response => {
+                if(response.data === 'Completed') {
+                    dispatch('PROFILE_GET');
+                }
+            })
+            .catch()
+    },
+    CHANGE_IMG( { dispatch }, data ) {
+        axios.post('/profile/userImg', {
+            url : data.url
         })
             .then( response => {
                 if(response.data === 'Completed') {

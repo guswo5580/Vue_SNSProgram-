@@ -1,8 +1,9 @@
 <template>
     <div class = "profile-container">
         <div class = "profile-img">
-            <b-img class = "profile-img-change" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" v-if="src != ''" />
-            <b-img class = "profile-img-default" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image2.jpg" fluid alt="Responsive image" v-else />
+            <b-img class = "profile-img-default" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" 
+                                v-if="$store.state.profile.userImg === null " />
+            <b-img class = "profile-img-change" rounded="circle" :src="$store.state.profile.userImg" fluid alt="이미지 손상" v-else />
         </div>
         <div class = "profile-content">
             <div class = "profile-header">
@@ -36,9 +37,21 @@
                             <div class = "change-image-title">
                                 <h5>이미지 변경하기</h5>
                             </div>
-                            <div class = "change-image-main">
-                                <b-form-file v-model="file" plain></b-form-file>
-                                <b-button class = "image-btn">변경하기</b-button>
+                            <div class = "imagefile">
+                                <label for="inputFile">
+                                    <span class = "inputFile-btn">사진 업로드</span>
+                                </label>
+                                <input id="inputFile" type="file" @change="onFileSelected" accept="image/*" style="display : none;">
+                            </div>
+                            <div class = "submit-section">
+                                <label for="submitbtn">
+                                    <span class = "submitFile-btn" @click="ChangeImg">게시하기</span>
+                                </label>
+                                <b-button id = "submitbtn" style="display:none;"></b-button>
+                            </div>
+                            <div class="image-preview" >
+                                <img class="preview" :src="$store.state.profile.userImg" v-if="$store.state.profile.userImg != null">
+                                <img class="preview2"  v-else style="display:none">
                             </div>
                         </div>
                     </div>
@@ -81,6 +94,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Modal from '@/components/common/modal.vue';
 
 export default {
@@ -91,7 +105,7 @@ export default {
         return {
             showModal : false,
             nickname : null,
-            file : null,
+            selectedFile : null,
         }
     },
     computed : {
@@ -108,6 +122,29 @@ export default {
                 nick : this.nickname,
             });
             this.nickname = '';
+            this.showModal = false;
+            setTimeout( () => {
+                this.$router.go(this.$router.currentRoute);
+            }, 200);
+        },
+        onFileSelected(event) {
+            this.selectedFile = event.target.files[0];
+            const fd = new FormData();
+            fd.append('img', this.selectedFile, this.selectedFile.name);
+            axios.post('/post/img', fd)
+                .then(response => {
+                    if(response.status === 200){
+                        console.log(response.data.url);
+                        let url = response.data.url;
+                        this.$store.state.profile.userImg = url;
+                    }
+                })
+                .catch()
+        },
+        ChangeImg(){
+            this.$store.dispatch('CHANGE_IMG', {
+                url : this.$store.state.profile.userImg
+            })
             this.showModal = false;
             setTimeout( () => {
                 this.$router.go(this.$router.currentRoute);
@@ -131,6 +168,10 @@ export default {
         width : 30%;
         margin-top : 40px;
         margin-right : 30px;
+    }
+    .profile-img-change {
+        max-height: 60%;
+        max-width : 80%;
     }
     .profile-header-change {
         padding : 0 0 10px 0;
@@ -156,7 +197,7 @@ export default {
         margin-bottom : 20px;
     }
     .change-nickname-title, .change-image-title {
-        margin-bottom : 15px;
+        margin-bottom : 20px;
     }
     .change-nickname-main, .change-image-main {
         display : flex;
@@ -200,6 +241,48 @@ export default {
         color : rgb(66, 164, 244);
         font-size : 1rem;
     }
+    /* ////////////////////// */
+    .imagefile {
+        display : inline-block;
+        width : 50%;
+    }
+    .inputFile-btn{
+        background-color: rgba(66, 164, 244, 0.8);
+        color : white;
+        border : 1px solid #ebebeb;
+        padding : 10px;
+        border-radius: 5px;
+    }
+    .inputFile-btn:hover ,
+    .inputFile-btn:active {
+        background-color: rgb(66, 164, 244);
+    }
+    .submit-section {
+        text-align : right;
+        display : inline-block;
+        width : 50%;
+    }
+    .submitFile-btn{
+        background-color: rgba(66, 164, 244, 0.8);
+        color : white;
+        border : 1px solid #ebebeb;
+        padding : 10px;
+        border-radius: 5px;
+    }
+    .submitFile-btn:hover ,
+    .submitFile-btn:active {
+        background-color: rgb(66, 164, 244);
+    }
+    img.preview {
+        border: 1px solid silver;
+        padding: 5px;
+        display : block;
+        margin : 0 auto;
+    }
+    .preview {
+        max-width : 50%;
+        max-height: 25%;
+    }   
     /* ////////////////////// */
     @media (max-width : 1200px) {
         .profile-content {
