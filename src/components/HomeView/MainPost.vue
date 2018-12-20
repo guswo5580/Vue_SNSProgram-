@@ -2,7 +2,7 @@
     <div class = "mainform">
         <div class = "form-group">
             <b-form-textarea id="textarea1" v-model="content" placeholder="게시글을 작성해주세요"
-                    :rows="3" :max-rows="6">
+                    :rows="3" :max-rows="6" @keyup.enter.native="Submit">
             </b-form-textarea>
 
             <div class="filebox"> 

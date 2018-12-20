@@ -85,5 +85,16 @@ export default {
                 bus.$emit('off:progress');
             })
             .catch()
-    } 
+    },
+    CHANGE_NICK( { dispatch }, data ) {
+        axios.post('/profile/nickname', {
+            nick : data.nick
+        })
+            .then( response => {
+                if(response.data === 'Completed') {
+                    dispatch('PROFILE_GET');
+                }
+            })
+            .catch()
+    }
 }

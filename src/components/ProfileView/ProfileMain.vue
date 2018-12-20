@@ -7,10 +7,10 @@
         <div class = "profile-content">
             <div class = "profile-header">
                 <span class = "profile-header-title">
-                    {{$store.state.profile.nick}} &nbsp; 님
+                    {{UserNick}} &nbsp; 님
                 </span>
                 <span class = "profile-header-change">
-                    <span class="text-center" @click="ChangeInfo">
+                    <span class="text-center" @click="OpenModal">
                         <i class="fas fa-cogs fa-2x" v-b-tooltip.hover title="프로필 편집"></i>
                     </span>
                 </span>
@@ -27,8 +27,9 @@
                                 <h5>닉네임 변경하기</h5>
                             </div>
                             <div class = "change-nickname-main">
-                                <b-form-input v-model="nickname" type="text" placeholder="닉네임을 입력해주세요"></b-form-input>
-                                <b-button class = "nickname-btn">변경하기</b-button>
+                                <b-form-input v-model="nickname" type="text" placeholder="닉네임을 입력해주세요"
+                                    @keyup.enter.native="ChangeNick"></b-form-input>
+                                <b-button class = "nickname-btn" @click="ChangeNick">변경하기</b-button>
                             </div>
                         </div>
                         <div class = "change-image">
@@ -93,9 +94,24 @@ export default {
             file : null,
         }
     },
+    computed : {
+        UserNick(){
+            return this.$store.state.profile.nick;
+        }
+    },
     methods : {
-        ChangeInfo() {
+        OpenModal() {
             this.showModal = true;
+        },
+        ChangeNick() {
+            this.$store.dispatch('CHANGE_NICK',{
+                nick : this.nickname,
+            });
+            this.nickname = '';
+            this.showModal = false;
+            setTimeout( () => {
+                this.$router.go(this.$router.currentRoute);
+            }, 200);
         }
     },
     components : {
