@@ -12,5 +12,8 @@ export default {
     },
     SET_IMAGE(state, data) {
         state.postimage = data;
-    }
+    },
+    SET_HASHTAG(state, data) {
+        state.tag = data;
+    },
 }

@@ -76,8 +76,27 @@ export default {
             content : data.content,
             url : data.url
         })
-            .then( () => {
-                return dispatch('GET_DASHBOARD')
+            .then( response => {
+                if(response.data === 'No Content') {
+                    alert('내용이 없습니다.');
+                }else {
+                    dispatch('GET_DASHBOARD');
+                }    
+            })
+            .catch()
+    },
+    SEARCH_TAG( { commit }, data ){
+        axios.get('/post/hashtag', {
+            params : {
+                hashtag : data.tag
+            }
+        })
+            .then( response => {
+                console.log(response.data);
+                if(response.data === 'Failed') {
+                    alert('검색한 태그가 없습니다.');
+                }
+                commit('SET_HASHTAG', response.data);
             })
             .catch()
     },

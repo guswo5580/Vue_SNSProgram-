@@ -3,4 +3,5 @@ export default {
     dashboard : [],
     postimage : null,
     profile : [],
+    tag : []
 }   

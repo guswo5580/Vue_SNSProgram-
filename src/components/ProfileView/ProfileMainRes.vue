@@ -95,6 +95,7 @@
 
 <script>
 import Modal from '@/components/common/modal.vue';
+import axios from 'axios';
 
 export default {
     created() {
@@ -109,7 +110,7 @@ export default {
         return {
             showModal : false,
             nickname : null,
-            file : null,
+            selectedFile : null,
         }
     },
     methods : {

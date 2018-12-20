@@ -20,7 +20,7 @@
                         </span>
                     </div>
                     <div class = "main-image">
-                        <b-img class = "image-2"  fluid alt="Responsive image" v-if="dashboard.img === ''"/>
+                        <b-img class = "image-2"  fluid alt="Responsive image" v-if="dashboard.img === null"/>
                         <b-img class = "image" :src="dashboard.img" fluid alt="이미지 로드 오류" v-else/>
                         
                     </div>
@@ -112,8 +112,8 @@ export default {
         display : block;
         color : rgb(66, 164, 244);
         text-align: right;
-        width : 50%;
-        margin-left : auto;
+        width : 100%;
+        /* margin-left : auto; */
     }
     .main-image {
         padding : 20px;

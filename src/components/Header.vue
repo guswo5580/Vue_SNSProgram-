@@ -11,10 +11,11 @@
                 </router-link>
                 <div class = "search-container">
                     <div class = "form-group">
-                        <b-form-input v-model="search" type="text" placeholder="Search"></b-form-input>
+                        <b-form-input v-model="search" type="text" placeholder="Search"
+                                    @keyup.enter.native="Search"></b-form-input>
                     </div>
                     <div class = "form-button">
-                        <b-button class = "submit-button"><i class="fas fa-search"></i></b-button>
+                        <b-button class = "submit-button" @click="Search"><i class="fas fa-search"></i></b-button>
                     </div>
                 </div>
                 <div class = "nav-container">
@@ -47,6 +48,12 @@ export default {
     methods : {
         Logout(){
             this.$store.dispatch('POST_LOGOUT');
+        },
+        Search(){
+            this.$store.dispatch('SEARCH_TAG', {
+                tag : this.search
+            });
+            this.search = '';
         }
     }
 }
