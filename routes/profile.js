@@ -14,4 +14,18 @@ router.get('/information', (req, res) => {
     res.send( {user: req.user });
 });
 
+router.post('/nickname' , async (req, res, next) => {
+    try {
+      await User.update({ nick : req.body.nick}, {
+        where : { id : req.user.id },
+      });
+      res.redirect('/profile');
+      res.send('Completed');
+    }
+    catch (err) {
+      console.log(err);
+      next(err);
+    }
+  });
+
 module.exports = router;
