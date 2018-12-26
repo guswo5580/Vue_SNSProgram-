@@ -1,10 +1,10 @@
 <template>
     <div class = "board-container" >
-        <transition name="fade" mode="out-in" v-for="dashboard in $store.getters.getDashboard" :key="dashboard">
+        <transition name="fade" mode="out-in" v-for="tag in $store.getters.getTags" :key="tag">
             <div class = "board-aligns" >
                 <div class = "board-header">
                     <span class = "name">
-                        {{dashboard.user.nick}}
+                        {{tag.user.nick}}
                     </span>
                     <span class = "sub-name">
                         님이 글을 게시했습니다.
@@ -13,15 +13,15 @@
                 <div class = "board-main">
                     <div class = "main-content">
                         <span class = "content">
-                            {{dashboard.content | removeHashtag}} <br>
+                            {{tag.content | removeHashtag}} <br>
                         </span>
                         <span class = "hashtag">
-                            {{dashboard.content | removeContent}}
+                            {{tag.content | removeContent}}
                         </span>
                     </div>
                     <div class = "main-image">
-                        <b-img class = "image-2"  fluid alt="Responsive image" v-if="dashboard.img === null"/>
-                        <b-img class = "image" :src="dashboard.img" fluid alt="이미지 로드 오류" v-else/>
+                        <b-img class = "image-2"  fluid alt="Responsive image" v-if="tag.img === null"/>
+                        <b-img class = "image" :src="tag.img" fluid alt="이미지 로드 오류" v-else/>
                         
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                     <span class = "like-title">
                         Like >>
                     </span>
-                    <span class = "like-content" v-for="like in dashboard.Liker" :key="like">
+                    <span class = "like-content" v-for="like in tag.Liker" :key="like">
                         {{like.nick}}
                     </span>
                 </div>
@@ -40,12 +40,6 @@
 
 <script>
 export default {
-    created() {
-        this.$store.dispatch('GET_DASHBOARD');
-    },
-    methods : {
-
-    },
     filters : {
         removeHashtag(value) {
             let branch = value.indexOf('#');

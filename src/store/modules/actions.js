@@ -59,19 +59,19 @@ export default {
     //////////////////////Home///////////////////////////
 
     GET_DASHBOARD( { commit }){
-        bus.$emit('on:progress');
+        // bus.$emit('on:progress');
         axios.get('/home/dashboard')
             .then( response => {
                 commit('DASHBOARD', response.data.twits);
                 commit('SET_USER', response.data.user);
-                bus.$emit('off:progress');
+                // bus.$emit('off:progress');
             })
             .catch()
     },
     //인자에 data만 따로 선언해서 이용하면 안된다
     //commit이나 dispatch 혹은 context를 붙여서 이용해주자
     POST_CONTENT( {dispatch}, data ) {
-        bus.$emit('on:progress');
+        // bus.$emit('on:progress');
         axios.post('/post', {
             content : data.content,
             url : data.url
@@ -92,11 +92,10 @@ export default {
             }
         })
             .then( response => {
-                console.log(response.data);
                 if(response.data === 'Failed') {
                     alert('검색한 태그가 없습니다.');
                 }
-                commit('SET_HASHTAG', response.data);
+                commit('HASHTAG', response.data.twits);
             })
             .catch()
     },

@@ -1,8 +1,8 @@
 <template>
     <div class = "mainform">
         <div class = "form-group">
-            <b-form-textarea id="textarea1" v-model="content" placeholder=" 게시글을 작성해주세요 Ex)Content #Hash V #Tag "
-                    :rows="3" :max-rows="6" @keyup.enter.native="Submit">
+            <b-form-textarea id="textarea1" v-model="content" placeholder=" 게시글을 작성해주세요 "
+                    :rows="3" :max-rows="6">
             </b-form-textarea>
 
             <div class="filebox"> 
@@ -62,7 +62,7 @@ export default {
                 });
             }
             this.content = '';
-            this.$store.state.postimage = '';
+            this.$store.state.postimage = null;
         }
     },
     

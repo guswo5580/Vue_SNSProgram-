@@ -3,5 +3,6 @@ export default {
     dashboard : [],
     postimage : null,
     profile : [],
-    tag : []
+    tagInfo: [],
+    changeboard : false
 }   

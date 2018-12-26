@@ -2,8 +2,8 @@
     <div class = "header-container">
         <nav>
             <div class = "header">
-                <router-link :to=" { name : 'home' }" class = "routing"> 
-                    <div class = "logo-container">
+                <router-link :to=" { name : 'home' }" class = "routing" > 
+                    <div class = "logo-container" @click="ChangeBoard">
                         <div class = "logo-image"><i class="far fa-paper-plane fa-2x"></i></div>
                         <div class = "divide">&nbsp;</div>
                         <div class = "logo-text">peaceocean</div>
@@ -11,7 +11,7 @@
                 </router-link>
                 <div class = "search-container">
                     <div class = "form-group">
-                        <b-form-input v-model="search" type="text" placeholder="Search"
+                        <b-form-input v-model="search" type="text" placeholder="Tags"
                                     @keyup.enter.native="Search"></b-form-input>
                     </div>
                     <div class = "form-button">
@@ -54,6 +54,9 @@ export default {
                 tag : this.search
             });
             this.search = '';
+        },
+        ChangeBoard(){
+            this.$store.state.changeboard = false;
         }
     }
 }
