@@ -73,7 +73,7 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
       }else{
         hashtags = null;
       }
-    }
+    
     
     // const hashtags = req.body.content.match(/#[^\s]*/g);
                                           //#뒤에 공백을 제거하고 붙여주는 정규표현식 
@@ -89,6 +89,7 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
       //게시글에 여러개의 해시태그를 배열로 연결해주는 구문 
     }
     res.redirect('/home');
+  }
   } catch (error) {
     console.error(error);
     next(error);
@@ -127,7 +128,7 @@ router.get('/hashtag', async (req, res, next) => {
     return res.send({
       title: query,
       user: req.user,
-      twits: posts,
+      twits: posts
     });
   } catch (error) {
     console.error(error);
