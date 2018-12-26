@@ -61,14 +61,28 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
         userId: req.user.id,
         //누구의 게시글인지 표시하기 위해 관계 설정된 User를 넣어준다 
       });
+      var tags = req.body.content.split('#');
+      var pos = req.body.content.indexOf('#');
+      var hashtags = new Array();
+      var i = 1;
+      if( pos > -1 ){
+        while(i < tags.length){
+          hashtags.push(tags[i]);
+          i++;
+        }
+      }else{
+        hashtags = null;
+      }
     }
-    const hashtags = req.body.content.match(/#[^\s]*/g);
+    
+    // const hashtags = req.body.content.match(/#[^\s]*/g);
                                           //#뒤에 공백을 제거하고 붙여주는 정규표현식 
+    
     if (hashtags) {
       const result = await Promise.all(hashtags.map(tag => Hashtag.findOrCreate({
                                                           //중복되는 해시태그를 없애기 위해
                                                           //있으면 같은 내용의 해시태그는 create하지 않는다 
-        where: { title: tag.slice(1).toLowerCase() },
+        where: { title: tag.toLowerCase() },
                     //# 표시 삭제 , 대소문자 구별 X 
       })));
       await post.addHashtags(result.map(r => r[0]));
