@@ -15,4 +15,7 @@ export default {
         state.tagInfo = data;
         state.changeboard = true;
     },
+    SEND_MESSAGE(state) {
+        state.deletemessage = true;
+    }
 }

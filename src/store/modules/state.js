@@ -4,5 +4,6 @@ export default {
     postimage : null,
     profile : [],
     tagInfo: [],
-    changeboard : false
+    changeboard : false,
+    deletemessage : false,
 }   

@@ -33,15 +33,45 @@
                         {{like.nick}}
                     </span>
                 </div>
+                <div class = "button">
+                    <span class = "delete-btn" 
+                        v-if="$store.state.user.id === dashboard.userId">
+                        <b-button @click="Delete(dashboard.id)">삭제하기</b-button>
+                    </span>
+                </div>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
+// import axios from 'axios';
+
 export default {
     created() {
         this.$store.dispatch('GET_DASHBOARD');
+    },
+    methods : {
+        Delete( data ){
+            this.$store.dispatch('DELETE_DASHBOARD', {
+                id : data
+            });
+        },
+        // Delete( data ){
+        //     axios.delete('/post/delete', {
+        //         params : {
+        //             id : data
+        //         }
+        //     })
+        //         .then( response => {
+        //             if(response.data === 'OK'){
+        //                 alert('게시글을 삭제하시겠습니까?');
+        //             }else {
+        //                 alert('서버에 문제가 생겼습니다. 잠시 후 다시 시도해주세요');
+        //             }
+        //         })
+        //         .catch()
+        // }
     },
     filters : {
         removeHashtag(value) {

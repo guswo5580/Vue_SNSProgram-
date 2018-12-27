@@ -68,6 +68,25 @@ export default {
             })
             .catch()
     },
+    DELETE_DASHBOARD({commit}, data) {
+        alert("해당 게시글을 삭제하시겠습니까?");
+        axios.delete('/post/delete', {
+            params : {
+                id : data.id
+            }
+        })
+            .then( response => {
+                if(response.data === 'OK'){
+                    alert('게시글이 삭제되었습니다.');
+                    commit('SEND_MESSAGE');
+                    location.reload();
+                }else{
+                    alert('서버에 문제가 생겼습니다. 잠시 후 다시 시도해주세요.');
+                    location.reload();
+                }
+            })
+            .catch()
+    },
     //인자에 data만 따로 선언해서 이용하면 안된다
     //commit이나 dispatch 혹은 context를 붙여서 이용해주자
     POST_CONTENT( {dispatch}, data ) {
