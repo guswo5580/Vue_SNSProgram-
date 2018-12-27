@@ -96,9 +96,13 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
   }
 });
 //게시글 지우기
-router.delete('/:id', async (req, res,next) => {
+// router.delete('/:id', async (req, res,next) => {
+  // 보낼 때  ``으로 감싸 params를 전달하는 방식으로 한다
+  // await Post.destroy({ where : {id : req.params.id, userId : req.user.id}});
+
+router.delete('/delete', async (req, res, next) => {
   try {
-    await Post.destroy({ where : {id : req.params.id, userId : req.user.id}});
+    await Post.destroy({ where : {id : req.query.id, userId : req.user.id}});
     //내가 쓴 게시글인지 확인하고 지우기
     res.send('OK');
   }
