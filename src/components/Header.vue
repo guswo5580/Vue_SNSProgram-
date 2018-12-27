@@ -2,13 +2,11 @@
     <div class = "header-container">
         <nav>
             <div class = "header">
-                <router-link :to=" { name : 'home' }" class = "routing" > 
-                    <div class = "logo-container" @click="ChangeBoard">
-                        <div class = "logo-image"><i class="far fa-paper-plane fa-2x"></i></div>
-                        <div class = "divide">&nbsp;</div>
-                        <div class = "logo-text">peaceocean</div>
+                    <div class = "logo-container" @click="LinkToHome">
+                        <span class = "logo-image"><i class="far fa-paper-plane fa-2x" @click="LinkToHome"></i></span>
+                        <span class = "divide" @click="LinkToHome">&nbsp;</span>
+                        <span class = "logo-text" @click="LinkToHome">peaceocean</span>
                     </div>
-                </router-link>
                 <div class = "search-container">
                     <div class = "form-group">
                         <b-form-input v-model="search" type="text" placeholder="Tags"
@@ -55,7 +53,12 @@ export default {
             });
             this.search = '';
         },
-        ChangeBoard(){
+        LinkToHome(){
+            this.$router.push(
+                {
+                    name : 'home'
+                }
+            )
             this.$store.state.changeboard = false;
         }
     }
@@ -123,7 +126,7 @@ export default {
     .logout:hover{
         color : rgb(66, 164, 244);
     }
-    .tooltiptext{
+    /* .tooltiptext{
         visibility: hidden;
         width : 120px;
         background-color : white;
@@ -137,7 +140,7 @@ export default {
     }
     .tooltiptext:hover{
         visibility: visible;
-    }
+    } */
 /* ////////////////////////////////////// */
     @media (max-width : 700px) {
         .logo-container {
@@ -152,17 +155,20 @@ export default {
         .header {
             padding : 5px;
         }
+        .logo-container {
+            width : 15%;
+        }
         .search-container {
+            width : 50%;
+        }
+        .form-group {
+            width : 70%;
+        }
+        .logo-text , .divide {
             display : none;
         }
-        .logo-container {
-            width : 60%;
-        }
-        .logo-text {
-            display : flex;
-        }
         .nav-container {
-            width : 40%;
+            width : 30%;
             justify-content: center;
             margin-right : 20px;
         }
