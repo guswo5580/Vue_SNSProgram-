@@ -2,8 +2,10 @@
     <div>
         <Header></Header>
         <main-post></main-post>
-        <main-board v-if="$store.state.changeboard === false"></main-board>
-        <search-tags v-else></search-tags>
+        <transition name="fade" mode="out-in">
+            <main-board v-if="$store.state.changeboard === false"></main-board>
+            <search-tags v-else></search-tags>
+        </transition>
         <Footer></Footer>
     </div>
 </template>
@@ -32,6 +34,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .4s ease;
+    }
+    .fade-enter, .fade-leave-to
+    /* .routing-fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
 </style>

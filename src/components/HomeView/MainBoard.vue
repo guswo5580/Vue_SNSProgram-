@@ -43,9 +43,6 @@ export default {
     created() {
         this.$store.dispatch('GET_DASHBOARD');
     },
-    methods : {
-
-    },
     filters : {
         removeHashtag(value) {
             let branch = value.indexOf('#');
