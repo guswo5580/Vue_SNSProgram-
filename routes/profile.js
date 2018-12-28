@@ -9,6 +9,32 @@ const router = express.Router();
 router.get('/', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
+router.get('/dashboard', async (req, res, next) => {
+    Post.findAll({ 
+        where : { userId : req.user.id },
+        //User 확인 후 정보를 찾기
+        include : [{
+            model : User,
+            attributes : ['id', 'nick'],
+        }, {
+            model : User,
+            attributes : ['id', 'nick'],
+            as : 'Liker',
+        }],
+        order : [['createdAt', 'DESC']],
+    })
+    .then( (posts) => {
+        res.send({
+            twits : posts,
+            user : req.user,
+            loginError : req.flash('loginError'),
+        });
+    })
+    .catch( (error) => {
+        console.error(error);
+        next(error);
+    });
+});
 
 router.get('/information', (req, res) => {
     res.send( {user: req.user });
