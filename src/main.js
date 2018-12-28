@@ -5,6 +5,7 @@ import App from './App.vue'
 import  store  from './store/index.js';
 import { router } from './routes/index.js';
 import BootstrapVue from 'bootstrap-vue'
+import BackToTop from 'vue-backtotop';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -25,7 +26,8 @@ const options = {
 }
 
 Vue.use(BootstrapVue);
-Vue.use(VueProgressBar, options)
+Vue.use(VueProgressBar, options);
+Vue.use(BackToTop);
 
 new Vue({
   render: h => h(App),
