@@ -3,6 +3,7 @@
         <Header></Header>
         <profile-main v-if="this.window.width >= 900"></profile-main>
         <profile-main-res v-else></profile-main-res>
+        <profile-dashboard></profile-dashboard>
         <Footer></Footer>
     </div>
 </template>
@@ -12,6 +13,7 @@ import Header from '../Header.vue';
 import Footer from '../Footer.vue';
 import ProfileMain from './ProfileMain.vue';
 import ProfileMainRes from './ProfileMainRes.vue';
+import ProfileDashboard from './ProfileDashboard.vue';
 
 export default {
     data() {
@@ -37,7 +39,8 @@ export default {
         Header,
         Footer,
         ProfileMain,
-        ProfileMainRes
+        ProfileMainRes,
+        ProfileDashboard
     }
 }
 </script>

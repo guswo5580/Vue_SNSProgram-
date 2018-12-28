@@ -8,6 +8,9 @@ export default {
     DASHBOARD(state, data) {
         state.dashboard = data;
     },
+    PROFILE_DASHBOARD(state, data) {
+        state.profiledashboard = data; 
+    },
     SET_IMAGE(state, data) {
         state.postimage = data;
     },

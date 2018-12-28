@@ -68,6 +68,13 @@ export default {
             })
             .catch()
     },
+    GET_PROFILE_DASHBOARD( {commit }){
+        axios.get('/profile/dashboard')
+            .then( response => {
+                commit('PROFILE_DASHBOARD', response.data.twits);
+            })
+            .catch()
+    },
     DELETE_DASHBOARD({commit}, data) {
         alert("해당 게시글을 삭제하시겠습니까?");
         axios.delete('/post/delete', {

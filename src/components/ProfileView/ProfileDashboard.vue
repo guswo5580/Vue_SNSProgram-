@@ -1,6 +1,6 @@
 <template>
     <div class = "board-container" >
-        <transition name="fade" mode="out-in" v-for="dashboard in $store.getters.getDashboard" :key="dashboard">
+        <transition name="fade" mode="out-in" v-for="dashboard in $store.getters.getProfileDashboard" :key="dashboard">
             <dash-board>
                 <span slot="name" class = "name">
                     {{dashboard.user.nick}}
@@ -18,7 +18,13 @@
                 <span slot="like-content" class ="like-content" v-for="like in dashboard.Liker" :key="like">
                     {{like.nick}}
                 </span>
-            </dash-board>            
+                <div class = "button">
+                    <span class = "delete-btn" 
+                        v-if="$store.state.user.id === dashboard.userId">
+                        <b-button @click="Delete(dashboard.id)">삭제하기</b-button>
+                    </span>
+                </div>
+            </dash-board>    
         </transition>
     </div>
 </template>
@@ -28,10 +34,14 @@ import DashBoard from '@/components/common/dashboard.vue';
 
 export default {
     created() {
-        this.$store.dispatch('GET_DASHBOARD');
+        this.$store.dispatch('GET_PROFILE_DASHBOARD');
     },
     methods : {
-        
+        Delete( data ){
+            this.$store.dispatch('DELETE_DASHBOARD', {
+                id : data
+            });
+        },
     },
     filters : {
         removeHashtag(value) {
