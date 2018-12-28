@@ -19,10 +19,11 @@
                     {{like.nick}}
                 </span>
                 <div class = "button">
-                    <span v-if="$store.state.user.id === dashboard.userId">
+                    <!-- <span v-if="$store.state.user.id === dashboard.userId"> -->
+                    <span>
                         <b-button class = "delete-btn" @click="Delete(dashboard.id)">삭제하기</b-button>
                     </span>
-                    <span v-else style="display : none;"></span>
+                    <!-- <span v-else style="display : none;"></span> -->
                 </div>
             </dash-board>    
         </transition>

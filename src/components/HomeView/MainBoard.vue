@@ -18,7 +18,13 @@
                 <span slot="like-content" class ="like-content" v-for="like in dashboard.Liker" :key="like">
                     {{like.nick}}
                 </span>
-            </dash-board>            
+                <span slot="like-btn" v-if="dashboard.Liker.map(l=>l.id).includes($store.state.user.id)">
+                    {{bool}}
+                </span>
+                <span slot="like-btn" v-else>
+                    {{bool2}}
+                </span>
+            </dash-board>        
         </transition>
     </div>
 </template>
@@ -27,12 +33,20 @@
 import DashBoard from '@/components/common/dashboard.vue';
 
 export default {
+    computed : {
+        // follow(){
+        //     return this.$store.state.dashboard.Liker.map(l=>l.id).includes(this.$store.state.user.id);
+        // }
+    },
     created() {
         this.$store.dispatch('GET_DASHBOARD');
     },
-    methods : {
-        
-    },
+    data(){
+        return {
+            bool : 'true',
+            bool2 : 'false'
+        }
+    },  
     filters : {
         removeHashtag(value) {
             let branch = value.indexOf('#');

@@ -60,7 +60,7 @@
             <div class = "profile-main">
                 <div class = "board">
                     <span class = "board-text">게시글</span>
-                    <span class = "board-num">5</span>
+                    <span class = "board-num">{{$store.state.profiledashboard.length}}</span>
                 </div>
                 <div class = "followers">
                     <span class = "followers-text">팔로워</span>

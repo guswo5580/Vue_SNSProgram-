@@ -21,6 +21,9 @@
                 </span>
                 <slot name ="like-content"></slot>
             </div>
+            <div class = "button-like">
+                <slot name="like-btn"></slot>
+            </div>
         </div>
 </template>
 
