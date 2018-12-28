@@ -17,5 +17,5 @@ export default {
     },
     SEND_MESSAGE(state) {
         state.deletemessage = true;
-    }
+    } 
 }
