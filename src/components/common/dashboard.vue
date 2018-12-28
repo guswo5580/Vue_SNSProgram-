@@ -61,6 +61,7 @@ export default {
     
 
     /* ///////////////////////////////////////// */
+    
     @media (max-width : 850px) {
         .board-aligns {
             display : block;
