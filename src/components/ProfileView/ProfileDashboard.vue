@@ -19,10 +19,10 @@
                     {{like.nick}}
                 </span>
                 <div class = "button">
-                    <span class = "delete-btn" 
-                        v-if="$store.state.user.id === dashboard.userId">
-                        <b-button @click="Delete(dashboard.id)">삭제하기</b-button>
+                    <span v-if="$store.state.user.id === dashboard.userId">
+                        <b-button class = "delete-btn" @click="Delete(dashboard.id)">삭제하기</b-button>
                     </span>
+                    <span v-else style="display : none;"></span>
                 </div>
             </dash-board>    
         </transition>
@@ -108,6 +108,18 @@ export default {
     /* ////////////////////////////////////////// */
     .like-content {
         color : rgb(66, 164, 244);
+    }
+    /* ////////////////////////////////////////// */
+    .button {
+        text-align: right;
+        padding : 15px;
+    }
+    .delete-btn {
+        background-color: rgb(66, 164, 244);
+        font-size : 1rem;
+        color : white;
+        text-align : center;
+        border : none;
     }
 
     /* ////////////////////////////////////// */
