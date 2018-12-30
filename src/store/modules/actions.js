@@ -158,5 +158,40 @@ export default {
                 }
             })
             .catch()
-    }
+    },
+
+    ////////////////////Like & Follow/////////////////////////
+    SEND_LIKE( { dispatch }, data ){
+        axios.post(`/post/${data.id}/like`, {
+            params : {
+                id : data.id
+            }
+        })
+            .then( response => {
+                if(response.data === 'success') {
+                    // location.reload();
+                    // dispatch('GET_DASHBOARD');
+                }else {
+                    alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
+                }
+            })
+            .catch()
+    },
+    CANCEL_LIKE( { dispatch }, data ){
+        axios.post(`/post/${data.id}/unlike`, {
+            params : {
+                id : data.id
+            }
+        })
+            .then( response => {
+                if(response.data === 'success'){
+                    // location.reload();
+                    // dispatch('GET_DASHBOARD');
+                }else {
+                    alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
+                }
+            })
+            .catch()
+    },
+    //////////////////////Dashboard 별로 나누어서 선언해주어야 하나...???/////////////////////////
 }

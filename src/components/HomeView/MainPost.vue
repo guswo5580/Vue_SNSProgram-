@@ -11,7 +11,7 @@
                         <label for="inputFile">
                             <span class = "inputFile-btn">사진 업로드</span>
                         </label>
-                        <input id="inputFile" type="file" @change="onFileSelected" accept="image/*" style="display : none;">
+                        <input id="inputFile" type="file" @change="onFileSelected" accept="image/*" multiple style="display : none;">
                     </div>
                     <div class = "submit-section">
                         <label for="submitbtn">

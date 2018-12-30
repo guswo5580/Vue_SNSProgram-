@@ -1,6 +1,6 @@
 <template>
     <div class = "board-container" >
-        <transition name="fade" mode="out-in" v-for="dashboard in $store.getters.getDashboard" :key="dashboard">
+        <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
             <dash-board>
                 <span slot="name" class = "name">
                     {{dashboard.user.nick}}
@@ -15,14 +15,27 @@
                     <b-img class = "image-2"  fluid alt="Responsive image" v-if="dashboard.img === null"/>
                     <b-img class = "image" :src="dashboard.img" fluid alt="이미지 로드 오류" v-else/>
                 </div>
-                <span slot="like-content" class ="like-content" v-for="like in dashboard.Liker" :key="like">
-                    {{like.nick}}
+                <span slot="like-count" class ="like-content" >
+                    {{dashboard.Liker.length}}
                 </span>
-                <span slot="like-btn" v-if="dashboard.Liker.map(l=>l.id).includes($store.state.user.id)">
-                    {{bool}}
+
+                <span slot="like-btn" v-if="dashboard.Liker.map(l=>l.id).includes($store.state.user.id)"
+                        class = "like-btn-true" @click="cancelLike(dashboard.id)">
+                    <i class="fas fa-thumbs-up fa-2x"></i>
                 </span>
-                <span slot="like-btn" v-else>
-                    {{bool2}}
+                <span slot="like-btn" v-else @click="sendLike(dashboard.id)">
+                    <i class="fas fa-thumbs-up fa-2x"></i>
+                </span>
+                
+                <span slot="follow-btn">
+                    <i class="fab fa-telegram-plane fa-2x"></i>
+                </span>
+                <span slot="delete-btn" v-if="dashboard.userId === $store.state.user.id"
+                    @click="Delete(dashboard.id)">
+                    <i class="fas fa-trash-alt fa-2x"></i>
+                </span>
+                <span slot="delete-btn" class = "delete-btn-false" v-else >
+                    <i class="fas fa-trash-alt fa-2x"></i>
                 </span>
             </dash-board>        
         </transition>
@@ -33,20 +46,36 @@
 import DashBoard from '@/components/common/dashboard.vue';
 
 export default {
+    data(){
+        return {
+            
+        }
+    },
     computed : {
-        // follow(){
-        //     return this.$store.state.dashboard.Liker.map(l=>l.id).includes(this.$store.state.user.id);
-        // }
+        checkDashBoard() {
+            return this.$store.getters.getDashboard
+        }
     },
     created() {
         this.$store.dispatch('GET_DASHBOARD');
     },
-    data(){
-        return {
-            bool : 'true',
-            bool2 : 'false'
+    methods : {
+        Delete( data ){
+            this.$store.dispatch('DELETE_DASHBOARD', {
+                id : data
+            });
+        },
+        sendLike( data ) {
+            this.$store.dispatch('SEND_LIKE', {
+                id : data
+            });
+        },
+        cancelLike( data ) {
+            this.$store.dispatch('CANCEL_LIKE', {
+                id : data
+            });
         }
-    },  
+    },
     filters : {
         removeHashtag(value) {
             let branch = value.indexOf('#');
@@ -112,8 +141,15 @@ export default {
     /* ////////////////////////////////////////// */
     .like-content {
         color : rgb(66, 164, 244);
+        font-size : 1rem;
     }
-
+    .like-btn-true {
+        color : rgba(66, 164, 244, 1);
+    }
+    .delete-btn-false { 
+        color : gray;
+    }
+    
     /* ////////////////////////////////////// */
     .fade-enter-active, .fade-leave-active {
         transition: opacity .4s ease;

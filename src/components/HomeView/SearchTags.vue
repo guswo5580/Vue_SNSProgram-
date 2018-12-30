@@ -15,8 +15,17 @@
                     <b-img class = "image-2"  fluid alt="Responsive image" v-if="tag.img === null"/>
                     <b-img class = "image" :src="tag.img" fluid alt="이미지 로드 오류" v-else/>
                 </div>
-                <span slot="like-content" class = "like-content" v-for="like in tag.Liker" :key="like">
-                    {{like.nick}}
+                <span slot="like-count" class ="like-content" >
+                    {{dashboard.Liker.length}}
+                </span>
+                <span slot="like-btn">
+                    <i class="fas fa-thumbs-up fa-2x"></i>
+                </span>
+                <span slot="follow-btn">
+                    <i class="fab fa-telegram-plane fa-2x"></i>
+                </span>
+                <span slot="delete-btn">
+                    <i class="fas fa-trash-alt fa-2x"></i>
                 </span>
             </dash-board>
         </transition>
@@ -92,6 +101,7 @@ export default {
     /* ////////////////////////////////////////// */
     .like-content {
         color : rgb(66, 164, 244);
+        font-size : 1rem;
     }
 
     /* ////////////////////////////////////// */

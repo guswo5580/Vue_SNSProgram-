@@ -9,7 +9,7 @@
                     </div>
                 <div class = "search-container">
                     <div class = "form-group">
-                        <b-form-input v-model="search" type="text" placeholder="Tags"
+                        <b-form-input v-model="search" type="text" placeholder="해시태그 검색"
                                     @keyup.enter.native="Search"></b-form-input>
                     </div>
                     <div class = "form-button">

@@ -1,31 +1,33 @@
 <template>
     <div class = "board-container" >
         <transition name="fade" mode="out-in" v-for="dashboard in $store.getters.getProfileDashboard" :key="dashboard">
-            <dash-board>
-                <span slot="name" class = "name">
-                    {{dashboard.user.nick}}
-                </span>
-                <span slot="content" class = "content">
-                    {{dashboard.content | removeHashtag}}
-                </span>
-                <span slot="hashtag" class = "hashtag">
-                    {{dashboard.content | removeContent}}
-                </span>
-                <div slot="main-image">
-                    <b-img class = "image-2"  fluid alt="Responsive image" v-if="dashboard.img === null"/>
-                    <b-img class = "image" :src="dashboard.img" fluid alt="이미지 로드 오류" v-else/>
-                </div>
-                <span slot="like-content" class ="like-content" v-for="like in dashboard.Liker" :key="like">
-                    {{like.nick}}
-                </span>
-                <div class = "button">
-                    <!-- <span v-if="$store.state.user.id === dashboard.userId"> -->
-                    <span>
-                        <b-button class = "delete-btn" @click="Delete(dashboard.id)">삭제하기</b-button>
+                <dash-board>
+                    <span slot="name" class = "name">
+                        {{dashboard.user.nick}}
                     </span>
-                    <!-- <span v-else style="display : none;"></span> -->
-                </div>
-            </dash-board>    
+                    <span slot="content" class = "content">
+                        {{dashboard.content | removeHashtag}}
+                    </span>
+                    <span slot="hashtag" class = "hashtag">
+                        {{dashboard.content | removeContent}}
+                    </span>
+                    <div slot="main-image">
+                        <b-img class = "image-2"  fluid alt="Responsive image" v-if="dashboard.img === null"/>
+                        <b-img class = "image" :src="dashboard.img" fluid alt="이미지 로드 오류" v-else/>
+                    </div>
+                    <span slot="like-count" class ="like-content" >
+                        {{dashboard.Liker.length}}
+                    </span>
+                    <span slot="like-btn">
+                        <i class="fas fa-thumbs-up fa-2x"></i>
+                    </span>
+                    <span slot="follow-btn">
+                        <i class="fab fa-telegram-plane fa-2x"></i>
+                    </span>
+                    <span slot="delete-btn">
+                        <i class="fas fa-trash-alt fa-2x"></i>
+                    </span>
+                </dash-board>
         </transition>
     </div>
 </template>
@@ -109,18 +111,7 @@ export default {
     /* ////////////////////////////////////////// */
     .like-content {
         color : rgb(66, 164, 244);
-    }
-    /* ////////////////////////////////////////// */
-    .button {
-        text-align: right;
-        padding : 15px;
-    }
-    .delete-btn {
-        background-color: rgb(66, 164, 244);
         font-size : 1rem;
-        color : white;
-        text-align : center;
-        border : none;
     }
 
     /* ////////////////////////////////////// */
