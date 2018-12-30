@@ -5,6 +5,14 @@
                 <span slot="name" class = "name">
                     {{dashboard.user.nick}}
                 </span>
+                <span slot="delete-btn" v-if="dashboard.userId === $store.state.user.id"
+                    @click="Delete(dashboard.id)">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+                <span slot="delete-btn" class = "delete-btn-false" v-else >
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+
                 <span slot="content" class = "content">
                     {{dashboard.content | removeHashtag}}
                 </span>
@@ -18,25 +26,32 @@
                 <span slot="like-count" class ="like-content" >
                     {{dashboard.Liker.length}}
                 </span>
+                <span slot="liker">
+                    <b-dropdown class = "likers-name" variant = "link" no-caret>
+                        <template slot="button-content">
+                            <span><i class="fas fa-list-ul"></i></span>
+                        </template>
+                        <b-dropdown-item class = "likers-item" v-for="(nick, index) in dashboard.Liker" :key="index"
+                                    v-if="nick.length != 0">
+                            {{nick.nick}}
+                        </b-dropdown-item>
+                    </b-dropdown>
+                </span>
 
                 <span slot="like-btn" v-if="dashboard.Liker.map(l=>l.id).includes($store.state.user.id)"
-                        class = "like-btn-true" @click="cancelLike(dashboard.id)">
+                        class = "like-btn-true" @click="cancelLike({id : dashboard.id})">
                     <i class="fas fa-thumbs-up fa-2x"></i>
                 </span>
-                <span slot="like-btn" v-else @click="sendLike(dashboard.id)">
+                <span slot="like-btn" v-else @click="sendLike({id : dashboard.id})">
                     <i class="fas fa-thumbs-up fa-2x"></i>
                 </span>
                 
                 <span slot="follow-btn">
                     <i class="fab fa-telegram-plane fa-2x"></i>
                 </span>
-                <span slot="delete-btn" v-if="dashboard.userId === $store.state.user.id"
-                    @click="Delete(dashboard.id)">
-                    <i class="fas fa-trash-alt fa-2x"></i>
-                </span>
-                <span slot="delete-btn" class = "delete-btn-false" v-else >
-                    <i class="fas fa-trash-alt fa-2x"></i>
-                </span>
+                <span slot="review-btn">
+                    <i class="fas fa-edit fa-2x"></i>
+                </span>  
             </dash-board>        
         </transition>
     </div>
@@ -46,11 +61,6 @@
 import DashBoard from '@/components/common/dashboard.vue';
 
 export default {
-    data(){
-        return {
-            
-        }
-    },
     computed : {
         checkDashBoard() {
             return this.$store.getters.getDashboard
@@ -62,17 +72,22 @@ export default {
     methods : {
         Delete( data ){
             this.$store.dispatch('DELETE_DASHBOARD', {
-                id : data
+                id : data,
+                count : 1,
             });
         },
         sendLike( data ) {
             this.$store.dispatch('SEND_LIKE', {
-                id : data
+                id : data.id,
+                count : 1,
+                //dashboard 구분
             });
         },
         cancelLike( data ) {
             this.$store.dispatch('CANCEL_LIKE', {
-                id : data
+                id : data.id,
+                count : 1,
+                //dashboard 구분
             });
         }
     },
@@ -149,7 +164,11 @@ export default {
     .delete-btn-false { 
         color : gray;
     }
-    
+
+    .likers-item {
+        color : rgb(66, 164, 244);
+        font-size : 0.8rem;
+    }
     /* ////////////////////////////////////// */
     .fade-enter-active, .fade-leave-active {
         transition: opacity .4s ease;

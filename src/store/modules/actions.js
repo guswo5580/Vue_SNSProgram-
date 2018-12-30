@@ -75,7 +75,21 @@ export default {
             })
             .catch()
     },
-    DELETE_DASHBOARD({commit}, data) {
+    SEARCH_TAG( { commit }, data ){
+        axios.get('/post/hashtag', {
+            params : {
+                hashtag : data.tag
+            }
+        })
+            .then( response => {
+                if(response.data === 'Failed') {
+                    alert('검색한 태그가 없습니다.');
+                }
+                commit('HASHTAG', response.data.twits);
+            })
+            .catch()
+    },
+    DELETE_DASHBOARD({commit, dispatch}, data) {
         alert("해당 게시글을 삭제하시겠습니까?");
         axios.delete('/post/delete', {
             params : {
@@ -83,11 +97,22 @@ export default {
             }
         })
             .then( response => {
-                if(response.data === 'OK'){
+                if(response.data === 'OK' && data.count === 1){
                     alert('게시글이 삭제되었습니다.');
                     commit('SEND_MESSAGE');
-                    location.reload();
-                }else{
+                    dispatch('GET_DASHBOARD');
+
+                } else if(response.data === 'OK' && data.count === 2){
+                    alert('게시글이 삭제되었습니다.');
+                    commit('SEND_MESSAGE');
+                    dispatch('GET_PROFILE_DASHBOARD');
+
+                } else if(response.data === 'OK' && data.count === 3){
+                    alert('게시글이 삭제되었습니다.');
+                    commit('SEND_MESSAGE');
+                    dispatch('SEARCH_TAG');
+                } 
+                else{
                     alert('서버에 문제가 생겼습니다. 잠시 후 다시 시도해주세요.');
                     location.reload();
                 }
@@ -108,20 +133,6 @@ export default {
                 }else {
                     dispatch('GET_DASHBOARD');
                 }    
-            })
-            .catch()
-    },
-    SEARCH_TAG( { commit }, data ){
-        axios.get('/post/hashtag', {
-            params : {
-                hashtag : data.tag
-            }
-        })
-            .then( response => {
-                if(response.data === 'Failed') {
-                    alert('검색한 태그가 없습니다.');
-                }
-                commit('HASHTAG', response.data.twits);
             })
             .catch()
     },
@@ -168,10 +179,14 @@ export default {
             }
         })
             .then( response => {
-                if(response.data === 'success') {
-                    // location.reload();
-                    // dispatch('GET_DASHBOARD');
-                }else {
+                if(response.data === 'success' && data.count === 1) {
+                    dispatch('GET_DASHBOARD');
+                }else if( response.data === 'success' && data.count === 2){
+                    dispatch('GET_PROFILE_DASHBOARD');
+                }else if( response.data === 'success' && data.count === 3){
+                    dispatch('SEARCH_TAG');
+                }
+                else {
                     alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
                 }
             })
@@ -184,14 +199,18 @@ export default {
             }
         })
             .then( response => {
-                if(response.data === 'success'){
-                    // location.reload();
-                    // dispatch('GET_DASHBOARD');
-                }else {
+                if(response.data === 'success' && data.count === 1) {
+                    dispatch('GET_DASHBOARD');
+                }else if( response.data === 'success' && data.count === 2){
+                    dispatch('GET_PROFILE_DASHBOARD');
+                }else if( response.data === 'success' && data.count === 3){
+                    dispatch('SEARCH_TAG');
+                }
+                else {
                     alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
                 }
             })
             .catch()
     },
-    //////////////////////Dashboard 별로 나누어서 선언해주어야 하나...???/////////////////////////
+    ////////////////////// 매 순간마다 Data를 갱신하는 것보다 눈에만 보이게 해두고 후에 한번에 갱신하는 방법이 좋다 /////////////////////////
 }

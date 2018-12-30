@@ -5,6 +5,9 @@
                 <span class = "sub-name">
                     님이 글을 게시했습니다.
                 </span>
+                <span class = "delete-btn">
+                    <slot name = "delete-btn"></slot>
+                </span>
             </div>
             <div class = "board-main">
                 <div class = "main-content">
@@ -20,6 +23,7 @@
                 <span class = "like-content">
                     명이 좋아합니다
                 </span>
+                <slot name ="liker"></slot>
             </div>
             <div class = "button-section">
                 <div class = "like-btn">
@@ -28,8 +32,8 @@
                 <div class = "follow-btn">
                     <slot name="follow-btn"></slot>
                 </div>
-                <div class = "delete-btn">
-                    <slot name="delete-btn"></slot>
+                <div class = "review-btn">
+                    <slot name="review-btn"></slot>
                 </div>
             </div>
         </div>
@@ -81,13 +85,18 @@ export default {
         justify-content: center;
         border-top : 2px solid rgba(0, 0, 0, 0.1);
     }
-    .like-btn , .follow-btn , .delete-btn {
+    .delete-btn {
+        display: inline-block;
+        text-align: right;
+        color : rgba(66, 164, 244, 1);
+    }
+    .like-btn , .follow-btn , .review-btn {
         width : 33%;
         padding : 10px;
         text-align : center;
         color : rgba(66, 164, 244, 0.5);
     }
-    .like-btn:hover, .follow-btn:hover , .delete-btn:hover {
+    .like-btn:hover, .follow-btn:hover , .review-btn:hover {
         background-color: rgba(0, 0, 0, 0.02);
         color : rgba(66, 164, 244, 1);
     }

@@ -5,7 +5,7 @@ export default {
     getProfileDashboard ( state ){
         return state.profiledashboard;
     },
-    getTags( state ) {
+    getTagInfo( state ) {
         return state.tagInfo;
     },
 
