@@ -145,7 +145,7 @@ router.post('/:id/like', async (req, res, next) => {
   try {
     const post = await Post.find({ where : {id : req.params.id}});
     await post.addLiker(req.user.id);
-    res.send('OK');
+    res.send('success');
   }
   catch(err){
     console.log(err);
@@ -156,7 +156,7 @@ router.post('/:id/unlike', async (req, res, next) => {
   try {
     const post = await Post.find({ where : {id : req.params.id}});
     await post.removeLiker(req.user.id);
-    res.send('OK');
+    res.send('success');
   }
   catch(err){
     console.log(err);

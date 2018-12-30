@@ -10,6 +10,7 @@ router.get('/', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 router.get('/dashboard', async (req, res, next) => {
+    // const isfollow = req.user.Followings.map(f=>f.id).includes(req.user.id);
     Post.findAll({ 
         where : { userId : req.user.id },
         //User 확인 후 정보를 찾기
@@ -28,6 +29,7 @@ router.get('/dashboard', async (req, res, next) => {
             twits : posts,
             user : req.user,
             loginError : req.flash('loginError'),
+            // follow : isfollow,
         });
     })
     .catch( (error) => {

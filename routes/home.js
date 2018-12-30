@@ -13,6 +13,7 @@ router.get('/', isLoggedIn, (req, res) => {
 
 //메인 페이지 - 요청
 router.get('/dashboard', (req, res, next) => {
+
   Post.findAll({
     include: [{
       model: User,
@@ -29,7 +30,6 @@ router.get('/dashboard', (req, res, next) => {
         twits: posts,
         //post.js에서 넘어오는 정보들을 담는다 
         user: req.user,
-        //없어도 됨
         loginError: req.flash('loginError'),
       });
     })
