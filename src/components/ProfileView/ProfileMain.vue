@@ -158,6 +158,7 @@ export default {
 </script>
 
 <style scoped>
+/* >>>>>>>>>>>>>>>>>>>>>>>> */
     .profile-container {
         display : flex;
         align-items: center;
@@ -189,6 +190,8 @@ export default {
         margin-right : 20px;
         margin-left : 20px;
     }
+/* >>>>>>>>>>>>>>>>>>>>>>>> */
+
     .text-center {
         color : rgba(66, 164, 244, 0.8);
     }
@@ -219,6 +222,7 @@ export default {
         background-color: rgb(66, 164, 244);
     }
     /* //////////////////////////////// */
+/* >>>>>>>>>>>>>>>>>>>>>>>> */
     .profile-main {
         display : flex;
         align-items: center;
@@ -233,6 +237,8 @@ export default {
         display : flex;
         align-items: center;
     }
+/* >>>>>>>>>>>>>>>>>>>>>>>> */
+
     .board-num , .followers-num, .followings-num {
         margin-left : 15px;
         color : rgb(66, 164, 244);
@@ -291,5 +297,80 @@ export default {
         .profile-content {
             width : 50%;
         }
+    }
+    @media (max-width : 900px ) {
+        .profile-container {
+            width : 80%;
+            display : block;
+            margin : 0 auto;
+            margin-top : 100px;
+        }
+        .profile-img {
+            width : 50%;
+            margin : 0 auto 30px auto;
+        }
+        .profile-content {
+            width : 80%;
+            margin : 0 auto;
+            text-align : center;
+        }
+        .profile-img-change {
+            max-height: 60%;
+            max-width : 100%;
+        }
+        .profile-header {
+            display : flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom : 20px;
+        }
+        .profile-header-title {
+            font-size : 1.7rem;
+            margin-right : 15px;
+        }
+        .profile-main {
+            display : block;
+            width : 100%;
+            padding : 20px;
+        }
+        .followers, .followings {
+            display : block;
+            margin-left : 5%;
+        }
+        .board, .followers, .followings {
+            width : 100%;
+            display : block;
+            text-align: left;
+            font-size : 1.3rem;
+        }
+        .board-num , .followers-num, .followings-num {
+            margin-left : 15px;
+            color : rgb(66, 164, 244);
+        }
+    }
+    @media (max-width : 500px) {
+        .profile-img {
+            width : 80%;
+        } 
+        .profile-main {
+            display : block;
+            width : 100%;
+            margin : 30px auto;    
+            text-align: left;
+        }
+        .followers, .followings {
+            margin-left : 0;
+        }
+        .board, .followers {
+            margin-bottom : 5%; 
+        }
+        .board, .followers, .followings {
+            font-size : 1.3rem;
+        }
+        .board-num , .followers-num, .followings-num {
+            
+            margin-left : 15px;
+            color : rgb(66, 164, 244);
+        }  
     }
 </style>

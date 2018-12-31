@@ -49,7 +49,7 @@ export default {
     .board-aligns {
         display : inline-block;
         width : 40%;
-        margin : 20px 2% 20px 4%;
+        margin : 20px 2% 20px 6%;
         border : 2px solid rgba(0, 0, 0, 0.1);
         vertical-align: top;
     }
