@@ -68,6 +68,7 @@ export default {
     },
     created() {
         this.$store.dispatch('GET_DASHBOARD');
+        console.log(this.$router.name);
     },
     methods : {
         Delete( data ){
