@@ -69,18 +69,21 @@ export default {
             this.$store.dispatch('DELETE_DASHBOARD', {
                 id : data,
                 count : 3,
+                tag : localStorage.getItem('tag')
             });
         },
         sendLike( data ) {
             this.$store.dispatch('SEND_LIKE', {
                 id : data.id,
                 count : 3,
+                tag : localStorage.getItem('tag')
             });
         },
         cancelLike( data ) {
             this.$store.dispatch('CANCEL_LIKE', {
                 id : data.id,
                 count : 3,
+                tag : localStorage.getItem('tag')
             });
         }
     },

@@ -89,6 +89,20 @@ export default {
             })
             .catch()
     },
+    RESET_TAG( { commit }, data ){
+        axios.get('/post/hashtag', {
+            params : {
+                hashtag : data.tag
+            }
+        })
+            .then( response => {
+                if(response.data === 'Failed'){
+                    alert('검색한 태그가 없습니다.');
+                }
+                commit('HASHTAG_DASHBOARD', response.data.twits);
+            })
+            .catch()
+    },
     DELETE_DASHBOARD({commit, dispatch}, data) {
         alert("해당 게시글을 삭제하시겠습니까?");
         axios.delete('/post/delete', {
@@ -110,7 +124,9 @@ export default {
                 } else if(response.data === 'OK' && data.count === 3){
                     alert('게시글이 삭제되었습니다.');
                     commit('SEND_MESSAGE');
-                    dispatch('SEARCH_TAG');
+                    dispatch('RESET_TAG' , {
+                        tag : data.tag
+                    });
                 } 
                 else{
                     alert('서버에 문제가 생겼습니다. 잠시 후 다시 시도해주세요.');
@@ -184,7 +200,9 @@ export default {
                 }else if( response.data === 'success' && data.count === 2){
                     dispatch('GET_PROFILE_DASHBOARD');
                 }else if( response.data === 'success' && data.count === 3){
-                    dispatch('SEARCH_TAG');
+                    dispatch('RESET_TAG' , {
+                        tag : data.tag
+                    });
                 }
                 else {
                     alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
@@ -204,7 +222,9 @@ export default {
                 }else if( response.data === 'success' && data.count === 2){
                     dispatch('GET_PROFILE_DASHBOARD');
                 }else if( response.data === 'success' && data.count === 3){
-                    dispatch('SEARCH_TAG');
+                    dispatch('RESET_TAG' , {
+                        tag : data.tag
+                    });
                 }
                 else {
                     alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
