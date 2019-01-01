@@ -57,38 +57,12 @@
 
 <script>
 import DashBoard from '@/components/common/dashboardplatform.vue';
+import DashBoardMixin from '@/components/Mixin/dashboardmixin.js';
 import filters from '@/components/Mixin/filters.js';
 
 export default {
-    mixins : [filters],
-    computed : {
-        checkDashBoard() {
-            return this.$store.getters.getTagInfo
-        }
-    },
-    methods : {
-        Delete( data ){
-            this.$store.dispatch('DELETE_DASHBOARD', {
-                id : data,
-                count : 3,
-                tag : localStorage.getItem('tag')
-            });
-        },
-        sendLike( data ) {
-            this.$store.dispatch('SEND_LIKE', {
-                id : data.id,
-                count : 3,
-                tag : localStorage.getItem('tag')
-            });
-        },
-        cancelLike( data ) {
-            this.$store.dispatch('CANCEL_LIKE', {
-                id : data.id,
-                count : 3,
-                tag : localStorage.getItem('tag')
-            });
-        }
-    },
+    mixins : [DashBoardMixin, filters],
+
     components : {
         DashBoard
     }
@@ -142,7 +116,6 @@ export default {
         color : rgb(66, 164, 244);
         font-size : 0.8rem;
     }
-
     /* ////////////////////////////////////// */
     .fade-enter-active, .fade-leave-active {
         transition: opacity .4s ease;
