@@ -57,10 +57,11 @@
 
 <script>
 import DashBoard from '@/components/common/dashboard.vue';
-import Mixin from '@/components/Mixin/mixin.js';
+import DashBoardMixin from '@/components/Mixin/dashboardmixin.js';
+import filters from '@/components/Mixin/filters.js';
 
 export default {
-    mixins : [Mixin],
+    mixins : [DashBoardMixin, filters],
     
     components : {
         DashBoard

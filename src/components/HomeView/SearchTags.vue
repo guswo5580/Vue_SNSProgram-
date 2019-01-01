@@ -57,12 +57,10 @@
 
 <script>
 import DashBoard from '@/components/common/dashboard.vue';
+import filters from '@/components/Mixin/filters.js';
 
 export default {
-    created() {
-        console.log(this.$route);
-        console.log(this.$route.params);
-    },
+    mixins : [filters],
     computed : {
         checkDashBoard() {
             return this.$store.getters.getTagInfo
@@ -89,31 +87,6 @@ export default {
                 count : 3,
                 tag : localStorage.getItem('tag')
             });
-        }
-    },
-    filters : {
-        removeHashtag(value) {
-            let branch = value.indexOf('#');
-            if(!value) return ''
-            else {
-                if( branch == -1){
-                    return value
-                }else {        
-                    return value.substring(0, branch); 
-                }
-            }   
-        },
-        removeContent(value) {
-            let branch = value.indexOf('#');
-            if(!value) return ''
-            else {
-                if(branch == -1){
-                    return ''
-                }
-                else {
-                    return value.substring( branch , value.length );
-                }
-            }        
         }
     },
     components : {
