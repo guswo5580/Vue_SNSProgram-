@@ -61,11 +61,11 @@ import Mixin from '@/components/Mixin/mixin.js';
 
 export default {
     mixins : [Mixin],
-    computed : {
-        checkDashBoard() {
-            return this.$store.getters.getProfileDashboard
-        }
-    },
+    // computed : {
+    //     checkDashBoard() {
+    //         return this.$store.getters.getProfileDashboard
+    //     }
+    // },
     // created() {
     //     this.$store.dispatch('GET_PROFILE_DASHBOARD');
     // },

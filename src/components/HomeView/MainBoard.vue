@@ -63,11 +63,11 @@ import Mixin from '@/components/Mixin/mixin.js';
 
 export default {
     mixins : [Mixin],
-    computed : {
-        checkDashBoard() {
-            return this.$store.getters.getDashboard
-        }
-    },
+    // computed : {
+    //     checkDashBoard() {
+    //         return this.$store.getters.getDashboard
+    //     }
+    // },
     // created() {
     //     this.$store.dispatch('GET_DASHBOARD');
     //     console.log(this.$route.name);
