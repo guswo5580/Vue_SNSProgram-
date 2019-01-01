@@ -56,7 +56,7 @@ export default {
                 //tag의 속성으로 key를 정해놓으면 굳이 비워줄 필요가 없다.
                 this.search = '';
             }else {
-                this.$router.push( { name : 'home'} );
+                this.$router.push( { name : 'home' } );
                 this.$store.dispatch('SEARCH_TAG', {
                     tag : this.search
                 });

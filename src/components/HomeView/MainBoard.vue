@@ -59,17 +59,19 @@
 
 <script>
 import DashBoard from '@/components/common/dashboard.vue';
+import Mixin from '@/components/Mixin/mixin.js';
 
 export default {
+    mixins : [Mixin],
     computed : {
         checkDashBoard() {
             return this.$store.getters.getDashboard
         }
     },
-    created() {
-        this.$store.dispatch('GET_DASHBOARD');
-        console.log(this.$router.name);
-    },
+    // created() {
+    //     this.$store.dispatch('GET_DASHBOARD');
+    //     console.log(this.$route.name);
+    // },
     methods : {
         Delete( data ){
             this.$store.dispatch('DELETE_DASHBOARD', {

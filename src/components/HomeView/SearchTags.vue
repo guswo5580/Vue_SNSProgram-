@@ -59,6 +59,10 @@
 import DashBoard from '@/components/common/dashboard.vue';
 
 export default {
+    created() {
+        console.log(this.$route);
+        console.log(this.$route.params);
+    },
     computed : {
         checkDashBoard() {
             return this.$store.getters.getTagInfo
