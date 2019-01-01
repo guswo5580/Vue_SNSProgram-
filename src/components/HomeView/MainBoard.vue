@@ -72,28 +72,28 @@ export default {
     //     this.$store.dispatch('GET_DASHBOARD');
     //     console.log(this.$route.name);
     // },
-    methods : {
-        Delete( data ){
-            this.$store.dispatch('DELETE_DASHBOARD', {
-                id : data,
-                count : 1,
-            });
-        },
-        sendLike( data ) {
-            this.$store.dispatch('SEND_LIKE', {
-                id : data.id,
-                count : 1,
-                //dashboard 구분
-            });
-        },
-        cancelLike( data ) {
-            this.$store.dispatch('CANCEL_LIKE', {
-                id : data.id,
-                count : 1,
-                //dashboard 구분
-            });
-        }
-    },
+    // methods : {
+    //     Delete( data ){
+    //         this.$store.dispatch('DELETE_DASHBOARD', {
+    //             id : data,
+    //             count : 1,
+    //         });
+    //     },
+    //     sendLike( data ) {
+    //         this.$store.dispatch('SEND_LIKE', {
+    //             id : data.id,
+    //             count : 1,
+    //             //dashboard 구분
+    //         });
+    //     },
+    //     cancelLike( data ) {
+    //         this.$store.dispatch('CANCEL_LIKE', {
+    //             id : data.id,
+    //             count : 1,
+    //             //dashboard 구분
+    //         });
+    //     }
+    // },
     filters : {
         removeHashtag(value) {
             let branch = value.indexOf('#');

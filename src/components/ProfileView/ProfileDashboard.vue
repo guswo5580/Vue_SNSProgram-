@@ -69,26 +69,26 @@ export default {
     // created() {
     //     this.$store.dispatch('GET_PROFILE_DASHBOARD');
     // },
-    methods : {
-        Delete( data ){
-            this.$store.dispatch('DELETE_DASHBOARD', {
-                id : data,
-                count : 2,
-            });
-        },
-        sendLike( data ) {
-            this.$store.dispatch('SEND_LIKE', {
-                id : data.id,
-                count : 2,
-            });
-        },
-        cancelLike( data ) {
-            this.$store.dispatch('CANCEL_LIKE', {
-                id : data.id,
-                count : 2,
-            });
-        }
-    },
+    // methods : {
+    //     Delete( data ){
+    //         this.$store.dispatch('DELETE_DASHBOARD', {
+    //             id : data,
+    //             count : 2,
+    //         });
+    //     },
+    //     sendLike( data ) {
+    //         this.$store.dispatch('SEND_LIKE', {
+    //             id : data.id,
+    //             count : 2,
+    //         });
+    //     },
+    //     cancelLike( data ) {
+    //         this.$store.dispatch('CANCEL_LIKE', {
+    //             id : data.id,
+    //             count : 2,
+    //         });
+    //     }
+    // },
     filters : {
         removeHashtag(value) {
             let branch = value.indexOf('#');
