@@ -18,6 +18,9 @@ export default {
             } else {
                 return this.$store.getters.getProfileDashboard
             }
+        },
+        setUser(){
+            return this.$store.getters.getUser
         }
     },
     
@@ -41,6 +44,20 @@ export default {
                 count : this.count
                 //dashboard 구분
             });
+        },
+        CancelFollow( data ) {
+            this.$store.dispatch('CANCEL_FOLLOW', {
+                id : data.id,
+                name : data.name,
+                count : this.count,
+            })
+        },
+        SendFollow( data ) {
+            this.$store.dispatch('SEND_FOLLOW', {
+                id : data.id,
+                name : data.name,
+                count : this.count,
+            })
         }
     },
 }

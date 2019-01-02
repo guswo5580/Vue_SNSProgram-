@@ -72,6 +72,7 @@ export default {
         axios.get('/profile/dashboard')
             .then( response => {
                 commit('PROFILE_DASHBOARD', response.data.twits);
+                commit('SET_USER', response.data.user);
             })
             .catch()
     },
@@ -100,6 +101,7 @@ export default {
                     alert('검색한 태그가 없습니다.');
                 }
                 commit('HASHTAG_DASHBOARD', response.data.twits);
+                commit('SET_USER', response.data.user);
             })
             .catch()
     },
@@ -232,5 +234,46 @@ export default {
             })
             .catch()
     },
-    ////////////////////// 매 순간마다 Data를 갱신하는 것보다 눈에만 보이게 해두고 후에 한번에 갱신하는 방법이 좋다 /////////////////////////
+    CANCEL_FOLLOW( { dispatch }, data ){
+        alert(`${data.name} 님과 팔로잉을 끊으시겠습니까?`);
+        axios.post(`/user/${data.id}/unfollow`, {
+            params : data.id,
+        })
+            .then( response => {
+                if(response.data === 'success' && data.count === 1) {
+                    dispatch('GET_DASHBOARD');
+                }else if( response.data === 'success' && data.count === 2){
+                    dispatch('GET_PROFILE_DASHBOARD');
+                }else if( response.data === 'success' && data.count === 3){
+                    dispatch('RESET_TAG' , {
+                        tag : data.tag
+                    });
+                }
+                else {
+                    alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
+                }
+            })
+            .catch()
+    },
+    SEND_FOLLOW( { dispatch }, data ){
+        alert(`${data.name} 님을 팔로우 하시겠습니까?`);
+        axios.post(`/user/${data.id}/follow`, {
+            params : data.id,
+        })
+            .then( response => {
+                if(response.data === 'success' && data.count === 1) {
+                    dispatch('GET_DASHBOARD');
+                }else if( response.data === 'success' && data.count === 2){
+                    dispatch('GET_PROFILE_DASHBOARD');
+                }else if( response.data === 'success' && data.count === 3){
+                    dispatch('RESET_TAG' , {
+                        tag : data.tag
+                    });
+                }
+                else {
+                    alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
+                }
+            })
+            .catch()
+    }
 }

@@ -44,9 +44,15 @@
                 <span slot="like-btn" v-else @click="sendLike({id : dashboard.id})">
                     <i class="fas fa-thumbs-up fa-2x"></i>
                 </span>
-                <span slot="follow-btn">
+
+                <span slot="follow-btn" v-if="setUser.Followings.map(f=>f.id).includes(dashboard.userId)"
+                    class = "follow-btn-true" @click="CancelFollow({id : dashboard.userId, name : dashboard.user.nick})">
                     <i class="fab fa-telegram-plane fa-2x"></i>
                 </span>
+                <span slot="follow-btn" v-else @click="SendFollow({id : dashboard.userId, name : dashboard.user.nick})">
+                    <i class="fab fa-telegram-plane fa-2x"></i>
+                </span>
+
                 <span slot="review-btn">
                     <i class="fas fa-edit fa-2x"></i>
                 </span>  
@@ -56,7 +62,7 @@
 </template>
 
 <script>
-import DashBoard from '@/components/common/dashboardplatform.vue';
+import DashBoard from '@/components/common/dashboardslot.vue';
 import filters from '@/components/Mixin/filters.js';
 
 export default {
@@ -64,6 +70,9 @@ export default {
     computed : {
         checkDashBoard() {
             return this.$store.getters.getTagInfo
+        },
+        setUser(){
+            return this.$store.getters.getUser
         }
     },
     methods : {
@@ -87,6 +96,23 @@ export default {
                 count : 3,
                 tag : localStorage.getItem('tag')
             });
+        },
+
+        CancelFollow( data ) {
+            this.$store.dispatch('CANCEL_FOLLOW', {
+                id : data.id,
+                name : data.name,
+                count : 3,
+                tag : localStorage.getItem('tag')
+            })
+        },
+        SendFollow( data ) {
+            this.$store.dispatch('SEND_FOLLOW', {
+                id : data.id,
+                name : data.name,
+                count : 3,
+                tag : localStorage.getItem('tag')
+            })
         }
     },
     components : {
@@ -131,7 +157,7 @@ export default {
         color : rgb(66, 164, 244);
         font-size : 1rem;
     }
-    .like-btn-true {
+    .like-btn-true, .follow-btn-true {
         color : rgba(66, 164, 244, 1);
     }
     .delete-btn-false { 

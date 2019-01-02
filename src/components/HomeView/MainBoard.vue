@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DashBoard from '@/components/common/dashboard2.vue';
+import DashBoard from '@/components/common/dashboard.vue';
 
 export default {    
     components : {
