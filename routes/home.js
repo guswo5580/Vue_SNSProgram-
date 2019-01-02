@@ -13,7 +13,6 @@ router.get('/', isLoggedIn, (req, res) => {
 
 //메인 페이지 - 요청
 router.get('/dashboard', (req, res, next) => {
-
   Post.findAll({
     include: [{
       model: User,

@@ -21,7 +21,7 @@ router.get('/dashboard', async (req, res, next) => {
             model : User,
             attributes : ['id', 'nick'],
             as : 'Liker',
-        }],
+        },],
         order : [['createdAt', 'DESC']],
     })
     .then( (posts) => {
