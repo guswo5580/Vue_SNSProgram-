@@ -3,7 +3,7 @@
         <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
             <dash-board>
                 <span slot="name" class = "name">
-                    {{dashboard.user.nick}}
+                    <router-link :to="{ name : 'userpage' , params : { id : dashboard.userId }}">{{dashboard.user.nick}}</router-link>
                 </span>
                 <span slot="delete-btn" v-if="dashboard.userId === $store.state.user.id"
                     @click="Delete(dashboard.id)">

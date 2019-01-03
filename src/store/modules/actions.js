@@ -166,6 +166,13 @@ export default {
             })
             .catch()
     },
+    USERPROFILE_GET( { commit }, data ){
+        axios.get(`/profile/${data.id}/information`)
+            .then( response => {
+                commit('GET_USERPROFILE', response.data.user);
+            })
+            .catch()
+    },
     CHANGE_NICK( { dispatch }, data ) {
         axios.post('/profile/nickname', {
             nick : data.nick

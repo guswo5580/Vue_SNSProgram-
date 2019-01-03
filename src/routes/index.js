@@ -7,6 +7,7 @@ import HomeView from '../views/HomeView.vue';
 import JoinView from '../views/JoinView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import LoginView from '../views/LoginView.vue';
+import UserPage from '@/components/ProfileView/UserPage/UserPage.vue';
 
 export const router = new VueRouter({
     mode : 'history',
@@ -30,7 +31,12 @@ export const router = new VueRouter({
         {
             path : '/profile',
             name : 'profile',
-            component : ProfileView
+            component : ProfileView,
+        },
+        {
+            path : '/profile/:id',
+            name : 'userpage',
+            component : UserPage
         }
     ]
 });

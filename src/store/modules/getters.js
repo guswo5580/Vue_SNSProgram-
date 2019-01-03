@@ -11,5 +11,8 @@ export default {
     getTagInfo( state ) {
         return state.tagInfo;
     },
+    getUserProfile( state ) {
+        return state.userprofile
+    }
 
 }

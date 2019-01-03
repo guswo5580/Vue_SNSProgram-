@@ -5,6 +5,9 @@ export default {
     GET_PROFILE(state, data ) {
         state.profile = data;
     },
+    GET_USERPROFILE(state, data) {
+        state.userprofile = data;
+    },
     DASHBOARD(state, data) {
         state.dashboard = data;
     },
