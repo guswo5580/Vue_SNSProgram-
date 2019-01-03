@@ -2,6 +2,7 @@ export default {
     getUser( state ){
         return state.user;
     },
+    
     getDashboard( state ) {
         return state.dashboard;
     },
@@ -11,8 +12,12 @@ export default {
     getTagInfo( state ) {
         return state.tagInfo;
     },
+
     getUserProfile( state ) {
-        return state.userprofile
+        return state.userprofile;
+    },
+    getUserDashboard( state ) {
+        return state.userdashboard;
     }
 
 }

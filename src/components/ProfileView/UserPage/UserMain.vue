@@ -14,7 +14,7 @@
             <div class = "profile-main">
                 <div class = "board">
                     <span class = "board-text">게시글</span>
-                    <!-- <span class = "board-num">{{$store.state.profiledashboard.length}}</span> -->
+                    <span class = "board-num">{{Dashboard.length}}</span>
                 </div>
                 <div class = "followers">
                     <span class = "followers-text">팔로워</span>
@@ -23,8 +23,7 @@
                         <template slot="button-content">
                             <span><i class="fas fa-list-ul"></i></span>
                         </template>
-                        <b-dropdown-item class = "followers-item" v-for="(nick1, index) in User.Followers" :key="index"
-                                    v-if="nick1.length != 0">
+                        <b-dropdown-item class = "followers-item" v-for="(nick1, index) in User.Followers" :key="index">
                             {{nick1.nick}}
                         </b-dropdown-item>
                     </b-dropdown>
@@ -36,8 +35,7 @@
                         <template slot="button-content">
                             <span><i class="fas fa-list-ul"></i></span>
                         </template>
-                        <b-dropdown-item class = "followings-item" v-for="(nick2, index) in User.Followings" :key="index"
-                                    v-if="nick2.length != 0">
+                        <b-dropdown-item class = "followings-item" v-for="(nick2, index) in User.Followings" :key="index">
                             {{nick2.nick}}
                         </b-dropdown-item>
                     </b-dropdown>
@@ -58,6 +56,9 @@ export default {
     computed : {
         User() {
             return this.$store.getters.getUserProfile
+        },
+        Dashboard() {
+            return this.$store.getters.getUserDashboard
         }
     },
 }

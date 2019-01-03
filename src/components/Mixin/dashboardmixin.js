@@ -7,20 +7,36 @@ export default {
         }
     },
     created() {
-        let flag = this.$route.name === 'home' ? 'GET_DASHBOARD' : 'GET_PROFILE_DASHBOARD';
-        this.$store.dispatch(flag);
-        this.count = this.$route.name === 'home' ? 1 : 2;
+        
+        if( this.$route.name === 'home'){
+            this.$store.dispatch('GET_DASHBOARD');
+            this.count = 1;
+        } else if( this.$route.name === 'profile'){
+            this.$store.dispatch('GET_PROFILE_DASHBOARD');
+            this.count = 2;
+        } else {
+            this.$store.dispatch('GET_USER_DASHBOARD', {
+                id : this.$route.params.id
+            });
+            this.count = 4;
+        }
     },
     computed: {
         checkDashBoard(){
             if(this.$route.name === 'home') {
                 return this.$store.getters.getDashboard
-            } else {
+            } else if(this.$route.name === 'profile'){
                 return this.$store.getters.getProfileDashboard
+            } else {
+                return this.$store.getters.getUserDashboard
             }
         },
         setUser(){
-            return this.$store.getters.getUser
+            if(this.$route.name === 'userpage'){
+                return this.$store.getters.getUserProfile
+            } else {
+                return this.$store.getters.getUser
+            }   
         }
     },
     
@@ -34,14 +50,16 @@ export default {
         sendLike( data ) {
             this.$store.dispatch('SEND_LIKE', {
                 id : data.id,
-                count : this.count
+                count : this.count,
+                user : this.$route.params.id
                 //dashboard 구분
             });
         },
         cancelLike( data ) {
             this.$store.dispatch('CANCEL_LIKE', {
                 id : data.id,
-                count : this.count
+                count : this.count,
+                user : this.$route.params.id
                 //dashboard 구분
             });
         },
@@ -50,6 +68,7 @@ export default {
                 id : data.id,
                 name : data.name,
                 count : this.count,
+                user : this.$route.params.id
             })
         },
         SendFollow( data ) {
@@ -57,6 +76,7 @@ export default {
                 id : data.id,
                 name : data.name,
                 count : this.count,
+                user : this.$route.params.id
             })
         }
     },

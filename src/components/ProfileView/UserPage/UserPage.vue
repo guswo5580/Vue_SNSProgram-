@@ -2,7 +2,7 @@
     <div>
         <Header></Header>
         <user-main></user-main>
-        <!-- <user-dashboard></user-dashboard> -->
+        <user-dashboard></user-dashboard>
         <back-to-top></back-to-top>
         <Footer></Footer>
     </div>
@@ -13,7 +13,7 @@ import Header from '../../Header.vue';
 import Footer from '../../Footer.vue';
 import BackToTop from '@/components/common/backtotop.vue';
 import UserMain from './UserMain.vue';
-// import UserDashboard from './UserDashboard.vue';
+import UserDashboard from './UserDashboard.vue';
 
 export default {  
     components : {
@@ -21,7 +21,7 @@ export default {
         Footer,
         BackToTop,
         UserMain,
-        // UserDashboard
+        UserDashboard
     }
 }
 </script>

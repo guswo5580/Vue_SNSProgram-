@@ -76,6 +76,15 @@ export default {
             })
             .catch()
     },
+    GET_USER_DASHBOARD( { commit }, data ){
+        axios.get(`/profile/${data.id}/dashboard`)
+            .then( response => {
+                commit('USER_DASHBOARD', response.data.twits);
+                commit('SET_USER', response.data.user);
+            })
+            .catch()
+    },
+    
     SEARCH_TAG( { commit }, data ){
         axios.get('/post/hashtag', {
             params : {
@@ -129,7 +138,13 @@ export default {
                     dispatch('RESET_TAG' , {
                         tag : data.tag
                     });
-                } 
+                } else if(response.data === 'OK' && data.count === 4){
+                    alert('게시글이 삭제되었습니다.');
+                    commit('SEND_MESSAGE');
+                    dispatch('GET_USER_DASHBOARD', {
+                        id : data.user
+                    })
+                }
                 else{
                     alert('서버에 문제가 생겼습니다. 잠시 후 다시 시도해주세요.');
                     location.reload();
@@ -212,6 +227,10 @@ export default {
                     dispatch('RESET_TAG' , {
                         tag : data.tag
                     });
+                }else if( response.data === 'success' && data.count === 4){
+                    dispatch('GET_USER_DASHBOARD', {
+                        id : data.user
+                    })
                 }
                 else {
                     alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
@@ -234,6 +253,10 @@ export default {
                     dispatch('RESET_TAG' , {
                         tag : data.tag
                     });
+                }else if( response.data === 'success' && data.count === 4){
+                    dispatch('GET_USER_DASHBOARD', {
+                        id : data.user
+                    })
                 }
                 else {
                     alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
@@ -243,44 +266,118 @@ export default {
     },
     CANCEL_FOLLOW( { dispatch }, data ){
         alert(`${data.name} 님과 팔로잉을 끊으시겠습니까?`);
-        axios.post(`/user/${data.id}/unfollow`, {
-            params : data.id,
-        })
-            .then( response => {
-                if(response.data === 'success' && data.count === 1) {
-                    dispatch('GET_DASHBOARD');
-                }else if( response.data === 'success' && data.count === 2){
-                    dispatch('GET_PROFILE_DASHBOARD');
-                }else if( response.data === 'success' && data.count === 3){
-                    dispatch('RESET_TAG' , {
-                        tag : data.tag
-                    });
-                }
-                else {
-                    alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
-                }
+        if( data.count === 4 ){
+            axios.post(`/profile/${data.id}/unfollow`, {
+                params : data.id,
             })
-            .catch()
+                .then( response => {
+                    if(response.data === 'success' && data.count === 1) {
+                        dispatch('GET_DASHBOARD');
+                    }else if( response.data === 'success' && data.count === 2){
+                        dispatch('GET_PROFILE_DASHBOARD');
+                    }else if( response.data === 'success' && data.count === 3){
+                        dispatch('RESET_TAG' , {
+                            tag : data.tag
+                        });
+                    }else if( response.data === 'success' && data.count === 4){
+                        dispatch('GET_USER_DASHBOARD', {
+                            id : data.user
+                        });
+                        dispatch('USERPROFILE_GET', {
+                            id : data.user
+                        });
+    
+                    }
+                    else {
+                        alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
+                    }
+                })
+                .catch()
+        } else {
+            axios.post(`/user/${data.id}/unfollow`, {
+                params : data.id,
+            })
+                .then( response => {
+                    if(response.data === 'success' && data.count === 1) {
+                        dispatch('GET_DASHBOARD');
+                    }else if( response.data === 'success' && data.count === 2){
+                        dispatch('GET_PROFILE_DASHBOARD');
+                    }else if( response.data === 'success' && data.count === 3){
+                        dispatch('RESET_TAG' , {
+                            tag : data.tag
+                        });
+                    }else if( response.data === 'success' && data.count === 4){
+                        dispatch('GET_USER_DASHBOARD', {
+                            id : data.user
+                        });
+                        dispatch('USERPROFILE_GET', {
+                            id : data.user
+                        });
+    
+                    }
+                    else {
+                        alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
+                    }
+                })
+                .catch()
+        }
+        
     },
     SEND_FOLLOW( { dispatch }, data ){
         alert(`${data.name} 님을 팔로우 하시겠습니까?`);
-        axios.post(`/user/${data.id}/follow`, {
-            params : data.id,
-        })
-            .then( response => {
-                if(response.data === 'success' && data.count === 1) {
-                    dispatch('GET_DASHBOARD');
-                }else if( response.data === 'success' && data.count === 2){
-                    dispatch('GET_PROFILE_DASHBOARD');
-                }else if( response.data === 'success' && data.count === 3){
-                    dispatch('RESET_TAG' , {
-                        tag : data.tag
-                    });
-                }
-                else {
-                    alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
-                }
+        if( data.count === 4 ){
+            axios.post(`/profile/${data.id}/follow`, {
+                params : data.id,
             })
-            .catch()
+                .then( response => {
+                    if(response.data === 'success' && data.count === 1) {
+                        dispatch('GET_DASHBOARD');
+                    }else if( response.data === 'success' && data.count === 2){
+                        dispatch('GET_PROFILE_DASHBOARD');
+                    }else if( response.data === 'success' && data.count === 3){
+                        dispatch('RESET_TAG' , {
+                            tag : data.tag
+                        });
+                    }else if( response.data === 'success' && data.count === 4){
+                        dispatch('GET_USER_DASHBOARD', {
+                            id : data.user
+                        });
+                        dispatch('USERPROFILE_GET', {
+                            id : data.user
+                        });
+                    }
+                    else {
+                        alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
+                    }
+                })
+                .catch()
+        } else {
+            axios.post(`/user/${data.id}/follow`, {
+                params : data.id,
+            })
+                .then( response => {
+                    if(response.data === 'success' && data.count === 1) {
+                        dispatch('GET_DASHBOARD');
+                    }else if( response.data === 'success' && data.count === 2){
+                        dispatch('GET_PROFILE_DASHBOARD');
+                    }else if( response.data === 'success' && data.count === 3){
+                        dispatch('RESET_TAG' , {
+                            tag : data.tag
+                        });
+                    }else if( response.data === 'success' && data.count === 4){
+                        dispatch('GET_USER_DASHBOARD', {
+                            id : data.user
+                        });
+                        dispatch('USERPROFILE_GET', {
+                            id : data.user
+                        });
+                    }
+                    else {
+                        alert('원치않은 에러가 발생했습니다. 새로고침 후 다시 시도해 주세요');
+                    }
+                })
+                .catch()
+        }
+        
     }
 }

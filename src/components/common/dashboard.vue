@@ -31,8 +31,7 @@
                         <template slot="button-content">
                             <span><i class="fas fa-list-ul"></i></span>
                         </template>
-                        <b-dropdown-item class = "likers-item" v-for="(nick, index) in dashboard.Liker" :key="index"
-                                    v-if="nick.length != 0">
+                        <b-dropdown-item class = "likers-item" v-for="(nick, index) in dashboard.Liker" :key="index">
                             {{nick.nick}}
                         </b-dropdown-item>
                     </b-dropdown>
@@ -44,7 +43,7 @@
                 <span slot="like-btn" v-else @click="sendLike({id : dashboard.id})">
                     <i class="fas fa-thumbs-up fa-2x"></i>
                 </span>
-
+                
                 <span slot="follow-btn" v-if="setUser.Followings.map(f=>f.id).includes(dashboard.userId)"
                     class = "follow-btn-true" @click="CancelFollow({id : dashboard.userId, name : dashboard.user.nick})">
                     <i class="fab fa-telegram-plane fa-2x"></i>

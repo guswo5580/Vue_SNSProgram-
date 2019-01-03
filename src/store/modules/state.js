@@ -5,6 +5,7 @@ export default {
     postimage : null,
     profile : [],
     userprofile : [],
+    userdashboard : [],
     tagInfo: [],
     changeboard : false,
     deletemessage : false,

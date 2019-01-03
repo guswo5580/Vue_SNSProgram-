@@ -14,6 +14,9 @@ export default {
     PROFILE_DASHBOARD(state, data) {
         state.profiledashboard = data; 
     },
+    USER_DASHBOARD( state, data ) {
+        state.userdashboard = data; 
+    },
     SET_IMAGE(state, data) {
         state.postimage = data;
     },
