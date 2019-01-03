@@ -9,8 +9,10 @@ const router = express.Router();
 router.get('/', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
+router.get('/:id', isLoggedIn, (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+});
 router.get('/dashboard', async (req, res, next) => {
-    // const isfollow = req.user.Followings.map(f=>f.id).includes(req.user.id);
     Post.findAll({ 
         where : { userId : req.user.id },
         //User 확인 후 정보를 찾기
@@ -40,6 +42,32 @@ router.get('/dashboard', async (req, res, next) => {
 
 router.get('/information', (req, res) => {
     res.send( {user: req.user });
+});
+router.get('/:id/information' , async (req, res, next) => {
+    User.find({
+        where : {id : req.params.id},
+        include : [
+            {
+                model : User,
+                attributes : ['id', 'nick'],
+                as : 'Followers',
+            }, {
+                model : User,
+                attributes : ['id', 'nick'],
+                as : 'Followings'
+            }
+        ],
+    })
+    .then( (users) => {
+        res.send({
+            user : users,
+            loginError : req.flash('loginError'),
+        });
+    })
+    .catch( (error) => {
+        console.error(error);
+        next(error);
+    });
 });
 
 router.post('/nickname' , async (req, res, next) => {
