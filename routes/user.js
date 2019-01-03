@@ -19,6 +19,7 @@ router.post('/:id/follow', isLoggedIn, async (req, res, next) => {
     next(error);
   }
 });
+
 //팔로우 끊기 
 router.post('/:id/unfollow', isLoggedIn, async (req, res, next) => {
   try {
