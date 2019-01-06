@@ -12,9 +12,16 @@ db.Sequelize = Sequelize;
 db.User = require('./user')(sequelize, Sequelize);
 db.Post = require('./post')(sequelize, Sequelize);
 db.Hashtag = require('./hashtag')(sequelize, Sequelize);
+db.Review = require('./review')(sequelize, Sequelize);
 
 db.User.hasMany(db.Post);
 db.Post.belongsTo(db.User);
+
+db.Post.hasMany(db.Review);
+db.Review.belongsTo(db.Post);
+//게시글과 리뷰는 1:n 관계 
+db.User.hasMany(db.Review);
+db.Review.belongsTo(db.User);
 
 db.Post.belongsToMany(db.Hashtag, { through: 'PostHashtag' });
 db.Hashtag.belongsToMany(db.Post, { through: 'PostHashtag' });

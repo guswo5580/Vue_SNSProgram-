@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "jhjjsb7577",
-    "database": "nodebird",
+    "database": "peaceocean",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
