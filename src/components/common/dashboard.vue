@@ -43,6 +43,14 @@
                 <span slot="like-btn" v-else @click="sendLike({id : dashboard.id})">
                     <i class="fas fa-thumbs-up fa-2x"></i>
                 </span>
+
+                <span slot="user-follow-btn" v-if="setUser.Followers.map(f=>f.id).includes($store.state.user.id)"
+                    class = "follow-btn-true" @click="CancelFollow({id : dashboard.userId, name : dashboard.user.nick})">
+                    <i class="fab fa-telegram-plane fa-2x"></i>
+                </span>
+                <span slot="user-follow-btn" v-else @click="SendFollow({id : dashboard.userId, name : dashboard.user.nick})">
+                    <i class="fab fa-telegram-plane fa-2x"></i>
+                </span>
                 
                 <span slot="follow-btn" v-if="setUser.Followings.map(f=>f.id).includes(dashboard.userId)"
                     class = "follow-btn-true" @click="CancelFollow({id : dashboard.userId, name : dashboard.user.nick})">

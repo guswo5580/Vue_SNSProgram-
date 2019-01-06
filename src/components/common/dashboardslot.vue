@@ -29,9 +29,14 @@
                 <div class = "like-btn">
                     <slot name="like-btn"></slot>
                 </div>
-                <div class = "follow-btn">
+
+                <div class = "follow-btn" v-if="$route.name === 'userpage'">
+                    <slot name="user-follow-btn"></slot>
+                </div>
+                <div class = "follow-btn" v-else>
                     <slot name="follow-btn"></slot>
                 </div>
+                
                 <div class = "review-btn">
                     <slot name="review-btn"></slot>
                 </div>
