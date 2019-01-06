@@ -131,7 +131,7 @@ router.post('/:id/follow', isLoggedIn, async (req, res, next) => {
     try {
       const user = await User.find({ where: { id: req.params.id } });
       //로그인한 사람을 찾아서 id 가져오기 
-      await user.addFollowing(parseInt(req.user.id, 10));
+      await user.addFollower(parseInt(req.user.id, 10));
       //A.addB 를 통해 관계를 생성해준다 
       //DB에 followingId 와 followerId 가 채워진다 
       res.send('success');
@@ -144,7 +144,7 @@ router.post('/:id/follow', isLoggedIn, async (req, res, next) => {
     try {
       const user = await User.find({ where: { id: req.params.id } });
       //로그인한 사람을 찾아서 id 가져오기 
-      await user.removeFollowing(parseInt(req.user.id, 10));
+      await user.removeFollower(parseInt(req.user.id, 10));
       //A.removeB 를 통해 관계를 제거해준다 
       res.send('success');
     } catch (error) {
