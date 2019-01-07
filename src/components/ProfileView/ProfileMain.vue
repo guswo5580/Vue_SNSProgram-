@@ -50,7 +50,7 @@
                                 <b-button id = "submitbtn" style="display:none;"></b-button>
                             </div>
                             <div class="image-preview" >
-                                <img class="preview" :src="$store.state.profile.userImg" v-if="$store.state.profile.userImg != null">
+                                <img class="preview" :src="this.$store.state.postimage" v-if="$store.state.profile.userImg != null">
                                 <img class="preview2"  v-else style="display:none">
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                             <span><i class="fas fa-list-ul"></i></span>
                         </template>
                         <b-dropdown-item class = "followers-item" v-for="(nick1, index) in $store.state.profile.Followers" :key="index">
-                            {{nick1.nick}}
+                            <router-link :to="{ name : 'userpage' , params : { id : nick1.id }}">{{nick1.nick}}</router-link>
                         </b-dropdown-item>
                     </b-dropdown>
                 </div>
@@ -82,7 +82,7 @@
                             <span><i class="fas fa-list-ul"></i></span>
                         </template>
                         <b-dropdown-item class = "followings-item" v-for="(nick2, index) in $store.state.profile.Followings" :key="index">
-                            {{nick2.nick}}
+                            <router-link :to="{ name : 'userpage' , params : { id : nick2.id }}">{{nick2.nick}}</router-link>
                         </b-dropdown-item>
                     </b-dropdown>
                 </div>
@@ -128,7 +128,7 @@ export default {
         },
         ChangeImg(){
             this.$store.dispatch('CHANGE_IMG', {
-                url : this.$store.state.profile.userImg
+                url : this.$store.state.postimage
             })
             this.showModal = false;
             setTimeout( () => {

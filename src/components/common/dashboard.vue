@@ -32,7 +32,7 @@
                             <span><i class="fas fa-list-ul"></i></span>
                         </template>
                         <b-dropdown-item class = "likers-item" v-for="(nick, index) in dashboard.Liker" :key="index">
-                            {{nick.nick}}
+                            <router-link :to="{ name : 'userpage' , params : { id : dashboard.userId }}">{{nick.nick}}</router-link>
                         </b-dropdown-item>
                     </b-dropdown>
                 </span>

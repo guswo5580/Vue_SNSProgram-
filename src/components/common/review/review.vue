@@ -1,7 +1,7 @@
 <template>
     <div class = "review-container">
-        <review-input></review-input>
-        <review-board></review-board>
+        <review-input class = "review-input"></review-input>
+        <review-board class = "reviews"></review-board>
     </div>
 </template>
 
@@ -17,8 +17,14 @@ export default {
 }
 </script>
 
-<style>
-    .review {
-        padding : 20px;
+<style scoped>
+    .review-container {
+        padding : 10px;
+    }
+    .review-input {
+        margin-bottom : 20px;
+    }
+    .reviews {
+        padding : 0 0 0 10px;
     }
 </style>

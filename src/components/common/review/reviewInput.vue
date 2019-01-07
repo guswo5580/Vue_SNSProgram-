@@ -8,14 +8,13 @@
             </div>
             <div class = "user-input">
                 <b-input-group>
-                    <b-form-input></b-form-input>
+                    <b-form-input placeholder="댓글을 입력하세요"></b-form-input>
                     <b-input-group-append>
                         <span class = "addbtn">
                             <b-btn class="btn btn-primary custom-btn"><i class="fas fa-plus fa-1.5x"></i></b-btn>
                         </span>
                         <label for="inputFile">
                             <span class="btn btn-primary custom-btn"><i class="far fa-image fa-1.5x"></i></span>
-                            <!-- <b-btn class="btn btn-primary custom-btn"><i class="far fa-image fa-1.5x"></i></b-btn> -->
                         </label>
                         <input id="inputFile" type="file" @change="onFileSelected" accept="image/*" multiple style="display : none;">
                     </b-input-group-append>
@@ -47,16 +46,19 @@ export default {
     .review-input {
         display : flex;
         align-items: center;
-        margin-bottom : 20px;
+        width : 100%;
     }
     .user-image {
         width : 10%;
-        margin : 0 5px 0 15px;
+        margin : 0 10px 0 0;
     }
     .user-input {
         width : 85%;
     }
-    .user-default , .user-change {
+    .user-default {
+        max-height: 100px;
+    }
+    .user-change {
         max-height : 70px;
     }
     /* ///////////////////b-button color change////////////////// */
