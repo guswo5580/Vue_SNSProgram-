@@ -30,28 +30,16 @@
 
 <script>
 import axios from 'axios';
+import ImageMixin from '@/components/Mixin/image.js';
 
 export default {
+    mixins : [ImageMixin],
     data() {
         return {
             content : '',
-            selectedFile : null
         }
     },
     methods : {
-        onFileSelected(event) {
-            this.selectedFile = event.target.files[0];
-            const fd = new FormData();
-            fd.append('img', this.selectedFile, this.selectedFile.name);
-            axios.post('/post/img', fd)
-                .then(response => {
-                    if(response.status === 200){
-                        let url = response.data.url;
-                        this.$store.state.postimage = url;
-                    }
-                })
-                .catch()
-        },
         Submit(){
             if(this.content === ''){
                 alert("내용이 없습니다.");

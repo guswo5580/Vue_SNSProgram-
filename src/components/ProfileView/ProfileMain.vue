@@ -3,7 +3,7 @@
         <div class = "profile-img">
             <b-img class = "profile-img-default" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" 
                                 v-if="$store.state.profile.userImg === null " />
-            <b-img class = "profile-img-change" rounded="circle" :src="$store.state.profile.userImg" fluid alt="이미지 손상" v-else />
+            <b-img class = "profile-img-change" rounded :src="$store.state.profile.userImg" fluid alt="이미지 손상" v-else />
         </div>
         <div class = "profile-content">
             <div class = "profile-header">
@@ -69,8 +69,7 @@
                         <template slot="button-content">
                             <span><i class="fas fa-list-ul"></i></span>
                         </template>
-                        <b-dropdown-item class = "followers-item" v-for="(nick1, index) in $store.state.profile.Followers" :key="index"
-                                    v-if="nick1.length != 0">
+                        <b-dropdown-item class = "followers-item" v-for="(nick1, index) in $store.state.profile.Followers" :key="index">
                             {{nick1.nick}}
                         </b-dropdown-item>
                     </b-dropdown>
@@ -82,8 +81,7 @@
                         <template slot="button-content">
                             <span><i class="fas fa-list-ul"></i></span>
                         </template>
-                        <b-dropdown-item class = "followings-item" v-for="(nick2, index) in $store.state.profile.Followings" :key="index"
-                                    v-if="nick2.length != 0">
+                        <b-dropdown-item class = "followings-item" v-for="(nick2, index) in $store.state.profile.Followings" :key="index">
                             {{nick2.nick}}
                         </b-dropdown-item>
                     </b-dropdown>
@@ -94,10 +92,12 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Modal from '@/components/common/modal.vue';
+import ImageMixin from '@/components/Mixin/image.js';
 
 export default {
+    mixins : [ImageMixin],
+
     created() {
         this.$store.dispatch('PROFILE_GET');
     },
@@ -105,7 +105,6 @@ export default {
         return {
             showModal : false,
             nickname : null,
-            selectedFile : null,
         }
     },
     computed : {
@@ -126,20 +125,6 @@ export default {
             setTimeout( () => {
                 this.$router.go(this.$router.currentRoute);
             }, 200);
-        },
-        onFileSelected(event) {
-            this.selectedFile = event.target.files[0];
-            const fd = new FormData();
-            fd.append('img', this.selectedFile, this.selectedFile.name);
-            axios.post('/post/img', fd)
-                .then(response => {
-                    if(response.status === 200){
-                        console.log(response.data.url);
-                        let url = response.data.url;
-                        this.$store.state.profile.userImg = url;
-                    }
-                })
-                .catch()
         },
         ChangeImg(){
             this.$store.dispatch('CHANGE_IMG', {
@@ -164,14 +149,14 @@ export default {
         align-items: center;
         justify-content: center;
         margin-top : 100px;
+        margin-bottom : 20px;
     }
     .profile-img {
         width : 30%;
-        margin-top : 40px;
-        margin-right : 30px;
+        margin : 40px 0 30px 0;
     }
     .profile-img-change {
-        max-height: 60%;
+        max-height: 50%;
         max-width : 80%;
     }
     .profile-header-change {
@@ -315,7 +300,7 @@ export default {
             text-align : center;
         }
         .profile-img-change {
-            max-height: 60%;
+            max-height: 70%;
             max-width : 100%;
         }
         .profile-header {
@@ -358,7 +343,7 @@ export default {
             margin : 30px auto;    
             text-align: left;
         }
-        .followers, .followings {
+        .board , .followers, .followings {
             margin-left : 0;
         }
         .board, .followers {

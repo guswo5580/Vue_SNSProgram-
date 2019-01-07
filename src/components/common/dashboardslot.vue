@@ -1,52 +1,57 @@
 <template>
-        <div class = "board-aligns" >
-            <div class = "board-header">
-                <slot name="name"></slot>
-                <span class = "sub-name">
-                    님이 글을 게시했습니다.
-                </span>
-                <span class = "delete-btn">
-                    <slot name = "delete-btn"></slot>
-                </span>
+    <div class = "board-aligns" >
+        <div class = "board-header">
+            <slot name="name"></slot>
+            <span class = "sub-name">
+                님이 글을 게시했습니다.
+            </span>
+            <span class = "delete-btn">
+                <slot name = "delete-btn"></slot>
+            </span>
+        </div>
+        <div class = "board-main">
+            <div class = "main-content">
+                <slot name="content"></slot><br>
+                <slot name="hashtag"></slot>
             </div>
-            <div class = "board-main">
-                <div class = "main-content">
-                    <slot name="content"></slot><br>
-                    <slot name="hashtag"></slot>
-                </div>
-                <div class = "main-image">
-                    <slot name="main-image"></slot>    
-                </div>
-            </div>
-            <div class = "board-liker">
-                <slot name = "like-count"></slot>
-                <span class = "like-content">
-                    명이 좋아합니다
-                </span>
-                <slot name ="liker"></slot>
-            </div>
-            <div class = "button-section">
-                <div class = "like-btn">
-                    <slot name="like-btn"></slot>
-                </div>
-
-                <div class = "follow-btn" v-if="$route.name === 'userpage'">
-                    <slot name="user-follow-btn"></slot>
-                </div>
-                <div class = "follow-btn" v-else>
-                    <slot name="follow-btn"></slot>
-                </div>
-                
-                <div class = "review-btn">
-                    <slot name="review-btn"></slot>
-                </div>
+            <div class = "main-image">
+                <slot name="main-image"></slot>    
             </div>
         </div>
+        <div class = "board-liker">
+            <slot name = "like-count"></slot>
+            <span class = "like-content">
+                명이 좋아합니다
+            </span>
+            <slot name ="liker"></slot>
+        </div>
+        <div class = "button-section">
+            <div class = "like-btn">
+                <slot name="like-btn"></slot>
+            </div>
+            <div class = "follow-btn" v-if="$route.name === 'userpage'">
+                <slot name="user-follow-btn"></slot>
+            </div>
+            <div class = "follow-btn" v-else>
+                <slot name="follow-btn"></slot>
+            </div>
+            
+            <div class = "review-btn">
+                <slot name="review-btn"></slot>
+            </div>
+        </div>
+        <div>
+            <Review></Review>
+        </div>
+    </div>
 </template>
 
 <script>
+import Review from './review/review.vue';
 export default {
-
+    components : {
+        Review 
+    }
 }
 </script>
 
@@ -54,7 +59,7 @@ export default {
     .board-aligns {
         display : inline-block;
         width : 40%;
-        margin : 20px 2% 20px 6%;
+        margin : 20px 2% 0 6%;
         border : 2px solid rgba(0, 0, 0, 0.1);
         vertical-align: top;
     }

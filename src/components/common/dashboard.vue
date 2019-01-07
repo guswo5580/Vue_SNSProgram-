@@ -77,7 +77,7 @@ export default {
     mixins : [DashBoardMixin, filters],
 
     components : {
-        DashBoard
+        DashBoard,
     }
 }
 </script>
