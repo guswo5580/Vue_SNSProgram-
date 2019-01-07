@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import ImageMixin from '@/components/Mixin/image.js';
 
 export default {
