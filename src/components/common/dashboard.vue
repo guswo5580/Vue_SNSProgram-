@@ -1,7 +1,7 @@
 <template>
     <div class = "board-container" >
         <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
-            <dash-board :propsdata="dashboard.id">
+            <dash-board :propsdata="{dashboard, ClickMoreReview}">
                 <span slot="name" class = "name">
                     <router-link :to="{ name : 'userpage' , params : { id : dashboard.userId }}">{{dashboard.user.nick}}</router-link>
                 </span>
@@ -60,7 +60,10 @@
                     <i class="fab fa-telegram-plane fa-2x"></i>
                 </span>
 
-                <span slot="review-btn">
+                <span slot="review-btn" v-if="ClickMoreReview === false" @click="ChangeReview">
+                    <i class="fas fa-edit fa-2x"></i>
+                </span>
+                <span slot="review-btn-true" v-else @click="ChangeReview">
                     <i class="fas fa-edit fa-2x"></i>
                 </span>  
             </dash-board>
@@ -75,7 +78,16 @@ import filters from '@/components/Mixin/filters.js';
 
 export default {
     mixins : [DashBoardMixin, filters],
-
+    data(){
+        return {
+            ClickMoreReview : false,
+        }
+    },
+    methods : {
+        ChangeReview(){
+            this.ClickMoreReview = !this.ClickMoreReview;
+        }
+    },
     components : {
         DashBoard,
     }
@@ -123,7 +135,7 @@ export default {
         color : rgb(66, 164, 244);
         font-size : 1rem;
     }
-    .like-btn-true, .follow-btn-true {
+    .like-btn-true, .follow-btn-true , .review-btn-true{
         color : rgba(66, 164, 244, 1);
     }
     .delete-btn-false { 
@@ -142,7 +154,7 @@ export default {
     /* .routing-fade-leave-active below version 2.1.8 */ {
         opacity: 0;
     }
-    @media(max-width: 500px){
+    @media(max-width: 600px){
         .board-container {
             width : 95%;
         }

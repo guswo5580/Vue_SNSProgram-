@@ -121,7 +121,7 @@ export default {
             margin : 20px auto;
         }
     }
-    @media (max-width : 500px) {
+    @media (max-width : 600px) {
         .board-aligns {
             width : 100%;
         }

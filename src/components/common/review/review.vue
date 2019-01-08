@@ -1,7 +1,7 @@
 <template>
     <div class = "review-container">
-        <review-input class = "review-input" :propsdata="propsdata"></review-input>
-        <review-board class = "reviews" :propsdata="reviews"></review-board>
+        <review-input class = "review-input" :propsdata="propsdata.dashboard.id"></review-input>
+        <review-board class = "reviews" :propsdata="{reviews, propsdata}"></review-board>
     </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
     },
     methods : {
         GET_REVIEW(){
-            axios.get(`/review/post/${this.propsdata}`)
+            axios.get(`/review/post/${this.propsdata.dashboard.id}`)
                 .then( response => {
                     this.reviews = response.data.reviews;
                 })

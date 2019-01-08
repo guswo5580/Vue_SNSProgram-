@@ -9,11 +9,10 @@
                 </div>
                 <div class = "review-main">
                     <span class = "review-header">
-                        
-                        {{review.user.nick}}
+                        <router-link :to="{ name : 'userpage' , params : { id : review.userId }}">{{review.user.nick}}</router-link>
                     </span>
                     <span class = "review-content">
-                    {{review.content}}  
+                        {{review.content}}  
                     </span>
                     <span class = "review-img">
                         <b-img v-if="review.img === null" style="display:none;"></b-img>
@@ -22,7 +21,7 @@
                 </div>
             </div>
         </transition>        
-        <!-- <router-link :to="{ name : 'userpage' , params : { id : dashboard.userId }}">Rick</router-link> -->
+        
     </div>
 </template>
 
@@ -33,8 +32,15 @@ export default {
     props : ['propsdata'],
     computed : {
         Reviews() {
-            return this.propsdata
+            if( this.propsdata.reviews.length > 2 && this.propsdata.propsdata.ClickMoreReview === false){
+                return this.propsdata.reviews.slice(0,2);
+            } else if(this.propsdata.reviews.length > 2 && this.propsdata.propsdata.ClickMoreReview === true) {
+                return this.propsdata.reviews
+            }  else {
+                return this.propsdata.reviews
+            }
         },
+        
     },
 }
 </script>
