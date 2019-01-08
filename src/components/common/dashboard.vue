@@ -1,7 +1,7 @@
 <template>
     <div class = "board-container" >
         <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
-            <dash-board>
+            <dash-board :propsdata="dashboard.id">
                 <span slot="name" class = "name">
                     <router-link :to="{ name : 'userpage' , params : { id : dashboard.userId }}">{{dashboard.user.nick}}</router-link>
                 </span>

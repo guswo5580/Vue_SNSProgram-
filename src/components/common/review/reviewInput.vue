@@ -8,9 +8,9 @@
             </div>
             <div class = "user-input">
                 <b-input-group>
-                    <b-form-input placeholder="댓글을 입력하세요"></b-form-input>
+                    <b-form-input v-model="text" placeholder="댓글을 입력하세요" @keyup.enter.native="SendReview"></b-form-input>
                     <b-input-group-append>
-                        <span class = "addbtn">
+                        <span class = "addbtn" @click="SendReview">
                             <b-btn class="btn btn-primary custom-btn"><i class="fas fa-plus fa-1.5x"></i></b-btn>
                         </span>
                         <label for="inputFile">
@@ -34,9 +34,20 @@ import ImageMixin from '@/components/Mixin/image.js';
 
 export default {
     mixins : [ImageMixin],
+    props : ['propsdata'],
     data(){
         return{
             text : null,
+        }
+    },
+    methods : {
+        SendReview(){
+            this.$store.dispatch('SEND_REVIEW', {
+                content : this.text,
+                url : this.$store.state.postimage,
+                postId : this.propsdata,
+            });
+            this.text = null;
         }
     }
 }

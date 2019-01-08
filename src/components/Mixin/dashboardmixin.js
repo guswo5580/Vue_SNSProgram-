@@ -7,7 +7,6 @@ export default {
         }
     },
     created() {
-        
         if( this.$route.name === 'home'){
             this.$store.dispatch('GET_DASHBOARD');
             this.count = 1;

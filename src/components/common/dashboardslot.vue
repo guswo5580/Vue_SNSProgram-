@@ -41,7 +41,7 @@
             </div>
         </div>
         <div>
-            <Review></Review>
+            <Review :propsdata="propsdata"></Review>
         </div>
     </div>
 </template>
@@ -49,9 +49,10 @@
 <script>
 import Review from './review/review.vue';
 export default {
+    props : ['propsdata'],
     components : {
         Review 
-    }
+    },
 }
 </script>
 

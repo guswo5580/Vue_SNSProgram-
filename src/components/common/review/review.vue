@@ -1,7 +1,7 @@
 <template>
     <div class = "review-container">
-        <review-input class = "review-input"></review-input>
-        <review-board class = "reviews"></review-board>
+        <review-input class = "review-input" :propsdata="propsdata"></review-input>
+        <review-board class = "reviews" :propsdata="propsdata"></review-board>
     </div>
 </template>
 
@@ -10,6 +10,7 @@ import ReviewInput from './reviewInput.vue';
 import ReviewBoard from './reviewBoard.vue';
 
 export default {
+    props : ['propsdata'],
     components : {
         ReviewInput,
         ReviewBoard

@@ -18,6 +18,9 @@ export default {
     },
     getUserDashboard( state ) {
         return state.userdashboard;
-    }
+    },
+    // getReviews( state ){
+    //     return state.reviews;
+    // }
 
 }

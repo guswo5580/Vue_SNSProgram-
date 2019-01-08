@@ -30,5 +30,8 @@ export default {
     },
     SEND_MESSAGE(state) {
         state.deletemessage = true;
-    } 
+    },
+    // GET_REVIEWS( state, data ) {
+    //     state.reviews = data;
+    // }
 }
