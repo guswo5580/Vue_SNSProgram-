@@ -13,6 +13,7 @@ const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
 const LoginRouter = require('./routes/login');
 const ProfileRouter = require('./routes/profile');
+const ReviewRouter = require('./routes/review');
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
@@ -54,6 +55,7 @@ app.use('/auth', authRouter);
 app.use('/post', postRouter);
 app.use('/user', userRouter);
 app.use('/profile', ProfileRouter);
+app.use('/review', ReviewRouter);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
