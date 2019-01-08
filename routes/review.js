@@ -6,16 +6,16 @@ const { User, Post, Review } = require('../models');
 
 const router = express.Router();
 
-router.post('/', isLoggedIn, async (req, res, next) => {
+router.post('/:id', isLoggedIn, async (req, res, next) => {
     try {
-        if(req.body.content === ''){
+        if(req.body.content === null){
             res.send('No content');
         } else {
             const review = await Review.create({
                 content : req.body.content,
                 img : req.body.url,
                 userId : req.user.id,
-                postId : req.body.postId
+                postId : req.params.id
             });
             res.send('success');
         }
@@ -24,13 +24,14 @@ router.post('/', isLoggedIn, async (req, res, next) => {
         next(error);
     }
 });
-router.get('/:id', isLoggedIn, async (req, res, next) => {
+router.get('/post/:id', isLoggedIn, async (req, res, next) => {
     Review.findAll({
        where : { postId : req.params.id},
        include : [{
            model : User,
            attributes : ['userImg', 'nick'],
-       }]
+       }],
+       order : [['createdAt', 'DESC']],
     })
     .then( ( reviews ) => {
         res.send({
