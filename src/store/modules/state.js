@@ -6,7 +6,6 @@ export default {
     userprofile : [],
     userdashboard : [],
     tagInfo: [],
-    // reviews : [],
 
     postimage : null,
     changeboard : false,

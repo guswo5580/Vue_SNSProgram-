@@ -21,20 +21,18 @@
                 </b-input-group>
             </div>        
         </div>
-        <div class="image-preview" >
-            <img class="preview" :src="$store.state.postimage" v-if="$store.state.postimage != null">
-            <img class="preview2"  v-else style="display:none">
-        </div>
     </div>
     
 </template>
 
 <script>
 import ImageMixin from '@/components/Mixin/image.js';
+import axios from 'axios';
+import { bus } from '@/utils/bus.js';
 
 export default {
-    mixins : [ImageMixin],
     props : ['propsdata'],
+    mixins : [ImageMixin],
     data(){
         return{
             text : null,
@@ -42,12 +40,20 @@ export default {
     },
     methods : {
         SendReview(){
-            this.$store.dispatch('SEND_REVIEW', {
+            axios.post(`/review/${this.propsdata}`, {
                 content : this.text,
                 url : this.$store.state.postimage,
-                postId : this.propsdata,
-            });
+            })
+                .then( response => {
+                    if(response.data === 'No content'){
+                        alert('내용이 없습니다.');
+                    } else {
+                        bus.$emit('get:reviews');
+                    }
+                })
+                .catch()
             this.text = null;
+            this.$store.state.postimage = null;
         }
     }
 }
@@ -61,6 +67,7 @@ export default {
     }
     .user-image {
         width : 10%;
+        height : 70px;
         margin : 0 10px 0 0;
     }
     .user-input {
@@ -70,7 +77,9 @@ export default {
         max-height: 100px;
     }
     .user-change {
-        max-height : 70px;
+        width : auto;
+        height : auto;
+        object-fit: contain;
     }
     /* ///////////////////b-button color change////////////////// */
     .btn-primary.custom-btn {
@@ -78,7 +87,7 @@ export default {
 	    border : none;
         color : white;
     }
-    img.preview {
+    /* img.preview {
         border: 1px solid silver;
         padding: 5px;
         display : block;
@@ -87,5 +96,5 @@ export default {
     .preview {
         max-width : 30%;
         max-height: 20%;
-    }
+    } */
 </style>

@@ -1,9 +1,9 @@
 <template>
     <div class = "profile-container">
         <div class = "profile-img">
-            <b-img class = "profile-img-default" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" 
+            <b-img class = "profile-img-default" rounded src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" 
                                 v-if="User.userImg === null " />
-            <b-img class = "profile-img-change" rounded="circle" :src="User.userImg" fluid alt="이미지 손상" v-else />
+            <b-img class = "profile-img-change" rounded :src="User.userImg" fluid alt="이미지 손상" v-else />
         </div>
         <div class = "profile-content">
             <div class = "profile-header">

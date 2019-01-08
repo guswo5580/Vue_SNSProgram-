@@ -107,8 +107,13 @@ export default {
         text-align: right;
         width : 100%;
     }
+    .main-image{
+        height: 70%;
+    }
     .image {
-        max-height: 60%;
+        width : auto;
+        height: auto;
+        object-fit: contain;
     }
     .image-2 {
         display : none;
@@ -136,5 +141,10 @@ export default {
     .fade-enter, .fade-leave-to
     /* .routing-fade-leave-active below version 2.1.8 */ {
         opacity: 0;
+    }
+    @media(max-width: 500px){
+        .board-container {
+            width : 95%;
+        }
     }
 </style>

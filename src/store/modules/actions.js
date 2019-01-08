@@ -382,27 +382,4 @@ export default {
 
     ///////////////////////////////////////////////////////////////////
 
-    SEND_REVIEW( {commit}, data){
-        axios.post('/review', {
-            content : data.content,
-            url : data.url,
-            postId : data.postId,
-        })
-            .then( response => {
-                if( response.data === 'No content') {
-                    alert('내용이 없습니다.');
-                } else {
-                    console.log(response.data);
-                }
-            })
-            .catch()
-    },
-    // GET_REVIEWS( { commit } , data ){
-    //     axios.get(`/review/${data.postId}`)
-    //         .then( response => {
-    //             console.log(response.data.reviews);
-    //             commit('GET_REVIEWS', response.data.reviews);
-    //         })
-    //         .catch()
-    // }
 }

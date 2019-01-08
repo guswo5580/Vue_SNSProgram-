@@ -123,7 +123,7 @@ export default {
     }
     @media (max-width : 500px) {
         .board-aligns {
-            width : 90%;
+            width : 100%;
         }
     }
 </style>
