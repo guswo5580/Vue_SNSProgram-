@@ -1,7 +1,7 @@
 <template>
     <div class = "board-container" >
         <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
-            <dash-board>
+            <dash-board :dashboardId="dashboard.id" :reviews="dashboard.reviews" :hashtag="dashboard.PostHashtag">
                 <span slot="name" class = "name">
                     {{dashboard.user.nick}}
                 </span>
@@ -31,8 +31,7 @@
                         <template slot="button-content">
                             <span><i class="fas fa-list-ul"></i></span>
                         </template>
-                        <b-dropdown-item class = "likers-item" v-for="(nick, index) in dashboard.Liker" :key="index"
-                                    v-if="nick.length != 0">
+                        <b-dropdown-item class = "likers-item" v-for="(nick, index) in dashboard.Liker" :key="index">
                             {{nick.nick}}
                         </b-dropdown-item>
                     </b-dropdown>
@@ -64,6 +63,7 @@
 <script>
 import DashBoard from '@/components/common/dashboardslot.vue';
 import filters from '@/components/Mixin/filters.js';
+import { bus } from '@/utils/bus.js';
 
 export default {
     mixins : [filters],

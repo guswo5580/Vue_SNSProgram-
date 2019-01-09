@@ -1,5 +1,4 @@
 //Mixins dashboard
-
 export default {
     data() {
         return {
@@ -7,7 +6,6 @@ export default {
         }
     },
     created() {
-        
         if( this.$route.name === 'home'){
             this.$store.dispatch('GET_DASHBOARD');
             this.count = 1;
@@ -78,6 +76,6 @@ export default {
                 count : this.count,
                 user : this.$route.params.id
             })
-        }
+        },
     },
 }

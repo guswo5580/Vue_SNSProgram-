@@ -152,12 +152,13 @@ export default {
         margin-bottom : 20px;
     }
     .profile-img {
-        width : 30%;
         margin : 40px 0 30px 0;
     }
-    .profile-img-change {
-        max-height: 50%;
-        max-width : 80%;
+    .profile-img-change, .profile-img-default {
+        width : 300px;
+        height: 300px;
+        object-fit: contain;
+        vertical-align: middle;
     }
     .profile-header-change {
         padding : 0 0 10px 0;

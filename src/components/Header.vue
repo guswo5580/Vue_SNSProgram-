@@ -48,6 +48,7 @@ export default {
             this.$store.dispatch('POST_LOGOUT');
         },
         Search(){
+            this.$store.state.tagsearch = this.search;
             if(this.$router.history.current.name === 'home'){
                 this.$store.dispatch('SEARCH_TAG', {
                     tag : this.search

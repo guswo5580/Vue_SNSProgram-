@@ -7,6 +7,7 @@ export default {
     userprofile : [],
     userdashboard : [],
     tagInfo: [],
+    tagsearch : '',
     changeboard : false,
     deletemessage : false,
 }   

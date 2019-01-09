@@ -1,7 +1,7 @@
 <template>
     <div class = "board-container" >
         <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
-            <dash-board>
+            <dash-board :dashboardId="dashboard.id" :reviews="dashboard.reviews">
                 <span slot="name" class = "name">
                     <router-link :to="{ name : 'userpage' , params : { id : dashboard.userId }}">{{dashboard.user.nick}}</router-link>
                 </span>
@@ -72,10 +72,13 @@
 import DashBoard from '@/components/common/dashboardslot.vue';
 import DashBoardMixin from '@/components/Mixin/dashboardmixin.js';
 import filters from '@/components/Mixin/filters.js';
+import { bus } from '@/utils/bus.js';
 
 export default {
     mixins : [DashBoardMixin, filters],
-
+    created(){
+        bus.$on('get:reviews', () => console.log('recieve'));
+    },
     components : {
         DashBoard,
     }
@@ -108,7 +111,9 @@ export default {
         width : 100%;
     }
     .image {
-        max-height: 60%;
+        width : 250px;
+        height: 250px;
+        object-fit: contain;
     }
     .image-2 {
         display : none;

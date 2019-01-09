@@ -41,7 +41,7 @@
             </div>
         </div>
         <div>
-            <Review></Review>
+            <Review :dashboardId="dashboardId" :reviews="reviews" :hashtag="hashtag"></Review>
         </div>
     </div>
 </template>
@@ -49,6 +49,7 @@
 <script>
 import Review from './review/review.vue';
 export default {
+    props : ['dashboardId', 'reviews','hashtag'],
     components : {
         Review 
     }
