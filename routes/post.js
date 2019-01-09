@@ -5,7 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-const { Post, Hashtag, User } = require('../models');
+const { Post, Hashtag, User, Review } = require('../models');
 const { isLoggedIn } = require('./middlewares');
 
 const router = express.Router();
@@ -131,6 +131,9 @@ router.get('/hashtag', async (req, res, next) => {
           model : User,
           attributes : ['id', 'nick'],
           as : 'Liker',
+        },{
+          model : Review,
+          order : [['createdAt', 'DESC']],
         }], 
       });
       //A.getB - 관계있는 로우 조회

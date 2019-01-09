@@ -14,8 +14,10 @@ router.post('/:id', isLoggedIn, async (req, res, next) => {
             const review = await Review.create({
                 content : req.body.content,
                 img : req.body.url,
+                postId : req.params.id,
                 userId : req.user.id,
-                postId : req.params.id
+                userImg : req.user.userImg,
+                userNick : req.user.nick
             });
             res.send('success');
         }
@@ -23,27 +25,6 @@ router.post('/:id', isLoggedIn, async (req, res, next) => {
         console.error(error);
         next(error);
     }
-});
-router.get('/post/:id', isLoggedIn, async (req, res, next) => {
-    Review.findAll({
-       where : { postId : req.params.id},
-       include : [{
-           model : User,
-           attributes : ['userImg', 'nick'],
-       }],
-       order : [['createdAt', 'DESC']],
-    })
-    .then( ( reviews ) => {
-        res.send({
-            reviews : reviews,
-            user : req.user,
-            loginError : req.flash('loginError'),
-        })
-    })
-    .catch( (error) => {
-        console.log(error);
-        next(error);
-    })
 });
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { Post, User } = require('../models');
+const { Post, User, Review } = require('../models');
 const path = require('path');
 const router = express.Router();
 
@@ -20,7 +20,9 @@ router.get('/dashboard', async (req, res, next) => {
             model : User,
             attributes : ['id', 'nick'],
             as : 'Liker',
-        },],
+        },{
+            model : Review,
+        }],
         order : [['createdAt', 'DESC']],
     })
     .then( (posts) => {
@@ -46,6 +48,9 @@ router.post('/nickname' , async (req, res, next) => {
       await User.update({ nick : req.body.nick}, {
         where : { id : req.user.id },
       });
+      await Review.update({ userNick : req.body.nick}, {
+        where : { userId : req.user.id },
+      });
       res.redirect('/profile');
       res.send('Completed');
     }
@@ -58,6 +63,9 @@ router.post('/nickname' , async (req, res, next) => {
     try {
         await User.update({ userImg : req.body.url}, {
             where : { id : req.user.id },
+        });
+        await Review.update({ userImg : req.body.url}, {
+            where : { userId : req.user.id },
         });
         res.redirect('/profile');
         res.send('Completed');
@@ -84,6 +92,8 @@ router.get('/:id/dashboard', async (req, res, next) => {
                 model : User,
                 attributes : ['id', 'nick'],
                 as : 'Liker',
+            },{
+                model : Review
             }
         ],
         order : [['createdAt', 'DESC']], 

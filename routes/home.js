@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { Post, User } = require('../models');
+const { Post, User, Review } = require('../models');
 const path = require('path');
 const router = express.Router();
 
@@ -13,6 +13,7 @@ router.get('/', isLoggedIn, (req, res) => {
 
 //메인 페이지 - 요청
 router.get('/dashboard', (req, res, next) => {
+  //await으로 연결해서 여러개 이용하기 
   Post.findAll({
     include: [{
       model: User,
@@ -21,6 +22,8 @@ router.get('/dashboard', (req, res, next) => {
       model : User,
       attributes : ['id', 'nick'],
       as : 'Liker',
+    },{
+      model : Review,
     }],
     order: [['createdAt', 'DESC']],
   })
