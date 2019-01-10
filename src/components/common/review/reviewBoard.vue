@@ -1,6 +1,6 @@
 <template>
     <div class = "review-board-container">
-        <transition name="fade" mode="out-in" v-for="review in reviews" :key="review">
+        <transition name="fade" mode="out-in" v-for="review in Reviews" :key="review">
             <div class = "review_board" :class="{review_board_active : review.img}">
                 <div class = "user-image">
                     <router-link :to="{ name : 'userpage' , params : { id : review.userId }}">
@@ -28,8 +28,24 @@
 
 <script>
 export default {
-    props : ['reviews'],
-
+    props : ['reviews', 'IndexNum','dashboardId'],
+    computed : {
+        ClickReviewBtn(){
+            return this.$store.state.MoreReview
+        },
+        
+        Reviews(){
+            if(this.reviews.length > 3 ){
+                if(this.$store.state.MoreReview.index === this.IndexNum && this.$store.state.MoreReview.click ){
+                    return this.reviews
+                } else {
+                    return this.reviews.slice(0,2);
+                }
+            }else { 
+                return this.reviews
+            }
+        }
+    }
 }
 </script>
 

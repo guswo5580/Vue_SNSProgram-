@@ -11,8 +11,8 @@
                 <!-- 이미지 추가하기 -->
             </div>
         </Modal>
-        <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
-            <dash-board :dashboardId="dashboard.id" :reviews="dashboard.reviews">
+        <transition name="fade" mode="out-in" v-for="(dashboard, index) in checkDashBoard" :key="dashboard">
+            <dash-board :dashboardId="dashboard.id" :reviews="dashboard.reviews" :IndexNum="index">
                 <span slot="name" class = "name">
                     <router-link :to="{ name : 'userpage' , params : { id : dashboard.userId }}">{{dashboard.user.nick}}</router-link>
                 </span>
@@ -70,13 +70,14 @@
                 <span slot="follow-btn" v-else @click="SendFollow({id : dashboard.userId, name : dashboard.user.nick})">
                     <i class="fab fa-telegram-plane fa-2x"></i>
                 </span>
-
-                <span slot="review-btn" v-if="ClickMoreReview === false" @click="ChangeReview">
+                
+                <span slot="review-btn" v-if="$store.state.MoreReview.click === true && $store.state.MoreReview.index === index" 
+                        class = "review-btn-true" @click="CancelMoreReview">
                     <i class="fas fa-edit fa-2x"></i>
                 </span>
-                <span slot="review-btn-true" v-else @click="ChangeReview">
+                <span slot="review-btn" v-else @click="SendMoreReview(index)">
                     <i class="fas fa-edit fa-2x"></i>
-                </span>  
+                </span>
             </dash-board>
         </transition>
     </div>
@@ -89,9 +90,15 @@ import filters from '@/components/Mixin/filters.js';
 import Modal from '@/components/common/modal.vue';
 
 export default {
-    data(){
-        return {
-            showModal : true,
+    methods : {
+        SendMoreReview(index){
+            this.$store.state.MoreReview.index = index;
+            this.$store.state.MoreReview.click = true;
+            console.log(this.$store.state.MoreReview);
+        },
+        CancelMoreReview(){
+            this.$store.state.MoreReview.index = null;
+            this.$store.state.MoreReview.click = false;
         }
     },
     computed : {

@@ -41,7 +41,7 @@
             </div>
         </div>
         <div>
-            <Review :dashboardId="dashboardId" :reviews="reviews" :hashtag="CheckHashtag"></Review>
+            <Review :dashboardId="dashboardId" :reviews="reviews" :hashtag="CheckHashtag" :IndexNum="IndexNum"></Review>
         </div>
     </div>
 </template>
@@ -49,7 +49,8 @@
 <script>
 import Review from './review/review.vue';
 export default {
-    props : ['dashboardId', 'reviews', 'hashtag'],
+    props : ['dashboardId', 'reviews', 'hashtag', 'IndexNum'],
+    
     computed : {
         CheckHashtag() {
             if( this.hashtag ){

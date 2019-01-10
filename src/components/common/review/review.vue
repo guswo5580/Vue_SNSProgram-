@@ -1,7 +1,7 @@
 <template>
     <div class = "review-container">
         <review-input class = "review-input" :dashboardId="dashboardId" :hashtag="hashtag"></review-input>
-        <review-board class = "reviews" :reviews="reviews"></review-board>
+        <review-board class = "reviews" :reviews="reviews" :IndexNum="IndexNum" :dashboardId="dashboardId"></review-board>
     </div>
 </template>
 
@@ -12,8 +12,7 @@ import { bus } from '@/utils/bus.js';
 import axios from 'axios';
 
 export default {
-    props : ['dashboardId', 'reviews', 'hashtag'],
-
+    props : ['dashboardId', 'reviews', 'hashtag', 'IndexNum'],
     components : {
         ReviewInput,
         ReviewBoard

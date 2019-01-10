@@ -8,6 +8,10 @@ export default {
     tagInfo: [],
     tagsearch : '',
 
+    MoreReview : {
+        index : null,
+        click : false,
+    },
     IsNewUser : null,
     postimage : null,
     changeboard : false,
