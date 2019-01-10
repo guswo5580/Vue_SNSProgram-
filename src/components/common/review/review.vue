@@ -8,12 +8,18 @@
 <script>
 import ReviewInput from './reviewInput.vue';
 import ReviewBoard from './reviewBoard.vue';
+import { bus } from '@/utils/bus.js';
+import axios from 'axios';
 
 export default {
     props : ['dashboardId', 'reviews', 'hashtag'],
+
     components : {
         ReviewInput,
         ReviewBoard
+    },
+    created(){
+        console.log(this.hashtag);
     }
 }
 </script>

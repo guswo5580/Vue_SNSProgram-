@@ -153,12 +153,17 @@ export default {
     }
     .profile-img {
         margin : 40px 0 30px 0;
+        width : 300px;
+        height: 300px;
+        overflow: hidden;
     }
     .profile-img-change, .profile-img-default {
         width : 300px;
-        height: 300px;
+        height: auto;
         object-fit: contain;
-        vertical-align: middle;
+        /* vertical-align: middle; */
+        display : block;
+        margin : 40px auto 30px auto;
     }
     .profile-header-change {
         padding : 0 0 10px 0;

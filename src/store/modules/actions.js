@@ -94,6 +94,7 @@ export default {
             .then( response => {
                 if(response.data === 'Failed') {
                     alert('검색한 태그가 없습니다.');
+                    router.push( { name : `${this.$router.history.current.name}`});
                 }
                 commit('HASHTAG', response.data.twits);
             })
@@ -377,7 +378,9 @@ export default {
                     }
                 })
                 .catch()
-        }
-        
-    }
+        }   
+    },
+
+    ///////////////////////////////////////////////////////////////////
+
 }

@@ -18,6 +18,6 @@ export default {
     },
     getUserDashboard( state ) {
         return state.userdashboard;
-    }
+    },
 
 }

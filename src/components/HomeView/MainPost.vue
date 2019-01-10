@@ -121,4 +121,13 @@ export default {
     .submitFile-btn:active {
         background-color: rgb(66, 164, 244);
     }
+
+    @media(max-width:500px){
+        .mainform{
+            width : 100%;
+        }
+        .form-group{
+            width : 90%;
+        }
+    }
 </style>

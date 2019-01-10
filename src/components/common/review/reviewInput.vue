@@ -32,6 +32,9 @@ import axios from 'axios';
 
 export default {
     props : ['dashboardId', 'hashtag'],
+    created(){
+        console.log(this.hashtag);
+    },
     mixins : [ImageMixin],
     data(){
         return{
@@ -47,24 +50,12 @@ export default {
                 .then( response => {
                     if(response.data === 'No content'){
                         alert('내용이 없습니다.');
+                        router.push( {name : `${this.$router.history.current.name}`});
                     } else {
-                        if(this.hashtag === []){
-                            if(this.$router.history.current.name === 'home'){
-                                this.$store.dispatch('SEARCH_TAG', {
-                                    tag : this.$store.state.tagsearch
-                                });
-                                localStorage.setItem('tag', this.$store.state.tagsearch);
-                                //tag의 속성으로 key를 정해놓으면 굳이 비워줄 필요가 없다.
-                                this.$store.state.tagsearch = '';
-                            }else {
-                                this.$router.push( { name : 'home' } );
-                                this.$store.dispatch('SEARCH_TAG', {
-                                    tag : this.$store.state.tagsearch
-                                });
-                                localStorage.setItem('tag', this.$store.state.tagsearch);
-                                //tag의 속성으로 key를 정해놓으면 굳이 비워줄 필요가 없다.
-                                this.$store.state.tagsearch = '';
-                            }
+                        if(this.hashtag != null ){
+                            this.$store.dispatch('RESET_TAG',{
+                                tag : localStorage.getItem('tag'),
+                            });
                         } else {
                             if( this.$route.name === 'home'){
                                 this.$store.dispatch('GET_DASHBOARD');
@@ -79,6 +70,7 @@ export default {
                                 this.count = 4;
                             }
                         }
+                        // bus.$emit('get:reviews');
                     }
                 })
                 .catch()
@@ -95,22 +87,23 @@ export default {
         align-items: center;
         width : 100%;
         margin-bottom : 10px;
+    }    
+    .user-image {
+        width : 40px;
+        height : 40px;
+        overflow : hidden;
+        margin : 0 10px 0 0;
     }
     .user-change, .user-default {
-        max-width : 50px;
-        max-height: 50px;
+        width : 40px;
+        height: 40px;
         object-fit: contain;
         vertical-align: middle;
-        margin : 0 10px 0 0;
     }
     .user-input {
         width : 85%;
     }
-    /* .user-change {
-        width : auto;
-        height : auto;
-        object-fit: contain;
-    } */
+    
 
     /* ///////////////////b-button color change////////////////// */
     .btn-primary.custom-btn {

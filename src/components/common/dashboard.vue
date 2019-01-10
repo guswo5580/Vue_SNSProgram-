@@ -60,7 +60,10 @@
                     <i class="fab fa-telegram-plane fa-2x"></i>
                 </span>
 
-                <span slot="review-btn">
+                <span slot="review-btn" v-if="ClickMoreReview === false" @click="ChangeReview">
+                    <i class="fas fa-edit fa-2x"></i>
+                </span>
+                <span slot="review-btn-true" v-else @click="ChangeReview">
                     <i class="fas fa-edit fa-2x"></i>
                 </span>  
             </dash-board>
@@ -72,12 +75,12 @@
 import DashBoard from '@/components/common/dashboardslot.vue';
 import DashBoardMixin from '@/components/Mixin/dashboardmixin.js';
 import filters from '@/components/Mixin/filters.js';
-import { bus } from '@/utils/bus.js';
+// import { bus } from '@/utils/bus.js';
 
 export default {
     mixins : [DashBoardMixin, filters],
     created(){
-        bus.$on('get:reviews', () => console.log('recieve'));
+        // bus.$on('get:reviews', () => console.log('recieve'));
     },
     components : {
         DashBoard,
@@ -110,6 +113,11 @@ export default {
         text-align: right;
         width : 100%;
     }
+    .main-image{
+        height: 70%;
+        width : 250px;
+        overflow : hidden;
+    }
     .image {
         width : 250px;
         height: 250px;
@@ -123,7 +131,7 @@ export default {
         color : rgb(66, 164, 244);
         font-size : 1rem;
     }
-    .like-btn-true, .follow-btn-true {
+    .like-btn-true, .follow-btn-true , .review-btn-true{
         color : rgba(66, 164, 244, 1);
     }
     .delete-btn-false { 
@@ -141,5 +149,10 @@ export default {
     .fade-enter, .fade-leave-to
     /* .routing-fade-leave-active below version 2.1.8 */ {
         opacity: 0;
+    }
+    @media(max-width: 600px){
+        .board-container {
+            width : 95%;
+        }
     }
 </style>

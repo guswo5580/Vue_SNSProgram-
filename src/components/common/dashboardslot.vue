@@ -41,7 +41,7 @@
             </div>
         </div>
         <div>
-            <Review :dashboardId="dashboardId" :reviews="reviews" :hashtag="hashtag"></Review>
+            <Review :dashboardId="dashboardId" :reviews="reviews" :hashtag="CheckHashtag"></Review>
         </div>
     </div>
 </template>
@@ -49,10 +49,19 @@
 <script>
 import Review from './review/review.vue';
 export default {
-    props : ['dashboardId', 'reviews','hashtag'],
+    props : ['dashboardId', 'reviews', 'hashtag'],
+    computed : {
+        CheckHashtag() {
+            if( this.hashtag ){
+                return this.hashtag
+            } else {
+                return null
+            }
+        }
+    },
     components : {
         Review 
-    }
+    },
 }
 </script>
 
@@ -121,9 +130,9 @@ export default {
             margin : 20px auto;
         }
     }
-    @media (max-width : 500px) {
+    @media (max-width : 600px) {
         .board-aligns {
-            width : 90%;
+            width : 100%;
         }
     }
 </style>

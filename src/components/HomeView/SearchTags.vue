@@ -1,7 +1,7 @@
 <template>
     <div class = "board-container" >
         <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
-            <dash-board :dashboardId="dashboard.id" :reviews="dashboard.reviews" :hashtag="dashboard.PostHashtag">
+            <dash-board :dashboardId="dashboard.id" :reviews="dashboard.reviews" :hashtag="dashboard.PostHashtag.hashtagId">
                 <span slot="name" class = "name">
                     {{dashboard.user.nick}}
                 </span>
