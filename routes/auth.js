@@ -16,7 +16,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
     //이메일 검사 
     if (exUser) {
       req.flash('joinError', '이미 가입된 이메일입니다.');
-      return res.redirect('/join');
+      return res.send('Already');
     }
     const hash = await bcrypt.hash(password, 12);
     //없다면 비밀번호를 우선 암호화 

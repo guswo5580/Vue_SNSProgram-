@@ -121,6 +121,9 @@ router.get('/hashtag', async (req, res, next) => {
   }
   try {
     const hashtag = await Hashtag.find({ where: { title: query } });
+    if(hashtag === [] || hashtag === null){
+      return res.send('Failed');
+    }
     let posts = [];
     if (hashtag) {
       posts = await hashtag.getPosts({ 
@@ -132,9 +135,9 @@ router.get('/hashtag', async (req, res, next) => {
           attributes : ['id', 'nick'],
           as : 'Liker',
         },{
-          model : Review,
-          order : [['createdAt', 'DESC']],
-        }], 
+          model : Review, 
+        }],
+        order : [['createdAt', 'DESC']], 
       });
       //A.getB - 관계있는 로우 조회
       //A.addB - 관계 생성
