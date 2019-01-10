@@ -18,9 +18,6 @@ export default {
         ReviewInput,
         ReviewBoard
     },
-    created(){
-        console.log(this.hashtag);
-    }
 }
 </script>
 

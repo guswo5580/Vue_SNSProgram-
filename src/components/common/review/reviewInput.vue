@@ -32,9 +32,6 @@ import axios from 'axios';
 
 export default {
     props : ['dashboardId', 'hashtag'],
-    created(){
-        console.log(this.hashtag);
-    },
     mixins : [ImageMixin],
     data(){
         return{
@@ -70,7 +67,6 @@ export default {
                                 this.count = 4;
                             }
                         }
-                        // bus.$emit('get:reviews');
                     }
                 })
                 .catch()

@@ -1,5 +1,16 @@
 <template>
     <div class = "board-container" >
+        <Modal v-if="IsNewUser">
+            <h4 slot="header">
+                PEACEOCEAN에 오신 걸 환영합니다. <br><br>
+                PEACEOCEAN은 아래와 같이 이용하실 수 있습니다
+            </h4>
+            <i slot="icon" class="closeModalBtn fas fa-times fa-2x" @click="$store.state.IsNewUser = false"></i>
+            <div slot="body">
+                <b-img class = "exampleimg" src="https://i.postimg.cc/76xKdcZy/image2.png" fluid alt="예시 이미지"></b-img>
+                <!-- 이미지 추가하기 -->
+            </div>
+        </Modal>
         <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
             <dash-board :dashboardId="dashboard.id" :reviews="dashboard.reviews">
                 <span slot="name" class = "name">
@@ -75,16 +86,25 @@
 import DashBoard from '@/components/common/dashboardslot.vue';
 import DashBoardMixin from '@/components/Mixin/dashboardmixin.js';
 import filters from '@/components/Mixin/filters.js';
-// import { bus } from '@/utils/bus.js';
+import Modal from '@/components/common/modal.vue';
 
 export default {
-    mixins : [DashBoardMixin, filters],
-    created(){
-        // bus.$on('get:reviews', () => console.log('recieve'));
+    data(){
+        return {
+            showModal : true,
+        }
     },
+    computed : {
+        IsNewUser(){
+            return this.$store.state.IsNewUser
+        }
+    },
+    mixins : [DashBoardMixin, filters],
     components : {
         DashBoard,
+        Modal
     }
+
 }
 </script>
 
@@ -143,6 +163,9 @@ export default {
         font-size : 0.8rem;
     }
     /* ////////////////////////////////////// */
+    .closeModalBtn {
+        color : rgb(66, 164, 244);
+    }
     .fade-enter-active, .fade-leave-active {
         transition: opacity .4s ease;
     }

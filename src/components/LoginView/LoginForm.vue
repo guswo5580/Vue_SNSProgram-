@@ -47,13 +47,24 @@
 export default {
     computed: {
         state () {
-            return this.password.length >= 4 ? true : false
+            var pattern1 = /[0-9]/;	// 숫자 
+            var pattern2 = /[a-zA-Z]/;	// 문자 
+            var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;	// 특수문자
+            if(!pattern1.test(this.password) || !pattern2.test(this.password) || !pattern3.test(this.password) || this.password.length < 8) { 
+                return false; 
+            } else {
+                return true
+            }
+
         },
         invalidFeedback () {
-            if (this.password.length > 4) {
-                return ''
+            var pattern1 = /[0-9]/;	// 숫자 
+            var pattern2 = /[a-zA-Z]/;	// 문자 
+            var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;	// 특수문자
+            if(!pattern1.test(this.password) || !pattern2.test(this.password) || !pattern3.test(this.password) || this.password.length < 8) { 
+                return '비밀번호를 입력해주세요'
             } else {
-                return '4자 이상 입력해주세요'
+                return ''
             }
         },
         validFeedback () {

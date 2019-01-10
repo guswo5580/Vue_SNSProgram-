@@ -47,8 +47,9 @@ export default {
                         email : data.email,
                         password : data.password
                     })
-                }
-                else 
+                }else if(response.data === 'Already') {
+                    alert('이미 가입된 아이디입니다.');
+                }else 
                     alert("서버에 문제가 생겼습니다. 새로 고침 후 다시 시작해주세요");
                 return response;
                 
@@ -64,6 +65,7 @@ export default {
             .then( response => {
                 commit('DASHBOARD', response.data.twits);
                 commit('SET_USER', response.data.user);
+                commit('IS_NEWUSER', response.data.NewUser);
                 // bus.$emit('off:progress');
             })
             .catch()

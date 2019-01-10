@@ -8,6 +8,7 @@ export default {
     tagInfo: [],
     tagsearch : '',
 
+    IsNewUser : null,
     postimage : null,
     changeboard : false,
     deletemessage : false,
