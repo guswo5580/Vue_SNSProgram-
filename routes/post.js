@@ -137,7 +137,7 @@ router.get('/hashtag', async (req, res, next) => {
         },{
           model : Review, 
         }],
-        order : [['createdAt', 'DESC']], 
+        // order : [['createdAt', 'DESC']], 
       });
       //A.getB - 관계있는 로우 조회
       //A.addB - 관계 생성

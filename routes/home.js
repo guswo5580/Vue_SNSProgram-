@@ -16,12 +16,7 @@ router.get('/dashboard', async (req, res, next) => {
   //await으로 연결해서 여러개 이용하기 
   try {
     let posts = [];
-    let NewUser = false;
-    const user = await Post.find({ where : { id : req.user.id }});
-    
-    if( !user ) {
-      NewUser = true;
-    } 
+
     posts = await Post.findAll({
       include : [{
         model : User,
@@ -32,12 +27,12 @@ router.get('/dashboard', async (req, res, next) => {
         as : 'Liker',
       },{
         model : Review,
+        // order : [['id']],
       }],
-      order : [['createdAt', 'DESC']],
+      // order : [['createdAt', 'DESC']],
     });
 
     return res.send({
-      NewUser,
       twits: posts,
       //post.js에서 넘어오는 정보들을 담는다 
       user: req.user,

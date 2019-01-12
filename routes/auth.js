@@ -79,10 +79,10 @@ router.get('/kakao', passport.authenticate('kakao'));
 
 // kakaoStrategy.js 의 callbackURL: '/auth/kakao/callback'와 주소가 일치해야한다 
 router.get('/kakao/callback', passport.authenticate('kakao', {
-  failureRedirect: '/',
+  failureRedirect: '/login',
   //로그인이 실패했으면 메인 라우터로 되돌아가기 
 }), (req, res) => {
-  res.redirect('/');
+  res.redirect('/home');
   //로그인이 성공해도 메인 라우터로 돌아가기 
 });
 
