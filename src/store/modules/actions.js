@@ -43,10 +43,8 @@ export default {
         })
             .then(response => {
                 if(response.data === "Completed") {
-                    return dispatch('POST_LOGIN', {
-                        email : data.email,
-                        password : data.password
-                    })
+                    router.push( { name : 'example' , params : { email : data.email , password : data.password}});
+                    // router.push({ name: 'user', params: { userId: 123 }})
                 }else if(response.data === 'Already') {
                     alert('이미 가입된 아이디입니다.');
                 }else 
@@ -65,7 +63,7 @@ export default {
             .then( response => {
                 commit('DASHBOARD', response.data.twits);
                 commit('SET_USER', response.data.user);
-                commit('IS_NEWUSER', response.data.NewUser);
+                // commit('IS_NEWUSER', response.data.isNewUser);
                 // bus.$emit('off:progress');
             })
             .catch()

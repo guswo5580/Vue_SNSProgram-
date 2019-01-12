@@ -24,6 +24,16 @@ export default {
                     return value.substring( branch , value.length );
                 }
             }        
+        },
+        SubContent(value) {
+            let branch = value.indexOf('T');
+            if(!value) return ''
+            else {
+                if(branch == -1) return ''
+                else {
+                    return value.substring(0,branch);
+                }
+            }
         }
-    },
+    }
 }

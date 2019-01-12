@@ -8,9 +8,6 @@ export default {
     GET_USERPROFILE(state, data) {
         state.userprofile = data;
     },
-    IS_NEWUSER(state, data){
-        state.IsNewUser = data;
-    },
     DASHBOARD(state, data) {
         state.dashboard = data;
     },

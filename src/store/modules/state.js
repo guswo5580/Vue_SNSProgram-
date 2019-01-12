@@ -12,7 +12,6 @@ export default {
         index : null,
         click : false,
     },
-    IsNewUser : null,
     postimage : null,
     changeboard : false,
     deletemessage : false,

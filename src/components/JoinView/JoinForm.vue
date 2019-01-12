@@ -7,15 +7,19 @@
         </div>
         <div class = "body">
             <div class = "form-group">
-                <b-form-input v-model="email" type="email" placeholder="이메일을 입력하세요"></b-form-input>
+                <b-form-group id="fieldset2" label-for="input1" :invalid-feedback="invalidId" 
+                    :valid-feedback="validId" :state="Id">
+                    <b-form-input id="input1" :state="Id" v-model="email" type="email" placeholder="이메일을 입력하세요"></b-form-input>
+                </b-form-group>
             </div>
             <div class = "form-group">
                 <b-form-input v-model="nickname" type="text" placeholder="닉네임을 입력하세요"></b-form-input>
             </div>
             <div class = "form-group">
-                <b-form-group id="fieldset1" label-for="input2" :invalid-feedback="invalidFeedback"
-                    :valid-feedback="validFeedback" :state="state">
-                    <b-form-input id="input2" :state="state" type="password" v-model="password" placeholder = "비밀번호를 입력하세요"></b-form-input>
+                <b-form-group id="fieldset1" label-for="input2" :invalid-feedback="invalidPassword"
+                    :valid-feedback="validPassword" :state="Password">
+                    <b-form-input id="input2" :state="Password" type="password" v-model="password" placeholder = "비밀번호를 입력하세요"
+                        @keyup.enter.native="Join" ></b-form-input>
                 </b-form-group>
             </div>
             <div class = "form-button">
@@ -29,49 +33,35 @@
         </div>
         <div class = "footer">
             <div class = "kakao">
-                <b-button class = "kakao-button"><i class="fas fa-comment" style = "margin-right : 5px;"></i>
-                    카카오톡으로 로그인</b-button>
+                <a href="/auth/kakao">
+                    <b-button class = "kakao-button"><i class="fas fa-comment" style = "margin-right : 5px;"></i>
+                        카카오톡으로 로그인
+                    </b-button>
+                </a>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    computed: {
-        state () {
-            var pattern1 = /[0-9]/;	// 숫자 
-            var pattern2 = /[a-zA-Z]/;	// 문자 
-            var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;	// 특수문자
-            if(!pattern1.test(this.password) || !pattern2.test(this.password) || !pattern3.test(this.password) || this.password.length < 8) { 
-                return false; 
-            } else {
-                return true
-            }
+import Password from '@/components/Mixin/password.js';
 
-        },
-        invalidFeedback () {
-            var pattern1 = /[0-9]/;	
-            var pattern2 = /[a-zA-Z]/;	
-            var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;	
-            if(!pattern1.test(this.password) || !pattern2.test(this.password) || !pattern3.test(this.password) || this.password.length < 8) { 
-                return '비밀번호는 8자리 이상 문자, 숫자, 특수문자로 구성하여야 합니다.'
-            } else {
-                return ''
-            }
-        },
-        validFeedback () {
-            return this.state === true ? '감사합니다' : ''
-        }
-    },
+export default {
+    mixins : [Password],
     methods : {
         Join(){
-            this.$store.dispatch('POST_JOIN',{
-                email : this.email,
-                nickname : this.nickname,
-                password : this.password
-            });
-        }
+            if( !this.Id || !this.Password ) {
+                alert('이메일과 비밀번호를 확인해주세요');
+                this.$router.push( { name : 'join' });
+            }else {
+                    this.$store.dispatch('POST_JOIN',{
+                    email : this.email,
+                    nickname : this.nickname,
+                    password : this.password
+                });
+            }
+            
+        },
     },
     data () {
         return {

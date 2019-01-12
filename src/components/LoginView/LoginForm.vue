@@ -10,12 +10,9 @@
                 <b-form-input v-model="email" type="text" placeholder="이메일을 입력하세요" autofocus></b-form-input>
             </div>
             <div class = "form-group">
-                <b-form-group id="fieldset1" label-for="input2" :invalid-feedback="invalidFeedback"
-                    :valid-feedback="validFeedback" :state="state">
-                    <b-form-input id="input2" type ="password" :state="state" v-model="password" 
+                <b-form-input id="input2" type ="password" v-model="password" 
                             placeholder = "비밀번호를 입력하세요" @keyup.enter.native="Login">
-                        </b-form-input>
-                </b-form-group>
+                </b-form-input>
             </div>
             <div class = "form-button">
                 <b-button class = "submit-button" @click="Login">로그인</b-button>
@@ -28,8 +25,11 @@
         </div>
         <div class = "footer">
             <div class = "kakao">
-                <b-button class = "kakao-button"><i class="fas fa-comment" style = "margin-right : 5px;"></i>
-                    카카오톡으로 로그인</b-button>
+                <a href="/auth/kakao">
+                    <b-button class = "kakao-button"><i class="fas fa-comment" style = "margin-right : 5px;"></i>
+                        카카오톡으로 로그인
+                    </b-button>
+                </a>   
             </div>
             <div class = "signup-section">
                 <div class = "signup-title">
@@ -44,40 +44,16 @@
 </template>
 
 <script>
+import Password from '@/components/Mixin/password.js';
 export default {
-    computed: {
-        state () {
-            var pattern1 = /[0-9]/;	// 숫자 
-            var pattern2 = /[a-zA-Z]/;	// 문자 
-            var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;	// 특수문자
-            if(!pattern1.test(this.password) || !pattern2.test(this.password) || !pattern3.test(this.password) || this.password.length < 8) { 
-                return false; 
-            } else {
-                return true
-            }
-
-        },
-        invalidFeedback () {
-            var pattern1 = /[0-9]/;	// 숫자 
-            var pattern2 = /[a-zA-Z]/;	// 문자 
-            var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;	// 특수문자
-            if(!pattern1.test(this.password) || !pattern2.test(this.password) || !pattern3.test(this.password) || this.password.length < 8) { 
-                return '비밀번호를 입력해주세요'
-            } else {
-                return ''
-            }
-        },
-        validFeedback () {
-            return this.state === true ? '감사합니다' : ''
-        }
-    },
+    mixins : [Password],
     methods : {
         Login(){
             this.$store.dispatch('POST_LOGIN',{
                 email : this.email,
                 password : this.password
             });
-        }
+        },
     },
     data () {
         return {

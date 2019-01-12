@@ -1,6 +1,6 @@
 <template>
     <div class = "review-board-container">
-        <transition name="fade" mode="out-in" v-for="review in Reviews" :key="review">
+        <transition name="fade" v-for="review in Reviews" :key="review">
             <div class = "review_board" :class="{review_board_active : review.img}">
                 <div class = "user-image">
                     <router-link :to="{ name : 'userpage' , params : { id : review.userId }}">
@@ -14,7 +14,7 @@
                         <router-link :to="{ name : 'userpage' , params : { id : review.userId }}">{{review.userNick}}</router-link>
                     </span>
                     <span class = "review-content">
-                        {{review.content}}  
+                        {{review.content}} <sub class = "sub-content">{{review.createdAt | SubContent}}</sub>
                     </span>
                     <span class = "review-img">
                         <b-img v-if="review.img === null" style="display:none;"></b-img>
@@ -27,8 +27,10 @@
 </template>
 
 <script>
+import Filters from '@/components/Mixin/filters.js';
 export default {
     props : ['reviews', 'IndexNum','dashboardId'],
+    mixins : [Filters],
     computed : {
         ClickReviewBtn(){
             return this.$store.state.MoreReview
@@ -39,13 +41,13 @@ export default {
                 if(this.$store.state.MoreReview.index === this.IndexNum && this.$store.state.MoreReview.click ){
                     return this.reviews
                 } else {
-                    return this.reviews.slice(0,2);
+                    return this.reviews.slice(this.reviews.length-2,this.reviews.length);
                 }
             }else { 
                 return this.reviews
             }
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -97,9 +99,14 @@ export default {
     .review-content-img {
         max-height: 50%;
     }
+    .sub-content {
+        font-size : 0.7rem;
+        color : gray;
+        margin-left : 15px;
+    }
     /* //////////////////////////////////// */
     .fade-enter-active, .fade-leave-active {
-        transition: opacity .4s ease;
+        transition: opacity .2s ease;
     }
     .fade-enter, .fade-leave-to
     /* .routing-fade-leave-active below version 2.1.8 */ {
@@ -123,7 +130,7 @@ export default {
     }
     /* //////////////////////////////////// */
     .fade-enter-active, .fade-leave-active {
-        transition: opacity .4s ease;
+        transition: opacity .5s ease;
     }
     .fade-enter, .fade-leave-to
     /* .routing-fade-leave-active below version 2.1.8 */ {
