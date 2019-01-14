@@ -1,6 +1,6 @@
 <template>
     <div class = "review-board-container">
-        <transition name="fade" v-for="review in Reviews" :key="review">
+        <transition name="fade" mode="in-out" v-for="review in Reviews" :key="review">
             <div class = "review_board" :class="{review_board_active : review.img}">
                 <div class = "user-image">
                     <router-link :to="{ name : 'userpage' , params : { id : review.userId }}">
@@ -138,9 +138,6 @@ export default {
     }
 
     @media(max-width : 500px){
-        .user-image{
-            display: none;
-        }
         .review-img{
             width : 70%;
         }
