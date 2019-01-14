@@ -29,7 +29,7 @@ router.get('/dashboard', async (req, res, next) => {
         model : Review,
         // order : [['id']],
       }],
-      // order : [['createdAt', 'DESC']],
+      order : [['createdAt', 'DESC']],
     });
 
     return res.send({

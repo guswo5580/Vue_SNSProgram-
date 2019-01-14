@@ -23,7 +23,7 @@ router.get('/dashboard', async (req, res, next) => {
         },{
             model : Review,
         }],
-        // order : [['createdAt', 'DESC']],
+        order : [['createdAt', 'DESC']],
     })
     .then( (posts) => {
         res.send({
