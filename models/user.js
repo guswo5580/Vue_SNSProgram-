@@ -32,6 +32,8 @@ module.exports = (sequelize, DataTypes) => (
       paranoid: true,
       //삭제되었을 때 그 정보를 저장해둔다
       //후에 복구할 때 사용할 수 있는 요소가 된다 
+      charset : 'utf8',
+      collate : 'utf8_general_ci',
     })
   );
   
