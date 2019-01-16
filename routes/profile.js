@@ -22,8 +22,11 @@ router.get('/dashboard', async (req, res, next) => {
             as : 'Liker',
         },{
             model : Review,
-        }],
-        order : [['createdAt', 'DESC']],
+            order : [
+                [ Review , 'id', 'asc'],
+        ],
+      }],
+      order : [['createdAt', 'DESC']],
     })
     .then( (posts) => {
         res.send({
@@ -93,11 +96,13 @@ router.get('/:id/dashboard', async (req, res, next) => {
                 attributes : ['id', 'nick'],
                 as : 'Liker',
             },{
-                model : Review
-            }
-        ],
-        order : [['createdAt', 'DESC']], 
-    })
+                model : Review,
+                order : [
+                    [ Review , 'id', 'asc'],
+                ],
+            }],
+            order : [['createdAt', 'DESC']], 
+        })
     .then( (posts) => {
         res.send({
             twits : posts,

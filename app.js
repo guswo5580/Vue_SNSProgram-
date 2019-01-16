@@ -25,7 +25,7 @@ sequelize.sync();
 passportConfig(passport);
 
 app.set('view engine', 'pug');
-app.set('port', process.env.PORT || 8081);
+app.set('port', process.env.PORT || 80);
 if(process.env.NODE_ENV === 'production'){
   app.use(morgan('combined'));
   app.use(helmet());

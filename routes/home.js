@@ -27,7 +27,9 @@ router.get('/dashboard', async (req, res, next) => {
         as : 'Liker',
       },{
         model : Review,
-        // order : [['id']],
+        order : [
+          [ Review , 'id', 'asc'],
+        ],
       }],
       order : [['createdAt', 'DESC']],
     });
