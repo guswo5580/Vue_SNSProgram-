@@ -34,6 +34,6 @@ export default {
                     return value.substring(0,branch);
                 }
             }
-        }
+        },
     }
 }

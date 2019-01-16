@@ -1,14 +1,18 @@
 <template>
     <div class = "review-board-container">
-        <transition name="fade" mode="in-out" v-for="review in Reviews" :key="review">
+        <div class = "no-review-section" v-if="NoReview">
+            <span class = "no-review">댓글이 없습니다</span>
+        </div>
+        <transition name="fade" mode="in-out" v-for="review in Reviews" :key="review">    
             <div class = "review_board" :class="{review_board_active : review.img}">
                 <div class = "user-image">
-                    <router-link :to="{ name : 'userpage' , params : { id : review.userId }}">
+                    <router-link :to="{ name : 'userpage' , params : { id : review.userId }} ">
                         <b-img class = "user-default" rounded src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" 
                             v-if="review.userImg === null"/>
                         <b-img class = "user-change" rounded :src="review.userImg" fluid alt="이미지 손상" v-else /> 
                     </router-link>
                 </div>
+                
                 <div class = "review-main">
                     <span class = "review-header">
                         <router-link :to="{ name : 'userpage' , params : { id : review.userId }}">{{review.userNick}}</router-link>
@@ -31,20 +35,27 @@ import Filters from '@/components/Mixin/filters.js';
 export default {
     props : ['reviews', 'IndexNum','dashboardId'],
     mixins : [Filters],
+    data() {
+        return {
+            none : false,
+        }
+    },
     computed : {
         ClickReviewBtn(){
             return this.$store.state.MoreReview
         },
-        
+        NoReview(){
+            return this.none
+        },
         Reviews(){
-            if(this.reviews.length > 3 ){
+            if(this.reviews.length !== 0 ){
+                this.none = false;
                 if(this.$store.state.MoreReview.index === this.IndexNum && this.$store.state.MoreReview.click ){
+                    this.none = false;
                     return this.reviews
-                } else {
-                    return this.reviews.slice(this.reviews.length-2,this.reviews.length);
                 }
             }else { 
-                return this.reviews
+                this.none = true;
             }
         },
     },
@@ -52,6 +63,15 @@ export default {
 </script>
 
 <style scoped>
+    .no-review-section {
+        display : block;
+        margin : 0 auto;
+        text-align: center;
+    }
+    .no-review {
+        font-size : 1.1rem;
+        color : gray;
+    }
     .review_board {
         display : flex;
         align-items : center;

@@ -1,7 +1,7 @@
 <template>
     <div class = "board-container" >
-        <transition name="fade" mode="out-in" v-for="dashboard in checkDashBoard" :key="dashboard">
-            <dash-board :dashboardId="dashboard.id" :reviews="dashboard.reviews" :hashtag="dashboard.PostHashtag.hashtagId">
+        <transition name="fade" mode="out-in" v-for="(dashboard, index) in checkDashBoard" :key="dashboard">
+            <dash-board :dashboardId="dashboard.id" :reviews="dashboard.reviews" :hashtag="dashboard.PostHashtag.hashtagId" :IndexNum="index">
                 <span slot="name" class = "name">
                     {{dashboard.user.nick}}
                 </span>
@@ -52,7 +52,11 @@
                     <i class="fab fa-telegram-plane fa-2x"></i>
                 </span>
 
-                <span slot="review-btn">
+                <span slot="review-btn" v-if="$store.state.MoreReview.click === true && $store.state.MoreReview.index === index" 
+                        class = "review-btn-true" @click="CancelMoreReview">
+                    <i class="fas fa-edit fa-2x"></i>
+                </span>
+                <span slot="review-btn" v-else @click="SendMoreReview(index)">
                     <i class="fas fa-edit fa-2x"></i>
                 </span>  
             </dash-board>
@@ -113,7 +117,15 @@ export default {
                 count : 3,
                 tag : localStorage.getItem('tag')
             })
-        }
+        },
+        SendMoreReview(index){
+            this.$store.state.MoreReview.index = index;
+            this.$store.state.MoreReview.click = true;
+        },
+        CancelMoreReview(){
+            this.$store.state.MoreReview.index = null;
+            this.$store.state.MoreReview.click = false;
+        },
     },
     components : {
         DashBoard
@@ -157,7 +169,7 @@ export default {
         color : rgb(66, 164, 244);
         font-size : 1rem;
     }
-    .like-btn-true, .follow-btn-true {
+    .like-btn-true, .follow-btn-true , .review-btn-true{
         color : rgba(66, 164, 244, 1);
     }
     .delete-btn-false { 

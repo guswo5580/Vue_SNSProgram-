@@ -37,6 +37,7 @@
 </template>
 
 <script>
+
 export default {
     data(){
         return {
@@ -48,25 +49,25 @@ export default {
             this.$store.dispatch('POST_LOGOUT');
         },
         Search(){
-            this.$store.state.tagsearch = this.search;
-            if(this.$router.history.current.name === 'home'){
-                this.$store.dispatch('SEARCH_TAG', {
-                    tag : this.search
-                });
-                localStorage.setItem('tag', this.search);
-                //tag의 속성으로 key를 정해놓으면 굳이 비워줄 필요가 없다.
-                this.search = '';
-            }else {
-                this.$router.push( { name : 'home' } );
-                this.$store.dispatch('SEARCH_TAG', {
-                    tag : this.search
-                });
-                localStorage.setItem('tag', this.search);
-                //tag의 속성으로 key를 정해놓으면 굳이 비워줄 필요가 없다.
-                this.search = '';
-            }
+        this.$store.state.tagsearch = this.search;
+        if(this.$router.history.current.name === 'home'){
+            this.$store.dispatch('SEARCH_TAG', {
+                tag : this.search
+            });
+            localStorage.setItem('tag', this.search);
+            //tag의 속성으로 key를 정해놓으면 굳이 비워줄 필요가 없다.
+            this.search = '';
+        }else {
+            this.$router.push( { name : 'home' } );
+            this.$store.dispatch('SEARCH_TAG', {
+                tag : this.search
+            });
+            localStorage.setItem('tag', this.search);
+            //tag의 속성으로 key를 정해놓으면 굳이 비워줄 필요가 없다.
+            this.search = '';
+        }
             
-        },
+    },
         LinkToHome(){
             this.$router.push(
                 {

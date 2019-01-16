@@ -86,7 +86,7 @@ export default {
         CancelMoreReview(){
             this.$store.state.MoreReview.index = null;
             this.$store.state.MoreReview.click = false;
-        }
+        },
     },
     mixins : [DashBoardMixin, filters],
     components : {
