@@ -122,7 +122,7 @@ export default {
         background-color: rgb(66, 164, 244);
     }
 
-    @media(max-width:500px){
+    @media(max-width:600px){
         .mainform{
             width : 100%;
         }

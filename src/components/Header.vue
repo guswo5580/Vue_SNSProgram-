@@ -157,7 +157,7 @@ export default {
         visibility: visible;
     } */
 /* ////////////////////////////////////// */
-    @media (max-width : 700px) {
+    @media (max-width : 800px) {
         .logo-container {
             width : 20%;
         }
@@ -166,7 +166,7 @@ export default {
         }
         
     }
-    @media (max-width : 500px) {
+    @media (max-width : 550px) {
         .header {
             padding : 5px;
         }
