@@ -136,11 +136,9 @@ router.get('/hashtag', async (req, res, next) => {
           as : 'Liker',
         },{
           model : Review,
-          order : [
-              [ Review , 'id', 'asc'],
-          ],
       }],
-      order : [['createdAt', 'DESC']], 
+      order : [[ 'createdAt', 'DESC'],
+              [Review, 'id', 'ASC']],
       });
       //A.getB - 관계있는 로우 조회
       //A.addB - 관계 생성

@@ -27,12 +27,12 @@ router.get('/dashboard', async (req, res, next) => {
         as : 'Liker',
       },{
         model : Review,
-        order : [
-          [ Review , 'id', 'asc'],
-        ],
+        order : [[Review, 'id', 'ASC']],  
       }],
-      order : [['createdAt', 'DESC']],
+      order : [[ 'createdAt', 'DESC'],
+              [Review, 'id', 'ASC']],
     });
+    
 
     return res.send({
       twits: posts,
