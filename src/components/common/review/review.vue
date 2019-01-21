@@ -17,6 +17,12 @@ export default {
         ReviewInput,
         ReviewBoard
     },
+    // created(){
+    //     SortReview(this.reviews){
+    //         let cmp;
+    //         cmp = 
+    //     }
+    // }
 }
 </script>
 

@@ -3,7 +3,7 @@
         <div class = "profile-img">
             <b-img class = "profile-img-default" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" 
                                 v-if="$store.state.profile.userImg === null " />
-            <b-img class = "profile-img-change" rounded :src="$store.state.profile.userImg" fluid alt="이미지 손상" v-else />
+            <b-img class = "profile-img-change" rounded="circle" :src="$store.state.profile.userImg" fluid alt="이미지 손상" v-else />
         </div>
         <div class = "profile-content">
             <div class = "profile-header">
@@ -153,15 +153,13 @@ export default {
     }
     .profile-img {
         margin : 40px 0 30px 0;
-        width : 300px;
-        height: 300px;
+        width : 500px;
+        height: 500px;
         overflow: hidden;
     }
     .profile-img-change, .profile-img-default {
-        width : 300px;
-        height: auto;
-        object-fit: contain;
-        /* vertical-align: middle; */
+        width : 500px;
+        height: 400px;
         display : block;
         margin : 40px auto 30px auto;
     }
@@ -297,17 +295,19 @@ export default {
             margin-top : 100px;
         }
         .profile-img {
-            width : 50%;
-            margin : 0 auto 30px auto;
+            margin : 40px auto 20px auto;
+            width : 400px;
+            height: 400px;
+        }
+        .profile-img-change, .profile-img-default {
+            width : 400px;
+            height: 300px;
+            margin : 40px auto 30px auto;
         }
         .profile-content {
             width : 80%;
             margin : 0 auto;
             text-align : center;
-        }
-        .profile-img-change {
-            max-height: 70%;
-            max-width : 100%;
         }
         .profile-header {
             display : flex;
@@ -339,15 +339,15 @@ export default {
             color : rgb(66, 164, 244);
         }
     }
-    @media (max-width : 500px) {
-        .profile-img {
-            width : 80%;
-        } 
+    @media (max-width : 600px) {
         .profile-main {
             display : block;
             width : 100%;
             margin : 30px auto;    
             text-align: left;
+        }
+        .profile-content {
+            width : 90%;
         }
         .board , .followers, .followings {
             margin-left : 0;

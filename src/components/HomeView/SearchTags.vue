@@ -158,8 +158,15 @@ export default {
         text-align: right;
         width : 100%;
     }
+    .main-image{
+        width: 350px;
+        height: 350px;
+        /* overflow : hidden; */
+    }
     .image {
-        max-height: 60%;
+        width : 350px;
+        height: 300px;
+        object-fit: contain;
     }
     .image-2 {
         display : none;
@@ -188,5 +195,11 @@ export default {
     .fade-enter, .fade-leave-to
     /* .routing-fade-leave-active below version 2.1.8 */ {
         opacity: 0;
+    }
+
+    @media(max-width: 600px){
+        .board-container {
+            width : 95%;
+        }
     }
 </style>

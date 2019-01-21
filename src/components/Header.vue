@@ -141,21 +141,6 @@ export default {
     .logout:hover{
         color : rgb(66, 164, 244);
     }
-    /* .tooltiptext{
-        visibility: hidden;
-        width : 120px;
-        background-color : white;
-        color : black;
-        font-size : 0.6rem;
-        text-align: center;
-        border-radius: 6px;
-        padding : 5px 0;
-        position : relative;
-        z-index: 1;
-    }
-    .tooltiptext:hover{
-        visibility: visible;
-    } */
 /* ////////////////////////////////////// */
     @media (max-width : 800px) {
         .logo-container {
@@ -166,7 +151,7 @@ export default {
         }
         
     }
-    @media (max-width : 550px) {
+    @media (max-width : 600px) {
         .header {
             padding : 5px;
         }

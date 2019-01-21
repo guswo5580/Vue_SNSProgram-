@@ -1,9 +1,9 @@
 <template>
     <div class = "profile-container">
         <div class = "profile-img">
-            <b-img class = "profile-img-default" rounded src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" 
+            <b-img class = "profile-img-default" rounded="circle" src="https://i.postimg.cc/yNc4Y0SW/image1.jpg" fluid alt="Responsive image" 
                                 v-if="User.userImg === null " />
-            <b-img class = "profile-img-change" rounded :src="User.userImg" fluid alt="이미지 손상" v-else />
+            <b-img class = "profile-img-change" rounded="circle" :src="User.userImg" fluid alt="이미지 손상" v-else />
         </div>
         <div class = "profile-content">
             <div class = "profile-header">
@@ -73,16 +73,15 @@ export default {
         margin-bottom : 100px;
     }
     .profile-img {
-        height: 70%;
-        width : 250px;
-        overflow : hidden;
+        width : 500px;
+        height: 500px;
+        overflow: hidden;
         margin-top : 40px;
         margin-right : 30px;
     }
     .profile-img-change {
-        width : 250px;
-        height: 250px;
-        object-fit: contain;
+        width : 500px;
+        height: 400px;
     }
     .profile-header-change {
         padding : 0 0 10px 0;
@@ -216,17 +215,19 @@ export default {
             margin-top : 100px;
         }
         .profile-img {
-            width : 50%;
-            margin : 0 auto 30px auto;
+            margin : 40px auto 20px auto;
+            width : 400px;
+            height: 400px;
+        }
+        .profile-img-change, .profile-img-default {
+            width : 400px;
+            height: 300px;
+            margin : 40px auto 30px auto;
         }
         .profile-content {
             width : 80%;
             margin : 0 auto;
             text-align : center;
-        }
-        .profile-img-change {
-            max-height: 60%;
-            max-width : 100%;
         }
         .profile-header {
             display : flex;
@@ -258,7 +259,7 @@ export default {
             color : rgb(66, 164, 244);
         }
     }
-    @media (max-width : 500px) {
+    @media (max-width : 600px) {
         .profile-img {
             width : 80%;
         } 
@@ -267,6 +268,9 @@ export default {
             width : 100%;
             margin : 30px auto;    
             text-align: left;
+        }
+        .profile-content {
+            width : 90%;
         }
         .followers, .followings {
             margin-left : 0;

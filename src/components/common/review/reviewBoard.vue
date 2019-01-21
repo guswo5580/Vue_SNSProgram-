@@ -52,13 +52,20 @@ export default {
                 this.none = false;
                 if(this.$store.state.MoreReview.index === this.IndexNum && this.$store.state.MoreReview.click ){
                     this.none = false;
-                    return this.reviews
-                }
+                    return this.reviews                }
             }else { 
                 this.none = true;
             }
         },
     },
+    methods : {
+        Sort(review){
+            let cmp = [];
+            for(var i=0; i<review.length; i++){
+                review[i].sort()
+            }
+        }
+    }
 }
 </script>
 

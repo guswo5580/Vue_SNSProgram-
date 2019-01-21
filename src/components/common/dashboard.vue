@@ -126,13 +126,13 @@ export default {
         width : 100%;
     }
     .main-image{
-        height: 70%;
-        width : 250px;
-        overflow : hidden;
+        width: 350px;
+        height: 350px;
+        /* overflow : hidden; */
     }
     .image {
-        width : 250px;
-        height: 250px;
+        width : 350px;
+        height: 300px;
         object-fit: contain;
     }
     .image-2 {
